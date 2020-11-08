@@ -14,10 +14,6 @@ int main() {
 
     std::cout << ptr->getPrice() << '\n';
 
-    for (int i = 0; i < 10; i++) {
-        std::cout << "siema\n";
-    }
-
 
     return 0;
 }
