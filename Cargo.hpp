@@ -11,9 +11,9 @@ protected:
 
 public:
     Cargo(const std::string& name, int basePrice, int amount)
-        : name_(name), basePrice_(basePrice), amount_(amount) { }
+        : name_(name), basePrice_(basePrice), amount_(amount) {}
 
-    virtual ~Cargo() { }
+    virtual ~Cargo() {}
 
     std::string getName() const { return name_; }
     int getBasePrice() const { return basePrice_; }
