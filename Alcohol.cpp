@@ -4,3 +4,7 @@ Alcohol::Alcohol(const std::string& name, int basePrice, int amount, double cont
     : Cargo(name, basePrice, amount), content_(content) {}
 
 int Alcohol::getPrice() const { return static_cast<int>(basePrice_ * content_ / spiritus); }
+
+bool Alcohol::operator==(const Alcohol& alco) {
+    return alco.name_ == name_ && alco.content_ == content_;
+}

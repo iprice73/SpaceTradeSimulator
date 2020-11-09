@@ -13,4 +13,6 @@ public:
 
     int getPrice() const override;
 
+    bool operator==(const Alcohol& alco);
+
 };
