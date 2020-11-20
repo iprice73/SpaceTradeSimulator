@@ -2,16 +2,17 @@
 
 #include "Cargo.hpp"
 
-constexpr double bestPurity = 1.00;
+constexpr int bestPurity = 100;
 
 class Spice : public Cargo {
 private:
     double purity_{};
 
 public:
-    Spice(const std::string& name, int basePrice, int amount, double purity);
-    ~Spice() {}
+    Spice(const std::string& name, int basePrice, int amount, int purity);
 
     int getPrice() const override;
+
+    Spice& operator--();
 
 };

@@ -34,10 +34,10 @@ private:
 
     void generateAlcos();
     void generateItems();
-    void generateEngineParts();
+    void generateSpices();
 
 public:
     Store();
-
+    void showStore() const;
     
 };

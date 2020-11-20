@@ -1,19 +1,12 @@
 #include <iostream>
-#include <memory>
 
-#include "Item.hpp"
-#include "Spice.hpp"
+#include "Store.hpp"
 
 int main() {
 
-    std::shared_ptr<Cargo> ptr = std::make_unique<Item>("owoc", 10, 20, Rarity::legendary);
-    Spice spice("orange", 1000, 2, 0.75);
+    Store store;
+    store.showStore();
     
-    std::cout << ptr->getPrice() << '\n';
-    ptr = std::make_unique<Spice>(spice);
-
-    std::cout << ptr->getPrice() << '\n';
-
 
     return 0;
 }
