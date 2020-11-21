@@ -10,6 +10,8 @@ set(SRC
     src/Item.cpp
     src/Spice.cpp
     src/Store.cpp
+    src/Player.cpp
+    src/Ship.cpp
 )
 
 set(FLAGS
