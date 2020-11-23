@@ -9,4 +9,7 @@ private:
 
 public:
     Player(int money, Ship* ship);
+
+    int getMoney() const { return money_; }
+    Ship* getShip() const { return ship_; }
 };
