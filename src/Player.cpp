@@ -1,4 +1,4 @@
 #include "Player.hpp"
 
-Player::Player(int money)
-    : money_(money) {}
+Player::Player(int money, Ship* ship)
+    : money_(money), ship_(ship) {}

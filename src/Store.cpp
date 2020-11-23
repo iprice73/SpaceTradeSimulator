@@ -20,8 +20,8 @@ int Store::getRand(int min, int max) const {
 }
 
 void Store::generateAlcos() {
-    const std::vector<std::string> alcoNames {"Beer", "Vodka", "Rum", "Ale", "Absint", "Amarena"};
-    const std::vector<double> alcoContent { 7.5, 40.0, 50.0, 3.5, 75.0, 99.9};
+    const std::vector<std::string> alcoNames{"Beer", "Vodka", "Rum", "Ale", "Absint", "Amarena"};
+    const std::vector<double> alcoContent{7.5, 40.0, 50.0, 3.5, 75.0, 99.9};
     int i = 0;
     while (i < marketSection) {
         auto index = getRand(0, 5);
@@ -34,12 +34,12 @@ void Store::generateAlcos() {
 }
 
 void Store::generateItems() {
-    constexpr Rarity rarities[4] = { Rarity::common, Rarity::rare, Rarity::epic, Rarity::legendary }; 
+    constexpr Rarity rarities[4] = {Rarity::common, Rarity::rare, Rarity::epic, Rarity::legendary};
     int i = 0;
     while (i < marketSection) {
         auto index = getRand(0, 3);
         Item item("alien", getRand(10, 25), getRand(1, 3), rarities[index]);
-        if (std::none_of(stock_.begin(), stock_.end(), [&item](const auto& ptr) { return ptr->getBasePrice() == item.getBasePrice(); } )) {
+        if (std::none_of(stock_.begin(), stock_.end(), [&item](const auto& ptr) { return ptr->getBasePrice() == item.getBasePrice(); })) {
             stock_.emplace_back(std::make_unique<Item>(item));
             i++;
         }
@@ -59,8 +59,21 @@ void Store::generateSpices() {
     }
 }
 
+Response Store::buy() {
+
+
+    return Response::Done;
+}
+
+Response Store::sell() {
+    
+    
+    return Response::Done;
+}
+
 void Store::showStore() const {
+    int i = 1;
     for (const auto& el : stock_) {
-        std::cout << el->getName() << "   |   Amount: " << el->getAmount() << "   |   Price: " << el->getPrice() << "\n";
+        std::cout << i++ << " " << el->getName() << "   |   Amount: " << el->getAmount() << "   |   Price: " << el->getPrice() << "\n";
     }
 }

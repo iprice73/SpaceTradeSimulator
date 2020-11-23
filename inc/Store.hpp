@@ -7,6 +7,13 @@
 #include "Item.hpp"
 #include "Spice.hpp"
 
+enum class Response {
+    Done,
+    LackOfCargo,
+    LackOfMoney,
+    InvalidIndex
+};
+
 class Store {
 private:
     std::vector<std::unique_ptr<Cargo>> stock_{};
@@ -20,5 +27,7 @@ private:
 public:
     Store();
     void showStore() const;
+    Response buy();
+    Response sell();
     
 };
