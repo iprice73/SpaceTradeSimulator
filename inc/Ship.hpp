@@ -28,5 +28,7 @@ public:
     Ship(const std::string& name = "fajerwerka", int crewSize = 0, EngineClass engine = EngineClass::ChemicalFuel);
 
     std::string getName() const { return name_; }
+    int getCrew() const { return crewSize_; }
+    EngineClass getEngine() const { return engine_; }
 
 };
