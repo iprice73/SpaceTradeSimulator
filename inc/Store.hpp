@@ -3,9 +3,7 @@
 #include <memory>
 #include <vector>
 
-#include "Alcohol.hpp"
-#include "Item.hpp"
-#include "Spice.hpp"
+#include "Player.hpp"
 
 enum class Response {
     Done,
@@ -27,7 +25,7 @@ private:
 public:
     Store();
     void showStore() const;
-    Response buy();
+    Response buy(int index, int amount);
     Response sell();
     
 };

@@ -3,6 +3,10 @@
 #include <algorithm>
 #include <random>
 
+#include "Alcohol.hpp"
+#include "Item.hpp"
+#include "Spice.hpp"
+
 constexpr int marketSection = 4;
 
 Store::Store() {
@@ -59,15 +63,14 @@ void Store::generateSpices() {
     }
 }
 
-Response Store::buy() {
+Response Store::buy(int index, int amount) {
+    
 
 
     return Response::Done;
 }
 
 Response Store::sell() {
-    
-    
     return Response::Done;
 }
 
