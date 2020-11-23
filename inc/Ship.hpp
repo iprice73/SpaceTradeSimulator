@@ -24,7 +24,7 @@ private:
 
 
 public:
-    Ship(const std::string& name, int crew_size, EngineClass engine);
+    Ship(const std::string& name = "", int crewSize = 0, EngineClass engine = EngineClass::ChemicalFuel);
 
     void load(std::unique_ptr<Cargo>& cargo);
     void unload(const std::unique_ptr<Cargo>& cargo);

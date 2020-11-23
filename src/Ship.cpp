@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-Ship::Ship(const std::string& name, int crewSize, EngineClass engine)
+Ship::Ship(const std::string& name = "", int crewSize = 0, EngineClass engine = EngineClass::ChemicalFuel)
     : name_(name), crewSize_(crewSize), engine_(engine) {}
 
 void Ship::load(std::unique_ptr<Cargo>& cargo) {
