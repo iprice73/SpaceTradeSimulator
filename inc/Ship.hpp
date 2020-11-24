@@ -13,7 +13,7 @@ enum class EngineClass {
     Antygravity = 10,
     DarkMatter = 20,
     Alcubierre = 100,
-    ImprobabilityDrive = 99999
+    ImpropabilityDrive = 99999
 };
 
 class Ship {
