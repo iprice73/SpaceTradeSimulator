@@ -6,7 +6,7 @@ Ship::Ship(const std::string& name, int crewSize, EngineClass engine)
     : name_(name), crewSize_(crewSize), engine_(engine) {}
 
 void Ship::load(std::unique_ptr<Cargo>&& cargo) {
-    magazine_.push_back(std::move(cargo));
+    magazine_.emplace_back(std::move(cargo));
     std::cout << "SIEMA TO ŁADOWNIA\n";
 }
 
