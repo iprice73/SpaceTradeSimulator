@@ -7,7 +7,7 @@
 #include "Item.hpp"
 #include "Spice.hpp"
 
-constexpr int marketSection = 4;
+constexpr int marketSection = 2;
 
 Store::Store() {
     generateAlcos();
@@ -81,9 +81,18 @@ std::unique_ptr<Cargo> Store::makeCargoToBuy(const std::unique_ptr<Cargo>& oldCa
     return nullptr;
 }
 
+void Store::removeFromStore(int index, int amount) {
+    if (stock_[index]->getAmount() == amount) {
+        stock_.erase(std::remove(stock_.begin(), stock_.end(), stock_[index]), stock_.end());
+    } else {
+        (*stock_[index]) -= amount;
+    }
+}
+
 Response Store::buy(int index, int amount, Player* p) {
-    auto cargo = makeCargoToBuy(stock_[index], amount);
-    p->getShip()->load(std::move(cargo));
+    index--;
+    p->getShip()->load(makeCargoToBuy(stock_[index], amount));
+    removeFromStore(index, amount);
     
 
     return Response::Done;

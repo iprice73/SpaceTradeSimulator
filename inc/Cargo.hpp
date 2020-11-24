@@ -19,4 +19,9 @@ public:
     int getBasePrice() const { return basePrice_; }
     int getAmount() const { return amount_; }
     virtual int getPrice() const = 0;
+
+    Cargo& operator-=(int newAmount) {
+        this->amount_ -= newAmount;
+        return *this; 
+    }
 };

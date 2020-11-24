@@ -22,6 +22,8 @@ private:
     void generateItems();
     void generateSpices();
     std::unique_ptr<Cargo> makeCargoToBuy(const std::unique_ptr<Cargo>& oldCargo, int amount);
+    void removeFromStore(int index, int amount);
+
 
 public:
     Store();
