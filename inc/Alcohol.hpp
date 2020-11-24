@@ -12,6 +12,7 @@ public:
     Alcohol(const std::string&, int basePrice, int amount, double content);
 
     int getPrice() const override;
+    double getContent() const { return content_; }
 
     bool operator==(const Alcohol& alco);
 

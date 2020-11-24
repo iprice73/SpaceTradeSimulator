@@ -63,9 +63,28 @@ void Store::generateSpices() {
     }
 }
 
-Response Store::buy(int index, int amount) {
-    
+std::unique_ptr<Cargo> Store::makeCargoToBuy(const std::unique_ptr<Cargo>& oldCargo, int amount) {
+    auto name = oldCargo->getName();
+    auto basePrice = oldCargo->getBasePrice();
 
+    if (typeid(*oldCargo) == typeid(Alcohol)) {
+        Alcohol alco(name, basePrice, amount, 99.0);
+        return std::make_unique<Alcohol>(alco);
+    } else if (typeid(*oldCargo) == typeid(Item)) {
+        Item item(name, basePrice, amount, Rarity::common);
+        return std::make_unique<Item>(item);
+    } else if (typeid(*oldCargo) == typeid(Spice)) {
+        Spice spice(name, basePrice, amount, 10);
+        return std::make_unique<Spice>(spice);
+    }
+
+    return nullptr;
+}
+
+Response Store::buy(int index, int amount, Player* p) {
+    auto cargo = makeCargoToBuy(stock_[index], amount);
+    p->getShip()->load(std::move(cargo));
+    
 
     return Response::Done;
 }

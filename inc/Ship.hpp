@@ -30,5 +30,7 @@ public:
     std::string getName() const { return name_; }
     int getCrew() const { return crewSize_; }
     EngineClass getEngine() const { return engine_; }
+    void load(std::unique_ptr<Cargo>&& cargo);
+    void show() const;
 
 };

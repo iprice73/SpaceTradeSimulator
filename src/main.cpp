@@ -4,8 +4,17 @@
 #include "Player.hpp"
 
 int main() {
-    Ship ship("dog", 12, EngineClass::Antygravity);
-    std::cout << ship.getName() << '\n';
+    Store store;
+    store.showStore();
+    Ship ship("dog", 42, EngineClass::Antygravity);
+
+    Player player(1000, &ship);
+
+    store.buy(1, 1, &player);
+    std::cout << "------------------------\n";
+    player.getShip()->show();
+    std::cout << "------------------------\n";
+    // store.showStore();
 
     return 0;
 }
