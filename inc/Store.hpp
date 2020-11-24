@@ -22,13 +22,11 @@ private:
     void generateItems();
     void generateSpices();
     std::unique_ptr<Cargo> makeCargoToBuy(const std::unique_ptr<Cargo>& oldCargo, int amount);
-    void removeFromStore(int index, int amount);
-
+    void removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount);
 
 public:
     Store();
     void showStore() const;
-    Response buy(int index, int amount, Player* p);
+    Response buy(int index, int amount, Player* player);
     Response sell();
-    
 };

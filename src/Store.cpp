@@ -81,19 +81,18 @@ std::unique_ptr<Cargo> Store::makeCargoToBuy(const std::unique_ptr<Cargo>& oldCa
     return nullptr;
 }
 
-void Store::removeFromStore(int index, int amount) {
-    if (stock_[index]->getAmount() == amount) {
-        stock_.erase(std::remove(stock_.begin(), stock_.end(), stock_[index]), stock_.end());
+void Store::removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount) {
+    if (cargo->getAmount() == amount) {
+        stock_.erase(std::remove(stock_.begin(), stock_.end(), cargo), stock_.end());
     } else {
-        (*stock_[index]) -= amount;
+        (*cargo) -= amount;
     }
 }
 
-Response Store::buy(int index, int amount, Player* p) {
+Response Store::buy(int index, int amount, Player* player) {
     index--;
-    p->getShip()->load(makeCargoToBuy(stock_[index], amount));
-    removeFromStore(index, amount);
-    
+    player->getShip()->load(makeCargoToBuy(stock_[index], amount));
+    removeFromStore(stock_[index], amount);
 
     return Response::Done;
 }
