@@ -85,13 +85,15 @@ void Store::removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount) {
     if (cargo->getAmount() == amount) {
         stock_.erase(std::remove(stock_.begin(), stock_.end(), cargo), stock_.end());
     } else {
-        (*cargo) -= amount;
+        *cargo -= amount;
     }
 }
 
 Response Store::buy(int index, int amount, Player* player) {
     index--;
     player->getShip()->load(makeCargoToBuy(stock_[index], amount));
+    auto price = amount * stock_[index]->getPrice();
+    *player -= price;
     removeFromStore(stock_[index], amount);
 
     return Response::Done;

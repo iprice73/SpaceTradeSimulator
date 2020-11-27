@@ -4,7 +4,7 @@
 
 class Player {
 private:
-    int money_ = 0;
+    int money_ = 100;
     Ship* ship_;
 
 public:
@@ -12,4 +12,6 @@ public:
 
     int getMoney() const { return money_; }
     Ship* getShip() const { return ship_; }
+
+    Player& operator-=(int price);
 };

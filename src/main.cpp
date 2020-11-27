@@ -9,12 +9,14 @@ int main() {
     Ship ship("dog", 42, EngineClass::Antygravity);
 
     Player player(1000, &ship);
+    std::cout << "MONEY: " << player.getMoney() << '\n';
 
     store.buy(3, 2, &player);
     std::cout << "------------------------\n";
     player.getShip()->show();
     std::cout << "------------------------\n";
     store.showStore();
+    std::cout << "MONEY: " << player.getMoney() << '\n';
 
     return 0;
 }
