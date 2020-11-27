@@ -13,7 +13,7 @@ public:
     Cargo(const std::string& name, int basePrice, int amount)
         : name_(name), basePrice_(basePrice), amount_(amount) {}
 
-    virtual ~Cargo() {}
+    virtual ~Cargo() = default;
 
     std::string getName() const { return name_; }
     int getBasePrice() const { return basePrice_; }
@@ -21,7 +21,7 @@ public:
     virtual int getPrice() const = 0;
 
     Cargo& operator-=(int newAmount) {
-        this->amount_ -= newAmount;
+        amount_ -= newAmount;
         return *this; 
     }
 };
