@@ -4,12 +4,15 @@
 #include <iomanip>
 #include <random>
 
-constexpr int marketSection = 2;
+constexpr int marketSection = 4;
 
 Store::Store() {
+    constexpr int cargoTypes = 3;
+    stock_.reserve(marketSection * cargoTypes);
     generateAlcos();
     generateItems();
     generateSpices();
+    stock_.shrink_to_fit();
 }
 
 int Store::getRand(int min, int max) const {
@@ -23,9 +26,9 @@ int Store::getRand(int min, int max) const {
 void Store::generateAlcos() {
     const std::vector<std::string> alcoNames{"Beer", "Vodka", "Rum", "Ale", "Absint", "Amarena"};
     const std::vector<double> alcoContent{7.5, 40.0, 50.0, 3.5, 75.0, 99.9};
-    int i = 0;
+    size_t i = 0;
     while (i < marketSection) {
-        auto index = getRand(0, 5);
+        size_t index = getRand(0, 5);
         Alcohol alco(alcoNames[index], getRand(10, 50), getRand(1, 5), alcoContent[index]);
         if (std::none_of(stock_.begin(), stock_.end(), [&alco](const auto& ptr) { return *ptr == alco; })) {
             stock_.emplace_back(std::make_unique<Alcohol>(alco));
@@ -37,9 +40,9 @@ void Store::generateAlcos() {
 void Store::generateItems() {
     constexpr Rarity rarities[4] = {Rarity::common, Rarity::rare, Rarity::epic, Rarity::legendary};
     const std::vector<std::string> spiceNames{"xenomorph", "tea", "cocaine", "death star", "stuff", "dark matter"};
-    int i = 0;
+    size_t i = 0;
     while (i < marketSection) {
-        auto index = getRand(0, 3);
+        size_t index = getRand(0, 3);
         Item item(spiceNames[index], getRand(10, 25), getRand(1, 3), rarities[index]);
         if (std::none_of(stock_.begin(), stock_.end(), [&item](const auto& ptr) { return *ptr == item; })) {
             stock_.emplace_back(std::make_unique<Item>(item));
@@ -50,9 +53,9 @@ void Store::generateItems() {
 
 void Store::generateSpices() {
     const std::vector<std::string> spiceNames{"red", "yellow", "black", "magenta", "cyan", "orange"};
-    int i = 0;
+    size_t i = 0;
     while (i < marketSection) {
-        auto index = getRand(0, 5);
+        size_t index = getRand(0, 5);
         Spice spice(spiceNames[index], getRand(250, 300), getRand(2, 20), getRand(5, 100));
         if (std::none_of(stock_.begin(), stock_.end(), [&spice](const auto& ptr) { return *ptr == spice; })) {
             stock_.emplace_back(std::make_unique<Spice>(spice));
@@ -88,17 +91,27 @@ void Store::removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount) {
     }
 }
 
-Response Store::buy(int index, int amount, Player* player) {
-    index--;
+void Store::buy(size_t index, int amount, int price, Player* player) {
     player->getShip()->load(makeCargoToBuy(stock_[index], amount));
-    auto price = amount * stock_[index]->getPrice();
-    *player -= price;
     removeFromStore(stock_[index], amount);
-
-    return Response::Done;
+    *player -= price;
 }
 
-Response Store::sell() {
+void Store::sell() {
+}
+
+Response Store::purchase(size_t index, int amount, Player* player) {
+    if (index >= stock_.size()) {
+        return Response::InvalidIndex;
+    }
+    int price = amount * stock_[index]->getPrice();
+    if (amount > stock_[index]->getAmount()) {
+        return Response::LackOfCargo;
+    } else if (price > player->getMoney()) {
+        return Response::LackOfMoney;
+    }
+    buy(index, amount, price, player);
+
     return Response::Done;
 }
 

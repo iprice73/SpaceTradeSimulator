@@ -16,7 +16,7 @@ void Ship::load(std::unique_ptr<Cargo>&& cargo) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Ship& ship) {
-    std::string horizontalSeparator(40, '=');
+    std::string horizontalSeparator(40, '*');
     int i = 0;
 
     out << horizontalSeparator
