@@ -22,6 +22,16 @@ public:
 
     Cargo& operator-=(int newAmount) {
         amount_ -= newAmount;
-        return *this; 
+        return *this;
+    }
+
+    Cargo& operator+=(int newAmount) {
+        amount_ += newAmount;
+        return *this;
+    }
+
+    bool operator==(const Cargo& cargo) {
+        return name_ == cargo.getName() ||
+               basePrice_ == cargo.getBasePrice();
     }
 };

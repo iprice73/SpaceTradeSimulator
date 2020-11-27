@@ -33,4 +33,6 @@ public:
     void load(std::unique_ptr<Cargo>&& cargo);
     void show() const;
 
+    friend std::ostream& operator<<(std::ostream& out, const Ship& ship);
+
 };

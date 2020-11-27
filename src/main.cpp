@@ -4,19 +4,19 @@
 #include "Player.hpp"
 
 int main() {
-    Store store;
-    store.showStore();
-    Ship ship("dog", 42, EngineClass::Antygravity);
-
+    
+    Ship ship;
     Player player(1000, &ship);
-    std::cout << "MONEY: " << player.getMoney() << '\n';
-    int index = 6;
-    store.buy(index, 2, &player);
-    std::cout << "------------------------\n";
-    player.getShip()->show();
-    std::cout << "------------------------\n";
+    Store store;
+    int index, amount;
+
+    while(1) {
     store.showStore();
-    std::cout << "MONEY: " << player.getMoney() << '\n';
+    std::cout << "Index: " << " Amount: ";
+    std::cin >> index >> amount;
+    store.buy(index, amount, &player);
+    std::cout << ship;
+    }
 
     return 0;
 }
