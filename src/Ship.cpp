@@ -7,7 +7,13 @@ Ship::Ship(const std::string& name, int crewSize, EngineClass engine)
     : name_(name), crewSize_(crewSize), engine_(engine) {}
 
 void Ship::load(std::unique_ptr<Cargo>&& cargo) {
-    magazine_.emplace_back(std::move(cargo));
+    auto existingCargoIt = std::find_if(magazine_.begin(), magazine_.end(), [&cargo](const auto& ptr) { return *ptr == *cargo; });
+    if (existingCargoIt == magazine_.end()) {
+        magazine_.emplace_back(std::move(cargo));
+    } else {
+        **existingCargoIt += cargo->getAmount();
+    }
+   
     std::cout << "SIEMA TU ŁADOWNIA\n";
 }
 
