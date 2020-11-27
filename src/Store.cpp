@@ -101,9 +101,6 @@ void Store::sell() {
 }
 
 Response Store::purchase(size_t index, int amount, Player* player) {
-    if (index >= stock_.size()) {
-        return Response::InvalidIndex;
-    }
     int price = amount * stock_[index]->getPrice();
     if (amount > stock_[index]->getAmount()) {
         return Response::LackOfCargo;

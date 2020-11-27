@@ -6,12 +6,12 @@
 std::string handleRespone(Response re) {
     switch (re)
     {
-    case Response::InvalidIndex:
-        return "There is no product with such number.";
     case Response::LackOfCargo:
         return "We don't have this mush in stock.";
     case Response::LackOfMoney:
         return "You don't have money for this.";
+    case Response::LackOfSpace:
+        return "You don't have enough space.";
     case Response::Done:
         return "Transaction completed.";
     default:

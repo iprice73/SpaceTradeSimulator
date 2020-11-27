@@ -22,6 +22,7 @@ private:
 
     std::string name_{};
     int crewSize_{};
+    int avaiableSpace_{};
     EngineClass engine_{};
 
 public:
@@ -29,6 +30,7 @@ public:
 
     std::string getName() const { return name_; }
     int getCrew() const { return crewSize_; }
+    int getAvaiableSpace() const { return avaiableSpace_; }
     EngineClass getEngine() const { return engine_; }
     void load(std::unique_ptr<Cargo>&& cargo);
     void show() const;
