@@ -6,7 +6,7 @@ constexpr int bestPurity = 100;
 
 class Spice : public Cargo {
 private:
-    double purity_{};
+    int purity_{};
 
 public:
     Spice(const std::string& name, int basePrice, int amount, int purity);

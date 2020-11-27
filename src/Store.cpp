@@ -64,17 +64,18 @@ void Store::generateSpices() {
 }
 
 std::unique_ptr<Cargo> Store::makeCargoToBuy(const std::unique_ptr<Cargo>& oldCargo, int amount) {
-    auto name = oldCargo->getName();
-    auto basePrice = oldCargo->getBasePrice();
+    std::string name = oldCargo->getName();
+    int basePrice = oldCargo->getBasePrice();
+    int price = oldCargo->getPrice();
 
     if (typeid(*oldCargo) == typeid(Alcohol)) {
-        Alcohol alco(name, basePrice, amount, 99.0);
+        Alcohol alco(name, basePrice, amount, price * spiritus / basePrice);
         return std::make_unique<Alcohol>(alco);
     } else if (typeid(*oldCargo) == typeid(Item)) {
-        Item item(name, basePrice, amount, Rarity::common);
+        Item item(name, basePrice, amount, static_cast<Rarity>(price / basePrice));
         return std::make_unique<Item>(item);
     } else if (typeid(*oldCargo) == typeid(Spice)) {
-        Spice spice(name, basePrice, amount, 10);
+        Spice spice(name, basePrice, amount, price * bestPurity / basePrice);
         return std::make_unique<Spice>(spice);
     }
 

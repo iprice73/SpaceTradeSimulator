@@ -10,8 +10,8 @@ int main() {
 
     Player player(1000, &ship);
     std::cout << "MONEY: " << player.getMoney() << '\n';
-
-    store.buy(3, 2, &player);
+    int index = 6;
+    store.buy(index, 2, &player);
     std::cout << "------------------------\n";
     player.getShip()->show();
     std::cout << "------------------------\n";
