@@ -1,6 +1,7 @@
 #include "Store.hpp"
 
 #include <algorithm>
+#include <iomanip>
 #include <random>
 
 constexpr int marketSection = 2;
@@ -101,9 +102,27 @@ Response Store::sell() {
     return Response::Done;
 }
 
-void Store::showStore() const {
-    int i = 1;
-    for (const auto& el : stock_) {
-        std::cout << i++ << " " << el->getName() << "   |   Amount: " << el->getAmount() << "   |   Price: " << el->getPrice() << "\n";
+std::ostream& operator<<(std::ostream& out, const Store& store) {
+    std::string horizontalSeparator(40, '=');
+    int i = 0;
+
+    out << horizontalSeparator
+        << "\n"
+        << "|| Store's stock"
+        << std::setw(14) << "| QTY "
+        << "| PRICE "
+        << "||\n"
+        << horizontalSeparator << "\n";
+
+    for (const auto& el : store.stock_) {
+        out << "|| "
+            << std::setw(2) << ++i << ". "
+            << std::setw(17) << std::left << el->getName();
+
+        out << std::setw(4) << "|" << std::left << el->getAmount() << " | "
+            << std::setw(5) << std::right << el->getPrice() << " ||\n";
     }
+    out << horizontalSeparator << "\n";
+
+    return out;
 }

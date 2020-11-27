@@ -15,15 +15,6 @@ void Ship::load(std::unique_ptr<Cargo>&& cargo) {
     }
 }
 
-void Ship::show() const {
-    int i = 1;
-    std::cout << "----------------------------\n";
-    for (const auto& el : magazine_) {
-        std::cout << i++ << " " << el->getName() << "   |   Amount: " << el->getAmount() << "   |   Price: " << el->getPrice() << "\n";
-    }
-    std::cout << "----------------------------\n";
-}
-
 std::ostream& operator<<(std::ostream& out, const Ship& ship) {
     std::string horizontalSeparator(40, '=');
     int i = 0;

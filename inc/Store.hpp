@@ -26,4 +26,6 @@ public:
     void showStore() const;
     Response buy(int index, int amount, Player* player);
     Response sell();
+
+    friend std::ostream& operator<<(std::ostream& out, const Store& store);
 };

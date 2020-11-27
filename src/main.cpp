@@ -11,7 +11,7 @@ int main() {
     int index, amount;
 
     while(1) {
-    store.showStore();
+    std::cout << store;
     std::cout << "Index: " << " Amount: ";
     std::cin >> index >> amount;
     store.buy(index, amount, &player);
