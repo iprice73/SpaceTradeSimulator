@@ -26,7 +26,7 @@ int main() {
     Store store;
     int index, amount;
 
-    while(1) {
+    while(player.getMoney() > 100) {
     std::cout << store;
     std::cout << "Index: " << " Amount: " << "      Your money: " << player.getMoney() << '\n';
     std::cin >> index >> amount;
