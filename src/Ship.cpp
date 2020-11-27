@@ -13,8 +13,6 @@ void Ship::load(std::unique_ptr<Cargo>&& cargo) {
     } else {
         **existingCargoIt += cargo->getAmount();
     }
-   
-    std::cout << "SIEMA TU ŁADOWNIA\n";
 }
 
 void Ship::show() const {
