@@ -100,6 +100,8 @@ Response Store::purchase(size_t index, int amount, Player* player) {
         return Response::LackOfCargo;
     } else if (price > player->getMoney()) {
         return Response::LackOfMoney;
+    } else if (amount > player->getShip()->getAvaiableSpace()) {
+        return Response::LackOfSpace;
     }
     player->buy(makeCargoToBuy(stock_[index], amount), price);
     removeFromStore(stock_[index], amount);

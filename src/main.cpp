@@ -28,7 +28,7 @@ int main() {
 
     while(player.getMoney() > 100) {
     std::cout << store;
-    std::cout << "Index: " << " Amount: " << "      Your money: " << player.getMoney() << '\n';
+    std::cout << "Index: " << " Amount: " << "      Your money: " << player.getMoney() << "    Avaiable space: " << ship.getAvaiableSpace() << '\n';
     std::cin >> index >> amount;
     auto re = store.purchase(index - 1, amount, &player);
     std ::cout << handleRespone(re) << '\n';
