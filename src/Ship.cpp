@@ -17,6 +17,15 @@ void Ship::load(std::unique_ptr<Cargo>&& cargo) {
     avaiableSpace_ -= amount;
 }
 
+void Ship::unload(const std::unique_ptr<Cargo>& cargo, int amount) {
+    if (cargo->getAmount() == amount) {
+        magazine_.erase(std::remove(magazine_.begin(), magazine_.end(), cargo), magazine_.end());
+    } else {
+        *cargo -= amount;
+    }
+    avaiableSpace_ += amount;
+}
+
 std::ostream& operator<<(std::ostream& out, const Ship& ship) {
     std::string horizontalSeparator(40, '*');
     int i = 0;

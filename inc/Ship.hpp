@@ -33,6 +33,7 @@ public:
     int getAvaiableSpace() const { return avaiableSpace_; }
     EngineClass getEngine() const { return engine_; }
     void load(std::unique_ptr<Cargo>&& cargo);
+    void unload(const std::unique_ptr<Cargo>& cargo, int amount);
     void show() const;
 
     friend std::ostream& operator<<(std::ostream& out, const Ship& ship);
