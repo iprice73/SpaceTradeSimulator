@@ -26,7 +26,7 @@ private:
     EngineClass engine_{};
 
 public:
-    Ship(const std::string& name = "fajerwerka", int crewSize = 0, EngineClass engine = EngineClass::ChemicalFuel);
+    Ship(const std::string& name = "fajerwerka", int crewSize = 0, int avaiableSpace = 10, EngineClass engine = EngineClass::ChemicalFuel);
 
     std::string getName() const { return name_; }
     int getCrew() const { return crewSize_; }
@@ -36,5 +36,4 @@ public:
     void show() const;
 
     friend std::ostream& operator<<(std::ostream& out, const Ship& ship);
-
 };

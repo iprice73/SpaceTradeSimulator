@@ -3,16 +3,18 @@
 #include <algorithm>
 #include <iomanip>
 
-Ship::Ship(const std::string& name, int crewSize, EngineClass engine)
-    : name_(name), crewSize_(crewSize), engine_(engine) {}
+Ship::Ship(const std::string& name, int crewSize, int avaiableSpace, EngineClass engine)
+    : name_(name), crewSize_(crewSize), avaiableSpace_(avaiableSpace), engine_(engine) {}
 
 void Ship::load(std::unique_ptr<Cargo>&& cargo) {
+    int amount = cargo->getAmount();
     auto existingCargoIt = std::find_if(magazine_.begin(), magazine_.end(), [&cargo](const auto& ptr) { return *ptr == *cargo; });
     if (existingCargoIt == magazine_.end()) {
         magazine_.emplace_back(std::move(cargo));
     } else {
-        **existingCargoIt += cargo->getAmount();
+        **existingCargoIt += amount;
     }
+    avaiableSpace_ -= amount;
 }
 
 std::ostream& operator<<(std::ostream& out, const Ship& ship) {
