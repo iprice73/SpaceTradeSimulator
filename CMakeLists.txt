@@ -12,6 +12,7 @@ set(SRC
     src/Store.cpp
     src/Player.cpp
     src/Ship.cpp
+    src/StockManagement.cpp
 )
 
 set(FLAGS
