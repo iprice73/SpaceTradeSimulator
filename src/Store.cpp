@@ -95,11 +95,17 @@ Response Store::purchaseCargo(size_t index, int amount, Player* player) {
     int price = amount * stock_[index]->getPrice();
     if (amount > stock_[index]->getAmount()) {
         return Response::LackOfCargo;
-    } else if (price > player->getMoney()) {
+    }
+    if (amount <= 0) {
+        return Response::InvalidAmount;
+    }
+    if (price > player->getMoney()) {
         return Response::LackOfMoney;
-    } else if (amount > player->getShip()->getAvaiableSpace()) {
+    }
+    if (amount > player->getShip()->getAvaiableSpace()) {
         return Response::LackOfSpace;
     }
+
     player->buy(makeCargoToBuy(stock_[index], amount));
     *player -= price;
     removeFromStore(stock_[index], amount);

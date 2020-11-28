@@ -7,6 +7,7 @@ enum class Response {
     LackOfCargo,
     LackOfMoney,
     LackOfSpace,
+    InvalidAmount
 };
 
 class Store {
