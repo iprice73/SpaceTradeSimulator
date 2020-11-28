@@ -91,12 +91,6 @@ void Store::removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount) {
     }
 }
 
-void Store::buy(size_t index, int amount, int price, Player* player) {
-    player->getShip()->load(makeCargoToBuy(stock_[index], amount));
-    removeFromStore(stock_[index], amount);
-    *player -= price;
-}
-
 void Store::sell() {
 }
 
@@ -107,7 +101,8 @@ Response Store::purchase(size_t index, int amount, Player* player) {
     } else if (price > player->getMoney()) {
         return Response::LackOfMoney;
     }
-    buy(index, amount, price, player);
+    player->buy(makeCargoToBuy(stock_[index], amount), price);
+    removeFromStore(stock_[index], amount);
 
     return Response::Done;
 }

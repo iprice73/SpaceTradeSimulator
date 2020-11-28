@@ -20,7 +20,6 @@ private:
     void generateSpices();
     std::unique_ptr<Cargo> makeCargoToBuy(const std::unique_ptr<Cargo>& oldCargo, int amount);
     void removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount);
-    void buy(size_t index, int amount, int price, Player* player);
     void sell();
 
 public:
