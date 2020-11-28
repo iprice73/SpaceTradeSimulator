@@ -12,3 +12,8 @@ void Player::buy(std::unique_ptr<Cargo>&& cargo, int price) {
     getShip()->load(std::move(cargo));
     money_ -= price;
 }
+
+void Player::sell(const std::unique_ptr<Cargo>& cargo, int amount) {
+    getShip()->unload(cargo, amount);
+    money_ += cargo->getPrice() * amount;
+}
