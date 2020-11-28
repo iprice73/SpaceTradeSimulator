@@ -13,8 +13,9 @@ public:
     int getMoney() const { return money_; }
     Ship* getShip() const { return ship_; }
 
-    void buy(std::unique_ptr<Cargo>&& cargo, int price);
-    void sell(const std::unique_ptr<Cargo>& cargo, int amount);
+    void buy(std::unique_ptr<Cargo>&& cargo);
+    std::unique_ptr<Cargo> sellCargo(size_t index, int amount);
 
+    Player& operator+=(int price);
     Player& operator-=(int price);
 };

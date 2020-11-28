@@ -22,18 +22,36 @@ std::string handleRespone(Response re) {
 int main() {
     
     Ship ship;
-    Player player(1000, &ship);
+    Player player(3000, &ship);
     Store store;
     int index, amount;
 
-    while(player.getMoney() > 100) {
     std::cout << store;
     std::cout << "Index: " << " Amount: " << "      Your money: " << player.getMoney() << "    Avaiable space: " << ship.getAvaiableSpace() << '\n';
     std::cin >> index >> amount;
-    auto re = store.purchase(index - 1, amount, &player);
+    auto re = store.purchaseCargo(index - 1, amount, &player);
     std ::cout << handleRespone(re) << '\n';
     std::cout << ship;
-    }
+    std::cout << store;
+    std::cout << "Index: " << " Amount: " << "      Your money: " << player.getMoney() << "    Avaiable space: " << ship.getAvaiableSpace() << '\n';
+    std::cin >> index >> amount;
+    auto ry = store.sellCargo(index - 1, amount, &player);
+    std::cout << ship;
+    std ::cout << handleRespone(ry) << '\n';
+    std::cout << "Index: " << " Amount: " << "      Your money: " << player.getMoney() << "    Avaiable space: " << ship.getAvaiableSpace() << '\n';
+
+    // while(player.getMoney() > 100) {
+    //     std::cout << store;
+    //     std::cout << "Index: " << " Amount: " << "      Your money: " << player.getMoney() << "    Avaiable space: " << ship.getAvaiableSpace() << '\n';
+    //     std::cin >> index >> amount;
+    //     auto re = store.purchaseCargo(index - 1, amount, &player);
+    //     std ::cout << handleRespone(re) << '\n';
+    //     std::cout << ship;
+    //     std::cout << "Index: " << " Amount: " << "      Your money: " << player.getMoney() << "    Avaiable space: " << ship.getAvaiableSpace() << '\n';
+    //     std::cin >> index >> amount;
+    //     auto re = store.sellCargo(index - 1, amount, &player);
+    //     std::cout << ship;
+    // }
 
     return 0;
 }

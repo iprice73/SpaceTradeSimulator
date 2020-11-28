@@ -25,6 +25,8 @@ private:
     int avaiableSpace_{};
     EngineClass engine_{};
 
+    std::unique_ptr<Cargo> makeCargoToBuy(const std::unique_ptr<Cargo>& oldCargo, int amount);
+
 public:
     Ship(const std::string& name = "fajerwerka", int crewSize = 0, int avaiableSpace = 10, EngineClass engine = EngineClass::ChemicalFuel);
 
@@ -33,8 +35,8 @@ public:
     int getAvaiableSpace() const { return avaiableSpace_; }
     EngineClass getEngine() const { return engine_; }
     void load(std::unique_ptr<Cargo>&& cargo);
+    std::unique_ptr<Cargo> getCargo(size_t index, int amount);
     void unload(const std::unique_ptr<Cargo>& cargo, int amount);
-    void show() const;
 
     friend std::ostream& operator<<(std::ostream& out, const Ship& ship);
 };

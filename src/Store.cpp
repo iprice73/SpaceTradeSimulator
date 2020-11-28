@@ -91,10 +91,7 @@ void Store::removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount) {
     }
 }
 
-void Store::sell() {
-}
-
-Response Store::purchase(size_t index, int amount, Player* player) {
+Response Store::purchaseCargo(size_t index, int amount, Player* player) {
     int price = amount * stock_[index]->getPrice();
     if (amount > stock_[index]->getAmount()) {
         return Response::LackOfCargo;
@@ -103,9 +100,17 @@ Response Store::purchase(size_t index, int amount, Player* player) {
     } else if (amount > player->getShip()->getAvaiableSpace()) {
         return Response::LackOfSpace;
     }
-    player->buy(makeCargoToBuy(stock_[index], amount), price);
+    player->buy(makeCargoToBuy(stock_[index], amount));
+    *player -= price;
     removeFromStore(stock_[index], amount);
 
+    return Response::Done;
+}
+
+Response Store::sellCargo(size_t index, int amount, Player* player) {
+    auto cargo = player->sellCargo(index, amount);
+    *player += cargo->getPrice() * amount;
+    
     return Response::Done;
 }
 
