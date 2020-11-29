@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Player.hpp"
+#include "StockManagement.hpp"
 
 enum class Response {
     Done,
@@ -10,16 +11,13 @@ enum class Response {
     InvalidAmount
 };
 
-class Store {
+class Store : public StockManagement {
 private:
-    std::vector<std::unique_ptr<Cargo>> stock_{};
-
     int getRand(int min, int max) const;
 
     void generateAlcos();
     void generateItems();
     void generateSpices();
-    std::unique_ptr<Cargo> makeCargoToBuy(const std::unique_ptr<Cargo>& oldCargo, int amount);
     void removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount);
    
 public:

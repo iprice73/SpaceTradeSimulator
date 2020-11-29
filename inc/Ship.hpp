@@ -4,9 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "Alcohol.hpp"
-#include "Item.hpp"
-#include "Spice.hpp"
+#include "StockManagement.hpp"
 
 enum class EngineClass {
     ChemicalFuel = 1,
@@ -16,16 +14,12 @@ enum class EngineClass {
     ImpropabilityDrive = 99999
 };
 
-class Ship {
+class Ship : public StockManagement {
 private:
-    std::vector<std::unique_ptr<Cargo>> magazine_{};
-
     std::string name_{};
     int crewSize_{};
     int avaiableSpace_{};
     EngineClass engine_{};
-
-    std::unique_ptr<Cargo> makeCargoToBuy(const std::unique_ptr<Cargo>& oldCargo, int amount);
 
 public:
     Ship(const std::string& name = "fajerwerka", int crewSize = 0, int avaiableSpace = 10, EngineClass engine = EngineClass::ChemicalFuel);

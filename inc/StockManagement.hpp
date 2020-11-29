@@ -4,12 +4,16 @@
 #include <string>
 #include <vector>
 
-#include "Cargo.hpp"
+#include "Alcohol.hpp"
+#include "Item.hpp"
+#include "Spice.hpp"
 
 class StockManagement {
-private:
-
-
+protected:
+    std::vector<std::unique_ptr<Cargo>> stock_{};
+    
+    static std::unique_ptr<Cargo> makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount);
 public:
+
 
 };
