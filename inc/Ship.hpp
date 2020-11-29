@@ -26,4 +26,7 @@ public:
     EngineClass getEngine() const { return engine_; }
     void load(std::unique_ptr<Cargo>&& cargo);
     std::unique_ptr<Cargo> getCargo(size_t index, int amount);
+
+    Ship& operator+=(int amount);
+    Ship& operator-=(int amount);
 };

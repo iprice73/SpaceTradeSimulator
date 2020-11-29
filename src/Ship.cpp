@@ -20,6 +20,17 @@ void Ship::load(std::unique_ptr<Cargo>&& cargo) {
 std::unique_ptr<Cargo> Ship::getCargo(size_t index, int amount) {
     auto cargo =  makeNewCargo(stock_[index], amount);
     removeCargo(stock_[index], amount);
-
+    avaiableSpace_ += amount;
+    
     return cargo;
+}
+
+Ship& Ship::operator+=(int amount) {
+    avaiableSpace_ += amount;
+    return *this;
+}
+
+Ship& Ship::operator-=(int amount) {
+    avaiableSpace_ -= amount;
+    return *this;
 }
