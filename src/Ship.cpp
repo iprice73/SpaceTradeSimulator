@@ -32,28 +32,3 @@ std::unique_ptr<Cargo> Ship::getCargo(size_t index, int amount) {
 
     return cargo;
 }
-
-std::ostream& operator<<(std::ostream& out, const Ship& ship) {
-    std::string horizontalSeparator(40, '*');
-    int i = 0;
-
-    out << horizontalSeparator
-        << "\n"
-        << "|| Ship's magazine"
-        << std::setw(12) << "| QTY "
-        << "| PRICE "
-        << "||\n"
-        << horizontalSeparator << "\n";
-
-    for (const auto& el : ship.stock_) {
-        out << "|| "
-            << std::setw(2) << ++i << ". "
-            << std::setw(17) << std::left << el->getName();
-
-        out << std::setw(4) << "|" << std::left << el->getAmount() << " | "
-            << std::setw(5) << std::right << el->getPrice() << " ||\n";
-    }
-    out << horizontalSeparator << "\n";
-
-    return out;
-}

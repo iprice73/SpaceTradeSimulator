@@ -1,5 +1,7 @@
 #include "StockManagement.hpp"
 
+#include <iomanip>
+
 std::unique_ptr<Cargo> StockManagement::makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount) {
     std::string name = oldCargo->getName();
     int basePrice = oldCargo->getBasePrice();
@@ -17,4 +19,29 @@ std::unique_ptr<Cargo> StockManagement::makeNewCargo(const std::unique_ptr<Cargo
     }
 
     return nullptr;
+}
+
+std::ostream& operator<<(std::ostream& out, const StockManagement& stock) {
+    std::string horizontalSeparator(40, '=');
+    int i = 0;
+
+    out << horizontalSeparator
+        << "\n"
+        << "|| Store's stock"
+        << std::setw(14) << "| QTY "
+        << "| PRICE "
+        << "||\n"
+        << horizontalSeparator << "\n";
+
+    for (const auto& el : stock.stock_) {
+        out << "|| "
+            << std::setw(2) << ++i << ". "
+            << std::setw(17) << std::left << el->getName();
+
+        out << std::setw(4) << "|" << std::left << el->getAmount() << " | "
+            << std::setw(5) << std::right << el->getPrice() << " ||\n";
+    }
+    out << horizontalSeparator << "\n";
+
+    return out;
 }

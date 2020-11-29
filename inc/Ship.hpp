@@ -31,6 +31,4 @@ public:
     void load(std::unique_ptr<Cargo>&& cargo);
     std::unique_ptr<Cargo> getCargo(size_t index, int amount);
     void unload(const std::unique_ptr<Cargo>& cargo, int amount);
-
-    friend std::ostream& operator<<(std::ostream& out, const Ship& ship);
 };

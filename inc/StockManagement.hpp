@@ -15,5 +15,5 @@ protected:
     static std::unique_ptr<Cargo> makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount);
 public:
 
-
+    friend std::ostream& operator<<(std::ostream& out, const StockManagement& stock);
 };
