@@ -64,14 +64,6 @@ void Store::generateSpices() {
     }
 }
 
-void Store::removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount) {
-    if (cargo->getAmount() == amount) {
-        stock_.erase(std::remove(stock_.begin(), stock_.end(), cargo), stock_.end());
-    } else {
-        *cargo -= amount;
-    }
-}
-
 Response Store::purchaseCargo(size_t index, int amount, Player* player) {
     int price = amount * stock_[index]->getPrice();
     if (amount > stock_[index]->getAmount()) {
@@ -87,9 +79,9 @@ Response Store::purchaseCargo(size_t index, int amount, Player* player) {
         return Response::LackOfSpace;
     }
 
-    player->buy(StockManagement::makeNewCargo(stock_[index], amount));
+    player->buy(makeNewCargo(stock_[index], amount));
     *player -= price;
-    removeFromStore(stock_[index], amount);
+    removeCargo(stock_[index], amount);
 
     return Response::Done;
 }

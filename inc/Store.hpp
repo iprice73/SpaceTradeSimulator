@@ -18,7 +18,6 @@ private:
     void generateAlcos();
     void generateItems();
     void generateSpices();
-    void removeFromStore(const std::unique_ptr<Cargo>& cargo, int amount);
    
 public:
     Store();

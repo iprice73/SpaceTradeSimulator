@@ -1,5 +1,6 @@
 #include "StockManagement.hpp"
 
+#include <algorithm>
 #include <iomanip>
 
 std::unique_ptr<Cargo> StockManagement::makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount) {
@@ -19,6 +20,14 @@ std::unique_ptr<Cargo> StockManagement::makeNewCargo(const std::unique_ptr<Cargo
     }
 
     return nullptr;
+}
+
+void StockManagement::removeCargo(const std::unique_ptr<Cargo>& cargo, int amount) {
+    if (cargo->getAmount() == amount) {
+        stock_.erase(std::remove(stock_.begin(), stock_.end(), cargo), stock_.end());
+    } else {
+        *cargo -= amount;
+    }
 }
 
 std::ostream& operator<<(std::ostream& out, const StockManagement& stock) {

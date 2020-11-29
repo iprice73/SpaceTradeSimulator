@@ -17,18 +17,9 @@ void Ship::load(std::unique_ptr<Cargo>&& cargo) {
     avaiableSpace_ -= amount;
 }
 
-void Ship::unload(const std::unique_ptr<Cargo>& cargo, int amount) {
-    if (amount == cargo->getAmount()) {
-        stock_.erase(std::remove(stock_.begin(), stock_.end(), cargo), stock_.end());
-    } else {
-        *cargo -= amount;
-    }
-    avaiableSpace_ += amount;
-}
-
 std::unique_ptr<Cargo> Ship::getCargo(size_t index, int amount) {
-    auto cargo =  StockManagement::makeNewCargo(stock_[index], amount);
-    unload(stock_[index], amount);
+    auto cargo =  makeNewCargo(stock_[index], amount);
+    removeCargo(stock_[index], amount);
 
     return cargo;
 }

@@ -1,9 +1,5 @@
 #pragma once
 
-#include <memory>
-#include <string>
-#include <vector>
-
 #include "StockManagement.hpp"
 
 enum class EngineClass {
@@ -30,5 +26,4 @@ public:
     EngineClass getEngine() const { return engine_; }
     void load(std::unique_ptr<Cargo>&& cargo);
     std::unique_ptr<Cargo> getCargo(size_t index, int amount);
-    void unload(const std::unique_ptr<Cargo>& cargo, int amount);
 };
