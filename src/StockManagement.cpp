@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iomanip>
 
-std::unique_ptr<Cargo> StockManagement::makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount) {
+std::unique_ptr<Cargo> StockManagement::makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount) const {
     std::string name = oldCargo->getName();
     int basePrice = oldCargo->getBasePrice();
     int price = oldCargo->getPrice();
@@ -20,6 +20,16 @@ std::unique_ptr<Cargo> StockManagement::makeNewCargo(const std::unique_ptr<Cargo
     }
 
     return nullptr;
+}
+
+void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
+    int amount = cargo->getAmount();
+    auto existingCargoIt = std::find_if(stock_.begin(), stock_.end(), [&cargo](const auto& ptr) { return *ptr == *cargo; });
+    if (existingCargoIt == stock_.end()) {
+        stock_.emplace_back(std::move(cargo));
+    } else {
+        **existingCargoIt += amount;
+    }
 }
 
 void StockManagement::removeCargo(const std::unique_ptr<Cargo>& cargo, int amount) {

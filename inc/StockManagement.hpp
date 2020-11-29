@@ -12,7 +12,8 @@ class StockManagement {
 protected:
     std::vector<std::unique_ptr<Cargo>> stock_{};
 
-    std::unique_ptr<Cargo> makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount);
+    std::unique_ptr<Cargo> makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount) const;
+    void addCargo(std::unique_ptr<Cargo>&& cargo);
     void removeCargo(const std::unique_ptr<Cargo>& cargo, int amount);
 
 public:
