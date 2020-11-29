@@ -47,19 +47,18 @@ Response StockManagement::validation(size_t index, int amount, int money, int sp
     if (amount <= 0 || amount > stock_[index]->getAmount()) {
         return Response::InvalidAmount;
     }
+    if (amount > space) {
+        return Response::LackOfSpace;
+    }
     if (stock_[index]->getPrice() * amount > money) {
         return Response::LackOfMoney;
-    }
-    if (amount >space) {
-        return Response::LackOfSpace;
     }
 
     return Response::Done;
 }
 
 std::string StockManagement::handleRespone(Response re) const {
-    switch (re)
-    {
+    switch (re) {
     case Response::InvalidIndex:
         return "Enter proper index.";
     case Response::InvalidAmount:

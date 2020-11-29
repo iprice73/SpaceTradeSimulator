@@ -71,7 +71,7 @@ void Store::purchaseCargo(size_t index, int amount, Player* player) {
         player->buy(makeNewCargo(stock_[index], amount));
         *player -= price;
         removeCargo(stock_[index], amount);
-    }    
+    }
     std::cout << handleRespone(re) << '\n';
 }
 
