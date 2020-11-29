@@ -40,6 +40,41 @@ void StockManagement::removeCargo(const std::unique_ptr<Cargo>& cargo, int amoun
     }
 }
 
+Response StockManagement::validation(size_t index, int amount, int money, int space) const {
+    if (index >= stock_.size()) {
+        return Response::InvalidIndex;
+    }
+    if (amount <= 0 || amount > stock_[index]->getAmount()) {
+        return Response::InvalidAmount;
+    }
+    if (stock_[index]->getPrice() * amount > money) {
+        return Response::LackOfMoney;
+    }
+    if (amount >space) {
+        return Response::LackOfSpace;
+    }
+
+    return Response::Done;
+}
+
+std::string StockManagement::handleRespone(Response re) const {
+    switch (re)
+    {
+    case Response::InvalidIndex:
+        return "Enter proper index.";
+    case Response::InvalidAmount:
+        return "Enter proper amount.";
+    case Response::LackOfMoney:
+        return "You don't have money for this.";
+    case Response::LackOfSpace:
+        return "You don't have enough space.";
+    case Response::Done:
+        return "Transaction completed.";
+    default:
+        return "How did you get there?";
+    }
+}
+
 std::ostream& operator<<(std::ostream& out, const StockManagement& stock) {
     std::string horizontalSeparator(40, '=');
     int i = 0;
