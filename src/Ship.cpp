@@ -12,7 +12,7 @@ void Ship::load(std::unique_ptr<Cargo>&& cargo) {
 }
 
 void Ship::unload(const std::unique_ptr<Cargo>& cargo, int amount) {
-    avaiableSpace_ -= amount;
+    avaiableSpace_ += amount;
     removeCargo(cargo, amount);
 }
 
