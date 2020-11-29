@@ -24,6 +24,7 @@ public:
     int getCrew() const { return crewSize_; }
     int getAvaiableSpace() const { return avaiableSpace_; }
     EngineClass getEngine() const { return engine_; }
+
     void load(std::unique_ptr<Cargo>&& cargo);
     std::unique_ptr<Cargo> getCargo(size_t index, int amount);
 

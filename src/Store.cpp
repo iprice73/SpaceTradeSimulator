@@ -89,7 +89,6 @@ Response Store::purchaseCargo(size_t index, int amount, Player* player) {
 Response Store::sellCargo(size_t index, int amount, Player* player) {
     auto cargo = player->sellCargo(index, amount);
     *player += cargo->getPrice() * amount;
-    
+
     return Response::Done;
 }
-

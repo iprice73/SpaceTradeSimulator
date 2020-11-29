@@ -18,7 +18,7 @@ private:
     void generateAlcos();
     void generateItems();
     void generateSpices();
-   
+
 public:
     Store();
     Response purchaseCargo(size_t index, int amount, Player* player);
