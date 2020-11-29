@@ -64,32 +64,19 @@ void Store::generateSpices() {
     }
 }
 
-Response Store::purchaseCargo(size_t index, int amount, Player* player) {
-    int price = amount * stock_[index]->getPrice();
-    if (amount > stock_[index]->getAmount()) {
-        return Response::LackOfCargo;
-    }
-    if (amount <= 0) {
-        return Response::InvalidAmount;
-    }
-    if (price > player->getMoney()) {
-        return Response::LackOfMoney;
-    }
-    if (amount > player->getShip()->getAvaiableSpace()) {
-        return Response::LackOfSpace;
-    }
-
-    player->buy(makeNewCargo(stock_[index], amount));
-    *player -= price;
-    removeCargo(stock_[index], amount);
-
-    return Response::Done;
+void Store::purchaseCargo(size_t index, int amount, Player* player) {
+    auto re = validation(index, amount, player->getMoney(), player->getSpace());
+    if (re == Response::Done) {
+        int price = amount * stock_[index]->getPrice();
+        player->buy(makeNewCargo(stock_[index], amount));
+        *player -= price;
+        removeCargo(stock_[index], amount);
+    }    
+    std::cout << handleRespone(re) << '\n';
 }
 
-Response Store::sellCargo(size_t index, int amount, Player* player) {
+void Store::sellCargo(size_t index, int amount, Player* player) {
     auto cargo = player->sellCargo(index, amount);
     *player += cargo->getPrice() * amount;
     addCargo(std::move(cargo));
-    
-    return Response::Done;
 }
