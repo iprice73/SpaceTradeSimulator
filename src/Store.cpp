@@ -77,6 +77,8 @@ void Store::purchaseCargo(size_t index, int amount, Player* player) {
 
 void Store::sellCargo(size_t index, int amount, Player* player) {
     auto cargo = player->sellCargo(index, amount);
-    *player += cargo->getPrice() * amount;
-    addCargo(std::move(cargo));
+    if (cargo) {
+        *player += cargo->getPrice() * amount;
+        addCargo(std::move(cargo));
+    }
 }

@@ -24,7 +24,7 @@ protected:
     void removeCargo(const std::unique_ptr<Cargo>& cargo, int amount);
 
     std::unique_ptr<Cargo> makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount) const;
-    Response validation(size_t index, int amount, int money, int space) const;
+    Response validation(size_t index, int amount, int money = -1, int space = -1) const;
     std::string handleRespone(Response re) const;
 
 public:

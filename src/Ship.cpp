@@ -17,8 +17,13 @@ void Ship::unload(const std::unique_ptr<Cargo>& cargo, int amount) {
 }
 
 std::unique_ptr<Cargo> Ship::getCargo(size_t index, int amount) {
-    auto cargo = makeNewCargo(stock_[index], amount);
-    unload(stock_[index], amount);
+    auto re = validation(index, amount);
+    std::unique_ptr<Cargo> cargo = nullptr;
+    if (re == Response::Done) {
+        cargo = makeNewCargo(stock_[index], amount);
+        unload(stock_[index], amount);
+    }
+    std::cout << handleRespone(re) << '\n';
 
     return cargo;
 }
