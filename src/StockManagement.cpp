@@ -47,10 +47,10 @@ Response StockManagement::validation(size_t index, int amount, int money, int sp
     if (amount <= 0 || amount > stock_[index]->getAmount()) {
         return Response::InvalidAmount;
     }
-    if (amount > space && space != -1) {
+    if (space != -1 && amount > space) {
         return Response::LackOfSpace;
     }
-    if (stock_[index]->getPrice() * amount > money && money != -1) {
+    if (money != -1 && stock_[index]->getPrice() * amount > money) {
         return Response::LackOfMoney;
     }
 
