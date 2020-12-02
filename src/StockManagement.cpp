@@ -24,8 +24,7 @@ std::unique_ptr<Cargo> StockManagement::makeNewCargo(const std::unique_ptr<Cargo
 
 void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
     int amount = cargo->getAmount();
-    auto existingCargoIt = std::find_if(stock_.begin(), stock_.end(), [&cargo](const auto& ptr) { return *ptr == *cargo; });
-    if (existingCargoIt == stock_.end()) {
+    if (auto existingCargoIt = std::find_if(stock_.begin(), stock_.end(), [&cargo](const auto& ptr) { return *ptr == *cargo; }); existingCargoIt == stock_.end()) {
         stock_.emplace_back(std::move(cargo));
     } else {
         **existingCargoIt += amount;
