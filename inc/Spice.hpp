@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cargo.hpp"
+#include "ICargo.hpp"
 
 constexpr int bestPurity = 100;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cargo.hpp"
+#include "ICargo.hpp"
 
 enum class Rarity {
     common = 1,

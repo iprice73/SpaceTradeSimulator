@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cargo.hpp"
+#include "ICargo.hpp"
 
 constexpr double spiritus = 100.0;
 
