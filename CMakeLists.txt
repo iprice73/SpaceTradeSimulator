@@ -13,6 +13,7 @@ set(SRC
     src/Player.cpp
     src/Ship.cpp
     src/StockManagement.cpp
+    src/Planet.cpp
 )
 
 set(FLAGS
