@@ -13,6 +13,7 @@ set(SRC
     src/Player.cpp
     src/Ship.cpp
     src/StockManagement.cpp
+    src/SolarSystem.cpp
     src/Planet.cpp
 )
 
