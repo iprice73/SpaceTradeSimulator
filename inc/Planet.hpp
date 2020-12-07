@@ -11,7 +11,7 @@ private:
     Store store_{};
 
 public:
-    Planet(const std::string& name, double AU, int posX, int PosY);
+    Planet(const std::string& name = "Earth", double AU = 1.0, int posX = 1, int PosY = 1);
     std::string getName() const { return name_; }
     double getDistance() const { return AU_; }
     Store& getStore() { return store_; }
