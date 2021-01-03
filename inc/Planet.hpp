@@ -15,4 +15,5 @@ public:
     std::string getName() const { return name_; }
     double getDistance() const { return AU_; }
     Store& getStore() { return store_; }
+    bool operator==(const Planet& newPlanet);
 };
