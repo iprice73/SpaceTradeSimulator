@@ -12,6 +12,6 @@ public:
     SolarSystem();
 
     bool travel(const Planet& dest);
-    void orbit(int days);
+    void orbit(size_t days);
     void show() const;
 };

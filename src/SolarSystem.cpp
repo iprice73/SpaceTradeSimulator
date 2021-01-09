@@ -2,7 +2,6 @@
 
 #include <cmath>
 
-
 const std::vector<std::pair<std::string, double>> planets{
     {"Mercury", 0.39},
     {"Venus", 0.723},
@@ -33,13 +32,14 @@ bool SolarSystem::travel(const Planet& dest) {
 
 double angle = 0;
 
-void SolarSystem::orbit(int days) {
-    for (double i = 0; i < days; i++) {
-        auto newX = static_cast<double>(map_[2].getDistance() * cos(angle));
-        auto newY = static_cast<double>(map_[2].getDistance() * sin(angle));
-        map_[2].setPos(newX, newY);
+void SolarSystem::orbit(size_t days) {
+    for (size_t i = 0; i < days; i++) {
+        for (auto& planet : map_) {
+            auto newX = static_cast<double>(planet.getDistance() * cos(angle));
+            auto newY = static_cast<double>(planet.getDistance() * sin(angle));
+            planet.setPos(newX, newY);
+        }
         angle += M_PI / 50;
-        std::cout << map_[2].getX() << "  " << map_[2].getY() << '\n';
     }
 }
 
