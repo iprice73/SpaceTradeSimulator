@@ -18,15 +18,12 @@ SolarSystem::SolarSystem() {
 
 void SolarSystem::bigBang() {
     for (const auto& planet : planets) {
-        map_.emplace_back(planet.first, planet.second, 1, 1);
+        map_.emplace_back(planet.first, planet.second);
     }
 }
 
 bool SolarSystem::travel(const Planet& dest) {
-    if (currPlanet_ == dest) {
-        return false;
-    }
-    currPlanet_ = dest;
+    (void)dest;
     return true;
 }
 

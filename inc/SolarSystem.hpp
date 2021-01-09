@@ -11,6 +11,8 @@ private:
 public:
     SolarSystem();
 
+    Planet& getCurrPlanet() { return currPlanet_; }
+
     bool travel(const Planet& dest);
     void orbit(size_t days);
     void show() const;
