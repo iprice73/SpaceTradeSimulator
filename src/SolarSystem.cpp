@@ -33,12 +33,11 @@ bool SolarSystem::travel(const Planet& dest) {
 double angle = 0;
 
 void SolarSystem::orbit(size_t days) {
-    
     for (size_t i = 0; i < days; i++) {
         for (auto& planet : map_) {
             short int slower = 1;
-            auto newX = static_cast<double>(planet.getDistance() * cos(angle/slower));
-            auto newY = static_cast<double>(planet.getDistance() * sin(angle/slower));
+            auto newX = static_cast<double>(planet.getDistance() * cos(angle / slower));
+            auto newY = static_cast<double>(planet.getDistance() * sin(angle / slower));
             planet.setPos(newX, newY);
             slower++;
         }
