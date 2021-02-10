@@ -19,6 +19,7 @@ public:
     void setPos(double x, double y);
 
     bool operator==(const Planet& newPlanet);
+    bool operator!=(const Planet& newPlanet);
 
     double getX() const { return posX_; }
     double getY() const { return posY_; }

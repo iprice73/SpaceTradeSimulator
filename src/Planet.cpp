@@ -12,3 +12,7 @@ bool Planet::operator==(const Planet& newPlanet) {
     return name_ == newPlanet.name_;
 }
 
+bool Planet::operator!=(const Planet& newPlanet) {
+    return name_ != newPlanet.name_;
+}
+
