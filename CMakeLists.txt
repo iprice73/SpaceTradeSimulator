@@ -15,6 +15,7 @@ set(SRC
     src/StockManagement.cpp
     src/SolarSystem.cpp
     src/Planet.cpp
+    src/Game.cpp
 )
 
 set(FLAGS
