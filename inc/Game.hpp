@@ -9,5 +9,10 @@ private:
 
 public:
     Game(SolarSystem* planets, Player* player);
+    
+    void optionHandler(size_t op);
+    void travelOp();
+    void buyOp();
+    void sellOp();
 
 };
