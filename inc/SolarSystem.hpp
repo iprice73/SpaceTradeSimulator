@@ -4,16 +4,20 @@
 
 class SolarSystem {
 private:
-    std::vector<Planet> map_{};
+    std::vector<Planet> planets_{};
     Planet currPlanet_{};
+    
     void bigBang();
 
 public:
     SolarSystem();
 
-    Planet& getCurrPlanet() { return currPlanet_; }
+    Planet* getCurrPlanet() { return &currPlanet_; }
+    Planet* getDestPlanet(size_t index);
 
-    bool travel(const Planet& dest);
+    bool travel(Planet* planet, Player* player);
     void orbit(size_t days);
     void show() const;
+
+    friend std::ostream& operator<<(std::ostream& os, const SolarSystem& planets);
 };

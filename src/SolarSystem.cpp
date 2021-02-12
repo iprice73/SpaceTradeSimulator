@@ -1,8 +1,9 @@
 #include "SolarSystem.hpp"
 
+#include <algorithm>
 #include <cmath>
 
-const std::vector<std::pair<std::string, double>> planets{
+const std::vector<std::pair<std::string, double>> planetsData{
     {"Mercury", 0.39},
     {"Venus", 0.723},
     {"Earth", 1.0},
@@ -17,21 +18,32 @@ SolarSystem::SolarSystem() {
 }
 
 void SolarSystem::bigBang() {
-    for (const auto& planet : planets) {
-        map_.emplace_back(planet.first, planet.second);
+    for (const auto& planet : planetsData) {
+        planets_.emplace_back(planet.first, planet.second);
     }
 }
 
-bool SolarSystem::travel(const Planet& dest) {
-    (void)dest;
-    return true;
+Planet* SolarSystem::getDestPlanet(size_t index) {
+    if (index <= planets_.size() && index > 0) {
+        return &planets_[index - 1];
+    }
+    return nullptr;
+}
+
+bool SolarSystem::travel(Planet* destPlanet, Player* player) {
+    if (player->getMoney() > 100) {
+        currPlanet_ = std::move(*destPlanet);
+        *player -= 20;
+        return true;
+    }
+    return false;
 }
 
 double angle = 0;
 
 void SolarSystem::orbit(size_t days) {
     for (size_t i = 0; i < days; i++) {
-        for (auto& planet : map_) {
+        for (auto& planet : planets_) {
             short int slower = 1;
             auto newX = static_cast<double>(planet.getDistance() * cos(angle / slower));
             auto newY = static_cast<double>(planet.getDistance() * sin(angle / slower));
@@ -43,7 +55,15 @@ void SolarSystem::orbit(size_t days) {
 }
 
 void SolarSystem::show() const {
-    for (const auto& planet : map_) {
+    for (const auto& planet : planets_) {
         std::cout << '(' << planet.getX() << ',' << planet.getY() << ")\n";
     }
+}
+
+std::ostream& operator<<(std::ostream& os, const SolarSystem& planets) {
+    size_t i = 1;
+    for (const auto& el : planets.planets_) {
+        os << i++ << ". " << el.getName() << '\n';
+    }
+    return os;
 }
