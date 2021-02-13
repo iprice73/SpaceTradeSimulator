@@ -23,6 +23,10 @@ void SolarSystem::bigBang() {
     }
 }
 
+double SolarSystem::calculateDistance(Planet* planet) const {
+    return sqrt(pow(planet->getX() - currPlanet_.getX(), 2) + pow((planet->getY() - currPlanet_.getY()), 2));
+}
+
 Planet* SolarSystem::getDestPlanet(size_t index) {
     if (index <= planets_.size() && index > 0) {
         return &planets_[index - 1];
@@ -31,9 +35,13 @@ Planet* SolarSystem::getDestPlanet(size_t index) {
 }
 
 bool SolarSystem::travel(Planet* destPlanet, Player* player) {
+    double dist = calculateDistance(destPlanet);
+    double time = dist / static_cast<int>(player->getShip()->getEngine());
+    std::cout << time << '\n';
+    int value = 20;
     if (player->getMoney() > 100) {
         currPlanet_ = std::move(*destPlanet);
-        *player -= 20;
+        *player -= value;
         return true;
     }
     return false;

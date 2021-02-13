@@ -6,8 +6,9 @@ class SolarSystem {
 private:
     std::vector<Planet> planets_{};
     Planet currPlanet_{};
-    
+
     void bigBang();
+    double calculateDistance(Planet* planet) const;
 
 public:
     SolarSystem();
