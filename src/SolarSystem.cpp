@@ -1,7 +1,9 @@
 #include "SolarSystem.hpp"
 
 #include <algorithm>
+#include <chrono>
 #include <cmath>
+#include <thread>
 
 const std::vector<std::pair<std::string, double>> planetsData{
     {"Mercury", 0.39},
@@ -23,6 +25,30 @@ void SolarSystem::bigBang() {
     }
 }
 
+void SolarSystem::travelAnimation() const {
+    float progress = 0.0f;
+    while (progress < 1.0) {
+        int barWidth = 50;
+        std::cout << 'O';
+        int pos = static_cast<int>(static_cast<float>(barWidth) * progress);
+        for (int i = 0; i < barWidth; ++i) {
+            if (i < pos) {
+                std::cout << '=';
+            } else if (i == pos) {
+                std::cout << '>';
+            } else {
+                std::cout << ' ';
+            }
+        }
+        std::cout << 'o' << '\r';
+        std::cout.flush();
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+        progress += 0.02f;
+    }
+    std::cout << std::endl;
+}
+
 double SolarSystem::calculateDistance(Planet* planet) const {
     return sqrt(pow(planet->getX() - currPlanet_.getX(), 2) + pow((planet->getY() - currPlanet_.getY()), 2));
 }
@@ -34,17 +60,15 @@ Planet* SolarSystem::getDestPlanet(size_t index) {
     return nullptr;
 }
 
-bool SolarSystem::travel(Planet* destPlanet, Player* player) {
-    double dist = calculateDistance(destPlanet);
-    double time = dist / static_cast<int>(player->getShip()->getEngine());
-    std::cout << time << '\n';
+void SolarSystem::travel(Planet* destPlanet, Player* player) {
+    // double dist = calculateDistance(destPlanet);
+    // double time = dist / static_cast<int>(player->getShip()->getEngine());
     int value = 20;
     if (player->getMoney() > 100) {
         currPlanet_ = std::move(*destPlanet);
         *player -= value;
-        return true;
+        travelAnimation();
     }
-    return false;
 }
 
 double angle = 0;

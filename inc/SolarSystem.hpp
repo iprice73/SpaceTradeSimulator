@@ -9,6 +9,7 @@ private:
 
     void bigBang();
     double calculateDistance(Planet* planet) const;
+    void travelAnimation() const;
 
 public:
     SolarSystem();
@@ -16,7 +17,7 @@ public:
     Planet* getCurrPlanet() { return &currPlanet_; }
     Planet* getDestPlanet(size_t index);
 
-    bool travel(Planet* planet, Player* player);
+    void travel(Planet* planet, Player* player);
     void orbit(size_t days);
     void show() const;
 
