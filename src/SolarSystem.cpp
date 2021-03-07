@@ -25,7 +25,7 @@ void SolarSystem::bigBang() {
     }
 }
 
-void SolarSystem::travelAnimation() const {
+void SolarSystem::travelAnimation(int time) const {
     float progress = 0.0f;
     while (progress < 1.0) {
         int barWidth = 50;
@@ -42,9 +42,8 @@ void SolarSystem::travelAnimation() const {
         }
         std::cout << 'o' << '\r';
         std::cout.flush();
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
         progress += 0.02f;
+        std::this_thread::sleep_for(std::chrono::milliseconds(time));
     }
     std::cout << std::endl;
 }
@@ -61,13 +60,13 @@ Planet* SolarSystem::getDestPlanet(size_t index) {
 }
 
 void SolarSystem::travel(Planet* destPlanet, Player* player) {
-    // double dist = calculateDistance(destPlanet);
-    // double time = dist / static_cast<int>(player->getShip()->getEngine());
+    double dist = calculateDistance(destPlanet);
+    int time = static_cast<int>((dist / static_cast<int>(player->getShip()->getEngine())) * 1000.0);
     int value = 20;
-    if (player->getMoney() > 100) {
+    if (player->getMoney() > 0) {  // this is a place holder
         currPlanet_ = std::move(*destPlanet);
         *player -= value;
-        travelAnimation();
+        travelAnimation(time);
     }
 }
 
@@ -76,11 +75,11 @@ double angle = 0;
 void SolarSystem::orbit(size_t days) {
     for (size_t i = 0; i < days; i++) {
         for (auto& planet : planets_) {
-            short int slower = 1;
+            double slower = 1.0;
             auto newX = static_cast<double>(planet.getDistance() * cos(angle / slower));
             auto newY = static_cast<double>(planet.getDistance() * sin(angle / slower));
             planet.setPos(newX, newY);
-            slower++;
+            slower += 10;
         }
         angle += M_PI / 50;
     }
