@@ -7,8 +7,8 @@ private:
     SolarSystem* planets_;
     Player* player_;
 
-    void optionHandler(size_t op);
     size_t menu() const;
+    void optionHandler(size_t op);
     void travelOp();
     void buyOp();
     void sellOp();
