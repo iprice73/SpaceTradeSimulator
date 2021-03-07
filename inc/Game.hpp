@@ -8,6 +8,7 @@ private:
     Player* player_;
 
     void optionHandler(size_t op);
+    size_t menu() const;
     void travelOp();
     void buyOp();
     void sellOp();
