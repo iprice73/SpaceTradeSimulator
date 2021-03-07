@@ -59,15 +59,15 @@ Response StockManagement::validation(size_t index, int amount, int money, int sp
 std::string StockManagement::handleRespone(Response re) const {
     switch (re) {
     case Response::InvalidIndex:
-        return "Enter proper index.";
+        return "\033[1;31mEnter proper index.\033[0m";
     case Response::InvalidAmount:
-        return "Enter proper amount.";
+        return "\033[1;31mEnter proper amount.\033[0m";
     case Response::LackOfMoney:
-        return "You don't have money for this.";
+        return "\033[1;31mYou don't have money for this.\033[0m";
     case Response::LackOfSpace:
-        return "You don't have enough space.";
+        return "\033[1;31mYou don't have enough space.\033[0m";
     case Response::Done:
-        return "Transaction completed.";
+        return "\033[1;32mTransaction completed.\033[0m";
     default:
         return "How did you get there?";
     }
@@ -79,7 +79,7 @@ std::ostream& operator<<(std::ostream& out, const StockManagement& stock) {
 
     out << horizontalSeparator
         << "\n"
-        << "|| Store's stock"
+        << "|| Cargo avaiable"
         << std::setw(14) << "| QTY "
         << "| PRICE "
         << "||\n"
