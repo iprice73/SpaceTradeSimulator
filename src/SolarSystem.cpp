@@ -17,6 +17,7 @@ const std::vector<std::pair<std::string, double>> planetsData{
 
 SolarSystem::SolarSystem() {
     bigBang();
+    currPlanet_ = &planets_[2];
 }
 
 void SolarSystem::bigBang() {
@@ -48,8 +49,8 @@ void SolarSystem::travelAnimation(int time) const {
     std::cout << std::endl;
 }
 
-double SolarSystem::calculateDistance(Planet* planet) const {
-    return sqrt(pow(planet->getX() - currPlanet_.getX(), 2) + pow((planet->getY() - currPlanet_.getY()), 2));
+double SolarSystem::calculateDistance(const Planet* planet) const {
+    return sqrt(pow(planet->getX() - currPlanet_->getX(), 2) + pow((planet->getY() - currPlanet_->getY()), 2));
 }
 
 Planet* SolarSystem::getDestPlanet(size_t index) {
@@ -64,7 +65,7 @@ void SolarSystem::travel(Planet* destPlanet, Player* player) {
     int time = static_cast<int>((dist / static_cast<int>(player->getShip()->getEngine())) * 1000.0);
     int value = 20;
     if (player->getMoney() > 0) {  // this is a place holder
-        currPlanet_ = std::move(*destPlanet);
+        currPlanet_ = destPlanet;
         *player -= value;
         travelAnimation(time);
     }
@@ -86,8 +87,9 @@ void SolarSystem::orbit(size_t days) {
 }
 
 void SolarSystem::show() const {
-    for (const auto& planet : planets_) {
-        std::cout << '(' << planet.getX() << ',' << planet.getY() << ")\n";
+    size_t i = 1;
+    for (const auto& el : planets_) {
+        std::cout << i++ << ". " << el.getName() << "  " << calculateDistance(&el) << " AU\n";
     }
 }
 

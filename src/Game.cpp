@@ -54,8 +54,9 @@ void Game::sellOp() {
 }
 
 void Game::travelOp() {
-    std::cout << "\nWhere do you want to travel?\n"
-              << *planets_ << "Your choice: ";
+    std::cout << "\nWhere do you want to travel?\n";
+    planets_->show(); 
+    std::cout << "Your choice: ";
     int choice{};
     std::cin >> choice;
     auto destPlanet = planets_->getDestPlanet(choice);
@@ -78,7 +79,7 @@ void Game::printInfo() const {
 void Game::run() {
     planets_->orbit(rand() % 300 + 100);
     size_t op;
-    while (1) {
+    while (player_->getMoney() > 100) {
         printInfo();
         op = menu();
         optionHandler(op);
