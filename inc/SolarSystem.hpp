@@ -19,7 +19,5 @@ public:
 
     void travel(Planet* planet, Player* player);
     void orbit(size_t days);
-    void show() const;
-
-    friend std::ostream& operator<<(std::ostream& os, const SolarSystem& planets);
+    void printPlanets() const;
 };

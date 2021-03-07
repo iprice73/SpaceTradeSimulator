@@ -86,17 +86,17 @@ void SolarSystem::orbit(size_t days) {
     }
 }
 
-void SolarSystem::show() const {
+void SolarSystem::printPlanets() const {
     size_t i = 1;
     for (const auto& el : planets_) {
-        std::cout << i++ << ". " << el.getName() << "  " << calculateDistance(&el) << " AU\n";
+        std::cout << i++ << ". " << el.getName();
+        double dist = calculateDistance(&el);
+        if (dist < 1) {
+            std::cout << "  \033[1;32m " << dist << " AU\033[0m\n";
+        } else if (dist > 1 && dist < 15) {
+            std::cout << "  \033[1;33m " << dist << " AU\033[0m\n";
+        } else {
+            std::cout << "  \033[1;31m " << dist << " AU\033[0m\n";
+        }
     }
-}
-
-std::ostream& operator<<(std::ostream& os, const SolarSystem& planets) {
-    size_t i = 1;
-    for (const auto& el : planets.planets_) {
-        os << i++ << ". " << el.getName() << '\n';
-    }
-    return os;
-}
+}       

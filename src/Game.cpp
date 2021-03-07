@@ -55,7 +55,7 @@ void Game::sellOp() {
 
 void Game::travelOp() {
     std::cout << "\nWhere do you want to travel?\n";
-    planets_->show(); 
+    planets_->printPlanets(); 
     std::cout << "Your choice: ";
     int choice{};
     std::cin >> choice;
