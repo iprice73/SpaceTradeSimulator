@@ -9,7 +9,7 @@ private:
 
     void bigBang();
     double calculateDistance(Planet* planet) const;
-    void travelAnimation() const;
+    void travelAnimation(int time) const;
 
 public:
     SolarSystem();
