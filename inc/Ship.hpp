@@ -3,7 +3,7 @@
 #include "StockManagement.hpp"
 
 enum class EngineClass {
-    ChemicalFuel = 1,
+    ChemicalFuel = 5,
     Antygravity = 10,
     DarkMatter = 20,
     Alcubierre = 100,
