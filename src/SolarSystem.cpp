@@ -29,10 +29,10 @@ void SolarSystem::bigBang() {
 void SolarSystem::travelAnimation(int time) const {
     float progress = 0.0f;
     while (progress < 1.0) {
-        int barWidth = 50;
+        size_t barWidth = 50;
         std::cout << 'O';
-        int pos = static_cast<int>(static_cast<float>(barWidth) * progress);
-        for (int i = 0; i < barWidth; ++i) {
+        size_t pos = static_cast<size_t>(static_cast<float>(barWidth) * progress);
+        for (size_t i = 0; i < barWidth; ++i) {
             if (i < pos) {
                 std::cout << '=';
             } else if (i == pos) {
@@ -50,7 +50,8 @@ void SolarSystem::travelAnimation(int time) const {
 }
 
 double SolarSystem::calculateDistance(const Planet* planet) const {
-    return sqrt(pow(planet->getX() - currPlanet_->getX(), 2) + pow((planet->getY() - currPlanet_->getY()), 2));
+    return sqrt(pow(planet->getX() - currPlanet_->getX(), 2) +
+                pow((planet->getY() - currPlanet_->getY()), 2));
 }
 
 Planet* SolarSystem::getDestPlanet(size_t index) {
@@ -63,10 +64,10 @@ Planet* SolarSystem::getDestPlanet(size_t index) {
 void SolarSystem::travel(Planet* destPlanet, Player* player) {
     double dist = calculateDistance(destPlanet);
     int time = static_cast<int>((dist / static_cast<int>(player->getShip()->getEngine())) * 1000.0);
-    int value = 20;
-    if (player->getMoney() > 0) {  // this is a place holder
+    int price = time / static_cast<int>(player->getShip()->getEngine());
+    if (player->getMoney() > 0) {
         currPlanet_ = destPlanet;
-        *player -= value;
+        *player -= price;
         travelAnimation(time);
     }
 }
@@ -91,12 +92,14 @@ void SolarSystem::printPlanets() const {
     for (const auto& el : planets_) {
         std::cout << i++ << ". " << el.getName();
         double dist = calculateDistance(&el);
-        if (dist < 1) {
+        if (dist == 0) {
+            std::cout << "\033[1;32m <--- You are here\033[0m\n";
+        } else if (dist < 1 && dist > 0) {
             std::cout << "  \033[1;32m " << dist << " AU\033[0m\n";
         } else if (dist > 1 && dist < 15) {
             std::cout << "  \033[1;33m " << dist << " AU\033[0m\n";
         } else {
-            std::cout << "  \033[1;31m " << dist << " AU\033[0m\n";
+            std::cout << "  \033[1;31m " << dist << "\033[0m\n";
         }
     }
-}       
+}
