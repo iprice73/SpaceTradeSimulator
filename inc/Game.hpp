@@ -4,8 +4,8 @@
 
 class Game {
 private:
-    SolarSystem* planets_;
-    Player* player_;
+    SolarSystem* planets_{};
+    Player* player_{};
 
     size_t menu() const;
     void optionHandler(size_t op);
