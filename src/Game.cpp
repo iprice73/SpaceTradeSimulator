@@ -38,7 +38,7 @@ void Game::optionHandler(size_t op) {
 void Game::buyOp() {
     std::cout << "\nPlanet's store:\n"
               << planets_->getCurrPlanet()->getStore() << '\n'
-              << "Enter index and amount you would like to buy.\n";
+              << "\033[1;34mEnter index and amount you would like to buy.\033[0m\n";
     size_t index;
     int amount;
     std::cin >> index >> amount;
@@ -46,7 +46,7 @@ void Game::buyOp() {
 }
 
 void Game::sellOp() {
-    std::cout << "Enter index and amount you would like to sell.\n";
+    std::cout << "\033[1;34mEnter index and amount you would like to sell.\033[0m\n";
     size_t index;
     int amount;
     std::cin >> index >> amount;
@@ -54,7 +54,7 @@ void Game::sellOp() {
 }
 
 void Game::travelOp() {
-    std::cout << "\nWhere do you want to travel?\n";
+    std::cout << "\n\033[1;34mWhere do you want to travel?\033[0m\n";
     planets_->printPlanets(); 
     std::cout << "Your choice: ";
     int choice{};
@@ -63,7 +63,7 @@ void Game::travelOp() {
     if (destPlanet) {
         planets_->travel(destPlanet, player_);
     } else {
-        std::cout << "Select a valid planet.\n";
+        std::cout << "\033[1;31m\nSelect a valid planet.\033[0m\n";
         travelOp();
     }
 }
