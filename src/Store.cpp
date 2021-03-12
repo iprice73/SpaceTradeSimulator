@@ -15,7 +15,7 @@ Store::Store() {
     stock_.shrink_to_fit();
 }
 
-int Store::getRand(int min, int max) const {
+int Store::getRand(int min, int max) {
     std::random_device device;
     std::mt19937 gen(device());
     std::uniform_int_distribution<int> distirb(min, max);

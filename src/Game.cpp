@@ -31,6 +31,7 @@ void Game::optionHandler(size_t op) {
     case 4:
         exit(0);
     default:
+        std::cout << "\n\033[1;31mInvalid option.\033[0m\n";
         break;
     }
 }
@@ -77,11 +78,10 @@ void Game::printInfo() const {
 }
 
 void Game::run() {
-    planets_->orbit(rand() % 300 + 100);
-    size_t op;
+    planets_->orbit(Store::getRand(100, 300));
     while (player_->getMoney() > 100) {
         printInfo();
-        op = menu();
+        size_t op = menu();
         optionHandler(op);
     }
 }

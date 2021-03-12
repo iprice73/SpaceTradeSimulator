@@ -1,8 +1,5 @@
 #include "Ship.hpp"
 
-#include <algorithm>
-#include <iomanip>
-
 Ship::Ship(const std::string& name, int crewSize, int avaiableSpace, EngineClass engine)
     : name_(name), crewSize_(crewSize), avaiableSpace_(avaiableSpace), engine_(engine) {}
 

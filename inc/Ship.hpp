@@ -20,7 +20,7 @@ private:
     void unload(const std::unique_ptr<Cargo>& cargo, int amount);
 
 public:
-    Ship(const std::string& name = "fajerwerka", int crewSize = 0, int avaiableSpace = 10, EngineClass engine = EngineClass::DarkMatter);
+    Ship(const std::string& name = "fajerwerka", int crewSize = 5, int avaiableSpace = 10, EngineClass engine = EngineClass::DarkMatter);
 
     std::string getName() const { return name_; }
     int getCrew() const { return crewSize_; }

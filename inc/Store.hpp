@@ -5,7 +5,6 @@
 
 class Store : public StockManagement {
 private:
-    int getRand(int min, int max) const;
 
     void generateAlcos();
     void generateItems();
@@ -13,6 +12,8 @@ private:
 
 public:
     Store();
+    
+    static int getRand(int min, int max);
     void purchaseCargo(size_t index, int amount, Player* player);
     void sellCargo(size_t index, int amount, Player* player);
 };
