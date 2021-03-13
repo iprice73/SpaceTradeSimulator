@@ -86,9 +86,9 @@ void SolarSystem::travel(Planet* destPlanet, Player* player) {
     }
 }
 
-double angle = 0.0;
 
 void SolarSystem::orbit(size_t days) {
+    static double angle = 0.0;
     for (size_t i = 0; i < days; i++) {
         float slower = 1.0f;
         for (auto& planet : planets_) {
@@ -99,6 +99,7 @@ void SolarSystem::orbit(size_t days) {
             slower *= 2.0f;
         }
         angle += M_PI / 50;
+        std::cout << "\n\n ANGLE: " << angle << "\n\n";
     }
 }
 
@@ -109,9 +110,9 @@ void SolarSystem::printPlanets() const {
         float dist = calculateDistance(&el);
         if (dist == 0) {
             std::cout << "\033[1;32m <--- You are here\033[0m\n";
-        } else if (dist < 1 && dist > 0) {
+        } else if (dist > 0 && dist < 5) {
             std::cout << "  \033[1;32m " << dist << " AU\033[0m\n";
-        } else if (dist > 1 && dist < 15) {
+        } else if (dist >= 5 && dist < 15) {
             std::cout << "  \033[1;33m " << dist << " AU\033[0m\n";
         } else {
             std::cout << "  \033[1;31m " << dist << " AU\033[0m\n";
