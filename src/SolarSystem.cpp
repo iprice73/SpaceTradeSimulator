@@ -77,7 +77,7 @@ void SolarSystem::travel(Planet* destPlanet, Player* player) {
     time = dist / static_cast<float>(player->getShip()->getEngine());
     int price = calculatePrice(dist, player->getShip());
 
-    if (player->getMoney() > 0) {
+    if (player->getMoney() > price) {
         currPlanet_ = destPlanet;
         *player -= price;
         travelAnimation(time);
