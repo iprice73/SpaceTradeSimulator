@@ -74,15 +74,13 @@ int SolarSystem::calculatePrice(float dist, Ship* ship) const {
 }
 
 void SolarSystem::travel(Planet* destPlanet, Player* player) {
-    float dist{}, time{};
-    dist = calculateDistance(destPlanet);
-    time = dist / static_cast<float>(player->getShip()->getEngine());
-    int price = calculatePrice(dist, player->getShip());
-
-    if (player->getMoney() > price) {
+    float dist = calculateDistance(destPlanet);
+    if (int price = calculatePrice(dist, player->getShip()); player->getMoney() > price) {
         currPlanet_ = destPlanet;
         *player -= price;
-        travelAnimation(time);
+        travelAnimation(dist / static_cast<float>(player->getShip()->getEngine()));
+    } else {
+        std::cout << "  \033[1;31m You don't have enough money.\033[0m\n";
     }
 }
 
@@ -91,14 +89,12 @@ void SolarSystem::orbit(size_t days) {
     for (size_t i = 0; i < days; i++) {
         float slower = 1.0f;
         for (auto& planet : planets_) {
-            float newX, newY;
-            newX = static_cast<float>(planet.getDistance() * cos(angle / slower));
-            newY = static_cast<float>(planet.getDistance() * sin(angle / slower));
+            auto newX = static_cast<float>(planet.getDistance() * cos(angle / slower));
+            auto newY = static_cast<float>(planet.getDistance() * sin(angle / slower));
             planet.setPos(newX, newY);
             slower *= 2.0f;
         }
         angle += M_PI / 50;
-        std::cout << "\n\n ANGLE: " << angle << "\n\n";
     }
 }
 
