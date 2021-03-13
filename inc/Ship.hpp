@@ -5,9 +5,9 @@
 enum class EngineClass {
     ChemicalFuel = 5,
     Antygravity = 10,
-    DarkMatter = 20,
+    DarkMatter = 25,
     Alcubierre = 100,
-    ImpropabilityDrive = 99999
+    ImpropabilityDrive = 9999
 };
 
 class Ship : public StockManagement {

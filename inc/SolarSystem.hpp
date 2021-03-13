@@ -8,8 +8,9 @@ private:
     Planet* currPlanet_{};
 
     void bigBang();
-    double calculateDistance(const Planet* planet) const;
-    void travelAnimation(int time) const;
+    float calculateDistance(const Planet* planet) const;
+    int calculatePrice(float dist, Ship* ship) const;
+    void travelAnimation(float time) const;
 
 public:
     SolarSystem();
