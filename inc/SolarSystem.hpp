@@ -10,7 +10,7 @@ private:
     void bigBang();
     float calculateDistance(const Planet* planet) const;
     int calculatePrice(float dist, Ship* ship) const;
-    void travelAnimation(float time) const;
+    void travelAnimation(float time);
 
 public:
     SolarSystem();

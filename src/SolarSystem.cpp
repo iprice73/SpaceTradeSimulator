@@ -26,7 +26,8 @@ void SolarSystem::bigBang() {
     }
 }
 
-void SolarSystem::travelAnimation(float time) const {
+void SolarSystem::travelAnimation(float time) {
+    size_t travelTime{};
     float progress = 0.0f;
     while (progress < 1.0) {
         size_t barWidth = 50;
@@ -44,10 +45,11 @@ void SolarSystem::travelAnimation(float time) const {
         std::cout << 'o' << '\r';
         std::cout.flush();
         progress += 0.02f;
-        int newTime = static_cast<int>(time * 1000.f);
-        std::this_thread::sleep_for(std::chrono::milliseconds(newTime));
+        travelTime = static_cast<size_t>(time * 1000.f);
+        std::this_thread::sleep_for(std::chrono::milliseconds(travelTime));
     }
     std::cout << std::endl;
+    orbit(travelTime);
 }
 
 Planet* SolarSystem::getDestPlanet(size_t index) {
@@ -88,12 +90,13 @@ double angle = 0.0;
 
 void SolarSystem::orbit(size_t days) {
     for (size_t i = 0; i < days; i++) {
+        float slower = 1.0f;
         for (auto& planet : planets_) {
-            float slower = 1.0f, newX, newY;
+            float newX, newY;
             newX = static_cast<float>(planet.getDistance() * cos(angle / slower));
             newY = static_cast<float>(planet.getDistance() * sin(angle / slower));
             planet.setPos(newX, newY);
-            slower += 10.0f;
+            slower *= 2.0f;
         }
         angle += M_PI / 50;
     }
