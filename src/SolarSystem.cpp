@@ -86,7 +86,6 @@ void SolarSystem::travel(Planet* destPlanet, Player* player) {
     }
 }
 
-
 void SolarSystem::orbit(size_t days) {
     static double angle = 0.0;
     for (size_t i = 0; i < days; i++) {
