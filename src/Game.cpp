@@ -42,16 +42,22 @@ void Game::buyOp() {
               << "\033[1;34mEnter index and amount you would like to buy.\033[0m\n";
     size_t index;
     int amount;
-    std::cin >> index >> amount;
-    planets_->getCurrPlanet()->getStore()->purchaseCargo(index - 1, amount, player_);
+    if (std::cin >> index >> amount) {
+        planets_->getCurrPlanet()->getStore()->purchaseCargo(index - 1, amount, player_);
+    } else {
+        std::cout << "\033[1;31m\nSomething went wrong.\033[0m\n";
+    }
 }
 
 void Game::sellOp() {
     std::cout << "\033[1;34mEnter index and amount you would like to sell.\033[0m\n";
     size_t index;
     int amount;
-    std::cin >> index >> amount;
-    planets_->getCurrPlanet()->getStore()->sellCargo(index - 1, amount, player_);
+    if (std::cin >> index >> amount) {
+        planets_->getCurrPlanet()->getStore()->sellCargo(index - 1, amount, player_);
+    } else {
+        std::cout << "\033[1;31m\nSomething went wrong.\033[0m\n";
+    }
 }
 
 void Game::travelOp() {
@@ -59,13 +65,14 @@ void Game::travelOp() {
     planets_->printPlanets();
     std::cout << "Your choice: ";
     int choice{};
-    std::cin >> choice;
-    auto destPlanet = planets_->getDestPlanet(choice);
-    if (destPlanet) {
-        planets_->travel(destPlanet, player_);
+    if (std::cin >> choice) {
+        if (auto destPlanet(planets_->getDestPlanet(choice)); destPlanet) {
+            planets_->travel(destPlanet, player_);
+        } else {
+            std::cout << "\033[1;31m\nSelect a valid planet.\033[0m\n";
+        }
     } else {
         std::cout << "\033[1;31m\nSelect a valid planet.\033[0m\n";
-        travelOp();
     }
 }
 
