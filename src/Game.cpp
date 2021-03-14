@@ -43,7 +43,7 @@ void Game::buyOp() {
     size_t index;
     int amount;
     std::cin >> index >> amount;
-    planets_->getCurrPlanet()->getStore()->purchaseCargo(index - 1, amount, player_.get());
+    planets_->getCurrPlanet()->getStore()->purchaseCargo(index - 1, amount, player_);
 }
 
 void Game::sellOp() {
@@ -51,7 +51,7 @@ void Game::sellOp() {
     size_t index;
     int amount;
     std::cin >> index >> amount;
-    planets_->getCurrPlanet()->getStore()->sellCargo(index - 1, amount, player_.get());
+    planets_->getCurrPlanet()->getStore()->sellCargo(index - 1, amount, player_);
 }
 
 void Game::travelOp() {
@@ -62,7 +62,7 @@ void Game::travelOp() {
     std::cin >> choice;
     auto destPlanet = planets_->getDestPlanet(choice);
     if (destPlanet) {
-        planets_->travel(destPlanet, player_.get());
+        planets_->travel(destPlanet, player_);
     } else {
         std::cout << "\033[1;31m\nSelect a valid planet.\033[0m\n";
         travelOp();

@@ -59,7 +59,7 @@ std::shared_ptr<Planet> SolarSystem::getDestPlanet(size_t index) {
     return nullptr;
 }
 
-float SolarSystem::calculateDistance(const Planet* planet) const {
+float SolarSystem::calculateDistance(const std::shared_ptr<Planet>& planet) const {
     return static_cast<float>(sqrt(pow(planet->getX() - currPlanet_->getX(), 2) +
                                    pow((planet->getY() - currPlanet_->getY()), 2)));
 }
@@ -73,8 +73,8 @@ int SolarSystem::calculatePrice(float dist, Ship* ship) const {
     return (ship->getEngine() == EngineClass::ImpropabilityDrive) ? crewPrice : fuelPrice + crewPrice;
 }
 
-void SolarSystem::travel(std::shared_ptr<Planet>& destPlanet, Player* player) {
-    float dist = calculateDistance(destPlanet.get());
+void SolarSystem::travel(std::shared_ptr<Planet>& destPlanet, const std::unique_ptr<Player>& player) {
+    float dist = calculateDistance(destPlanet);
     if (int price = calculatePrice(dist, player->getShip()); player->getMoney() > price) {
         currPlanet_.swap(destPlanet);
         *player -= price;
@@ -102,7 +102,7 @@ void SolarSystem::printPlanets() const {
     size_t i = 1;
     for (const auto& el : planets_) {
         std::cout << i++ << ". " << el->getName();
-        float dist = calculateDistance(el.get());
+        float dist = calculateDistance(el);
         if (dist == 0) {
             std::cout << "\033[1;32m <--- You are here\033[0m\n";
         } else if (dist > 0 && dist < 5) {

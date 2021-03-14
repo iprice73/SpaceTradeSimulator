@@ -64,7 +64,7 @@ void Store::generateSpices() {
     }
 }
 
-void Store::purchaseCargo(size_t index, int amount, Player* player) {
+void Store::purchaseCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {
     auto re = validation(index, amount, player->getMoney(), player->getSpace());
     if (re == Response::Done) {
         int price = amount * stock_[index]->getPrice();
@@ -75,7 +75,7 @@ void Store::purchaseCargo(size_t index, int amount, Player* player) {
     std::cout << handleRespone(re) << '\n';
 }
 
-void Store::sellCargo(size_t index, int amount, Player* player) {
+void Store::sellCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {
     if (auto cargo = player->sellCargo(index, amount); cargo) {
         *player += cargo->getPrice() * amount;
         addCargo(std::move(cargo));
