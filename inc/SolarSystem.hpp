@@ -9,7 +9,7 @@ private:
 
     void bigBang();
     float calculateDistance(const std::shared_ptr<Planet>& planet) const;
-    int calculatePrice(float dist, Ship* ship) const;
+    int calculatePrice(float dist, const std::unique_ptr<Ship>& ship) const;
     void travelAnimation(float time);
 
 public:

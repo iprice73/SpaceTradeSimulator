@@ -64,7 +64,7 @@ float SolarSystem::calculateDistance(const std::shared_ptr<Planet>& planet) cons
                                    pow((planet->getY() - currPlanet_->getY()), 2)));
 }
 
-int SolarSystem::calculatePrice(float dist, Ship* ship) const {
+int SolarSystem::calculatePrice(float dist, const std::unique_ptr<Ship>& ship) const {
     int costPerCrewMate = 10, fuelPrice = 0, crewPrice = 0;
     crewPrice = ship->getCrew() * costPerCrewMate;
     fuelPrice = static_cast<int>((dist * static_cast<float>(ship->getEngine()) /

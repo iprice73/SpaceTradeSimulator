@@ -12,7 +12,7 @@ public:
 
     int getMoney() const { return money_; }
     int getSpace() const { return ship_->getAvaiableSpace(); }
-    Ship* getShip() const { return ship_.get(); }
+    std::unique_ptr<Ship>& getShip() { return ship_; }
 
 
     void buy(std::unique_ptr<Cargo>&& cargo);

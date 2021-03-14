@@ -14,7 +14,7 @@ public:
     Planet(const std::string& name = "Earth", double AU = 1.0, double posX = 1, double PosY = 1);
     std::string getName() const { return name_; }
     double getDistance() const { return AU_; }
-    Store* getStore() { return store_.get(); }
+    std::unique_ptr<Store>& getStore() { return store_; }
 
     void setPos(double x, double y);
 
