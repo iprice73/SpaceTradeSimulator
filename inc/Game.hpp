@@ -4,8 +4,8 @@
 
 class Game {
 private:
-    SolarSystem* planets_{};
-    Player* player_{};
+    std::unique_ptr<SolarSystem> planets_{};
+    std::unique_ptr<Player> player_{};
 
     size_t menu() const;
     void optionHandler(size_t op);
@@ -15,7 +15,7 @@ private:
     void printInfo() const;
 
 public:
-    Game(SolarSystem* planets, Player* player);
+    Game();
     
     void run();
 

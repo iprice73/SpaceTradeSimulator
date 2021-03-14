@@ -3,10 +3,7 @@
 #include "Game.hpp"
 
 int main() {
-    SolarSystem planets;
-    Player player(1000);
-
-    Game game(&planets, &player);
+    Game game;
     game.run();
 
     return 0;

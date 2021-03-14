@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
-Game::Game(SolarSystem* planets, Player* player)
-    : planets_(std::move(planets)), player_(player) {
+Game::Game()
+    : planets_(std::make_unique<SolarSystem>()), player_(std::make_unique<Player>(1000)) {
 }
 
 size_t Game::menu() const {
@@ -43,7 +43,7 @@ void Game::buyOp() {
     size_t index;
     int amount;
     std::cin >> index >> amount;
-    planets_->getCurrPlanet()->getStore()->purchaseCargo(index - 1, amount, player_);
+    planets_->getCurrPlanet()->getStore()->purchaseCargo(index - 1, amount, player_.get());
 }
 
 void Game::sellOp() {
@@ -51,7 +51,7 @@ void Game::sellOp() {
     size_t index;
     int amount;
     std::cin >> index >> amount;
-    planets_->getCurrPlanet()->getStore()->sellCargo(index - 1, amount, player_);
+    planets_->getCurrPlanet()->getStore()->sellCargo(index - 1, amount, player_.get());
 }
 
 void Game::travelOp() {
@@ -62,7 +62,7 @@ void Game::travelOp() {
     std::cin >> choice;
     auto destPlanet = planets_->getDestPlanet(choice);
     if (destPlanet) {
-        planets_->travel(destPlanet, player_);
+        planets_->travel(destPlanet, player_.get());
     } else {
         std::cout << "\033[1;31m\nSelect a valid planet.\033[0m\n";
         travelOp();
