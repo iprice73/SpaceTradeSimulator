@@ -4,8 +4,8 @@
 
 class SolarSystem {
 private:
-    std::vector<Planet> planets_{};
-    Planet* currPlanet_{};
+    std::vector<std::shared_ptr<Planet>> planets_{};
+    std::shared_ptr<Planet> currPlanet_{};
 
     void bigBang();
     float calculateDistance(const Planet* planet) const;
@@ -15,10 +15,10 @@ private:
 public:
     SolarSystem();
 
-    Planet* getCurrPlanet() { return currPlanet_; }
-    Planet* getDestPlanet(size_t index);
+    std::shared_ptr<Planet> getCurrPlanet() { return currPlanet_; }
+    std::shared_ptr<Planet> getDestPlanet(size_t index);
 
-    void travel(Planet* planet, Player* player);
+    void travel(std::shared_ptr<Planet>& destPlanet, Player* player);
     void orbit(size_t days);
     void printPlanets() const;
 };

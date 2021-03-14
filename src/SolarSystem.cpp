@@ -17,12 +17,12 @@ const std::vector<std::pair<std::string, float>> planetsData{
 
 SolarSystem::SolarSystem() {
     bigBang();
-    currPlanet_ = &planets_[2];
+    currPlanet_ = planets_[2];
 }
 
 void SolarSystem::bigBang() {
     for (const auto& planet : planetsData) {
-        planets_.emplace_back(planet.first, planet.second);
+        planets_.emplace_back(std::make_shared<Planet>(planet.first, planet.second));
     }
 }
 
@@ -52,9 +52,9 @@ void SolarSystem::travelAnimation(float time) {
     orbit(travelTime);
 }
 
-Planet* SolarSystem::getDestPlanet(size_t index) {
+std::shared_ptr<Planet> SolarSystem::getDestPlanet(size_t index) {
     if (index <= planets_.size() && index > 0) {
-        return &planets_[index - 1];
+        return planets_[index - 1];
     }
     return nullptr;
 }
@@ -73,10 +73,10 @@ int SolarSystem::calculatePrice(float dist, Ship* ship) const {
     return (ship->getEngine() == EngineClass::ImpropabilityDrive) ? crewPrice : fuelPrice + crewPrice;
 }
 
-void SolarSystem::travel(Planet* destPlanet, Player* player) {
-    float dist = calculateDistance(destPlanet);
+void SolarSystem::travel(std::shared_ptr<Planet>& destPlanet, Player* player) {
+    float dist = calculateDistance(destPlanet.get());
     if (int price = calculatePrice(dist, player->getShip()); player->getMoney() > price) {
-        currPlanet_ = destPlanet;
+        currPlanet_.swap(destPlanet);
         *player -= price;
         travelAnimation(dist / static_cast<float>(player->getShip()->getEngine()));
     } else {
@@ -89,9 +89,9 @@ void SolarSystem::orbit(size_t days) {
     for (size_t i = 0; i < days; i++) {
         float slower = 1.0f;
         for (auto& planet : planets_) {
-            auto newX = static_cast<float>(planet.getDistance() * cos(angle / slower));
-            auto newY = static_cast<float>(planet.getDistance() * sin(angle / slower));
-            planet.setPos(newX, newY);
+            auto newX = static_cast<float>(planet->getDistance() * cos(angle / slower));
+            auto newY = static_cast<float>(planet->getDistance() * sin(angle / slower));
+            planet->setPos(newX, newY);
             slower *= 2.0f;
         }
         angle += M_PI / 50;
@@ -101,8 +101,8 @@ void SolarSystem::orbit(size_t days) {
 void SolarSystem::printPlanets() const {
     size_t i = 1;
     for (const auto& el : planets_) {
-        std::cout << i++ << ". " << el.getName();
-        float dist = calculateDistance(&el);
+        std::cout << i++ << ". " << el->getName();
+        float dist = calculateDistance(el.get());
         if (dist == 0) {
             std::cout << "\033[1;32m <--- You are here\033[0m\n";
         } else if (dist > 0 && dist < 5) {
