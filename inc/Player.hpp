@@ -5,14 +5,14 @@
 class Player {
 private:
     int money_ = 100;
-    Ship* ship_;
+    std::unique_ptr<Ship> ship_;
 
 public:
-    Player(int money, Ship* ship);
+    Player(int money);
 
     int getMoney() const { return money_; }
     int getSpace() const { return ship_->getAvaiableSpace(); }
-    Ship* getShip() const { return ship_; }
+    Ship* getShip() const { return ship_.get(); }
 
 
     void buy(std::unique_ptr<Cargo>&& cargo);

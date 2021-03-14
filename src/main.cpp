@@ -4,8 +4,7 @@
 
 int main() {
     SolarSystem planets;
-    Ship ship;
-    Player player(1000, &ship);
+    Player player(1000);
 
     Game game(&planets, &player);
     game.run();
