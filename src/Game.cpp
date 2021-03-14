@@ -38,12 +38,12 @@ void Game::optionHandler(size_t op) {
 
 void Game::buyOp() {
     std::cout << "\nPlanet's store:\n"
-              << planets_->getCurrPlanet()->getStore() << '\n'
+              << *planets_->getCurrPlanet()->getStore() << '\n'
               << "\033[1;34mEnter index and amount you would like to buy.\033[0m\n";
     size_t index;
     int amount;
     std::cin >> index >> amount;
-    planets_->getCurrPlanet()->getStore().purchaseCargo(index - 1, amount, player_);
+    planets_->getCurrPlanet()->getStore()->purchaseCargo(index - 1, amount, player_);
 }
 
 void Game::sellOp() {
@@ -51,7 +51,7 @@ void Game::sellOp() {
     size_t index;
     int amount;
     std::cin >> index >> amount;
-    planets_->getCurrPlanet()->getStore().sellCargo(index - 1, amount, player_);
+    planets_->getCurrPlanet()->getStore()->sellCargo(index - 1, amount, player_);
 }
 
 void Game::travelOp() {

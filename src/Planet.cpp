@@ -1,7 +1,7 @@
 #include "Planet.hpp"
 
 Planet::Planet(const std::string& name, double AU, double posX, double posY)
-    : name_(name), AU_(AU), posX_(posX), posY_(posY) {}
+    : name_(name), AU_(AU), posX_(posX), posY_(posY), store_(std::make_unique<Store>()) {}
 
 void Planet::setPos(double x, double y) {
     posX_ = x;
