@@ -5,6 +5,9 @@
 #include <random>
 
 constexpr int marketSection = 4;
+constexpr int maxAlcoAmount = 10;
+constexpr int maxItemAmount = 5;
+constexpr int maxSpiceAmount = 30;
 
 Store::Store() {
     constexpr int cargoTypes = 3;
@@ -29,7 +32,7 @@ void Store::generateAlcos() {
     size_t i = 0;
     while (i < marketSection) {
         size_t index = getRand(0, 5);
-        Alcohol alco(alcoNames[index], getRand(10, 50), getRand(1, 5), alcoContent[index]);
+        Alcohol alco(alcoNames[index], getRand(10, 50), getRand(1, maxAlcoAmount), alcoContent[index]);
         if (std::none_of(stock_.begin(), stock_.end(), [&alco](const auto& ptr) { return *ptr == alco; })) {
             stock_.emplace_back(std::make_unique<Alcohol>(alco));
             i++;
@@ -43,7 +46,7 @@ void Store::generateItems() {
     size_t i = 0;
     while (i < marketSection) {
         size_t index = getRand(0, 3);
-        Item item(spiceNames[index], getRand(10, 25), getRand(1, 3), rarities[index]);
+        Item item(spiceNames[index], getRand(10, 25), getRand(1, maxItemAmount), rarities[index]);
         if (std::none_of(stock_.begin(), stock_.end(), [&item](const auto& ptr) { return *ptr == item; })) {
             stock_.emplace_back(std::make_unique<Item>(item));
             i++;
@@ -56,7 +59,7 @@ void Store::generateSpices() {
     size_t i = 0;
     while (i < marketSection) {
         size_t index = getRand(0, 5);
-        Spice spice(spiceNames[index], getRand(250, 300), getRand(2, 20), getRand(5, 100));
+        Spice spice(spiceNames[index], getRand(250, 300), getRand(1, maxSpiceAmount), getRand(5, 100));
         if (std::none_of(stock_.begin(), stock_.end(), [&spice](const auto& ptr) { return *ptr == spice; })) {
             stock_.emplace_back(std::make_unique<Spice>(spice));
             i++;
