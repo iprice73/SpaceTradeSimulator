@@ -34,7 +34,6 @@ public:
     }
 
     bool operator==(const Cargo& cargo) {
-        return name_ == cargo.getName() ||
-               basePrice_ == cargo.getBasePrice();
+        return name_ == cargo.getName();
     }
 };

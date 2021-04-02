@@ -2,6 +2,7 @@
 
 #include "Ship.hpp"
 
+class Store;
 class Player {
 private:
     int money_ = 100;
@@ -17,6 +18,7 @@ public:
 
     void buy(std::unique_ptr<Cargo>&& cargo);
     std::unique_ptr<Cargo> sellCargo(size_t index, int amount);
+    void notifyAboutPrice(const std::unique_ptr<Cargo>& cargo) { ship_->changePrice(cargo); }
 
     Player& operator+=(int price);
     Player& operator-=(int price);

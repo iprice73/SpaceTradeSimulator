@@ -15,6 +15,12 @@ Store::Store() {
     setPricesBaseOnAmount();
 }
 
+void Store::preparePrices(const std::unique_ptr<Player>& player) {
+    for (const auto& ptr : stock_) {
+        player->notifyAboutPrice(ptr);
+    }
+}
+
 int Store::getRand(int min, int max) {
     std::random_device device;
     std::mt19937 gen(device());

@@ -78,6 +78,7 @@ void SolarSystem::travel(std::shared_ptr<Planet>& destPlanet, const std::unique_
     if (int price = calculatePrice(dist, player->getShip()); player->getMoney() > price) {
         currPlanet_.swap(destPlanet);
         *player -= price;
+        currPlanet_->getStore()->preparePrices(player);
         travelAnimation(dist / static_cast<float>(player->getShip()->getEngine()));
     } else {
         std::cout << "  \033[1;31m You don't have enough money.\033[0m\n";
