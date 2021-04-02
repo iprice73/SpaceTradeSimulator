@@ -5,9 +5,6 @@
 #include <random>
 
 constexpr int marketSection = 4;
-constexpr int maxAlcoAmount = 10;
-constexpr int maxItemAmount = 5;
-constexpr int maxSpiceAmount = 30;
 
 Store::Store() {
     constexpr int cargoTypes = 3;
@@ -15,7 +12,7 @@ Store::Store() {
     generateAlcos();
     generateItems();
     generateSpices();
-    stock_.shrink_to_fit();
+    setPricesBaseOnAmount();
 }
 
 int Store::getRand(int min, int max) {

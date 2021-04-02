@@ -19,6 +19,10 @@ public:
     int getAmount() const { return amount_; }
     virtual int getPrice() const = 0;
 
+    void setPrice(int newPrice) {
+        basePrice_ = newPrice;
+    }
+
     Cargo& operator-=(int newAmount) {
         amount_ -= newAmount;
         return *this;

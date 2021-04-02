@@ -41,6 +41,13 @@ void StockManagement::removeCargo(const std::unique_ptr<Cargo>& cargo, int amoun
     }
 }
 
+void StockManagement::setPricesBaseOnAmount() {
+    for (const auto& el : stock_) {
+        int price = maxAlcoAmount / el->getAmount() * el->getBasePrice();
+        el->setPrice(price);
+    }
+}
+
 Response StockManagement::validation(size_t index, int amount, int money, int space) const {
     if (index >= stock_.size()) {
         return Response::InvalidIndex;
