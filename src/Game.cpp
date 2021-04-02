@@ -84,11 +84,37 @@ void Game::printInfo() const {
               << *player_->getShip() << '\n';
 }
 
+void Game::printWinScreen() const {
+    std::cout << " __     __ ____   _    _  __          __ _____  _   _\n"
+              << " \\ \\   / // __ \\ | |  | | \\ \\        / /|_   _|| \\ | |\n"
+              << "  \\ \\_/ /| |  | || |  | |  \\ \\  /\\  / /   | |  |  \\| |\n"
+              << "   \\   / | |  | || |  | |   \\ \\/  \\/ /    | |  | . ` |\n"
+              << "    | |  | |__| || |__| |    \\  /\\  /    _| |_ | |\\  |\n"
+              << "    |_|   \\____/  \\____/      \\/  \\/    |_____||_| \\_|\n\n";
+}
+
+void Game::printLoseScreen() const {
+    std::cout << "__     __ ____   _    _    _____  _    _   _____  _  __\n"
+              << "\\ \\   / // __ \\ | |  | |  / ____|| |  | | / ____|| |/ /\n"
+              << " \\ \\_/ /| |  | || |  | | | (___  | |  | || |     | ' / \n"
+              << "  \\   / | |  | || |  | |  \\___ \\ | |  | || |     |  < \n"
+              << "   | |  | |__| || |__| |  ____) || |__| || |____ | . \\ \n"
+              << "   |_|   \\____/  \\____/  |_____/  \\____/  \\_____||_|\\_\\\n\n";
+}
+
 void Game::run() {
     planets_->orbit(Store::getRand(100, 300));
-    while (player_->getMoney() > 100) {
-        printInfo();
-        size_t op = menu();
-        optionHandler(op);
+    while (1) {
+        if (int money(player_->getMoney()); money < 10'000 && money > 0) {
+            printInfo();
+            size_t op = menu();
+            optionHandler(op);
+        } else if (money > 10'000) {
+            printWinScreen();
+            break;
+        } else {
+            printLoseScreen();
+            break;
+        }
     }
 }

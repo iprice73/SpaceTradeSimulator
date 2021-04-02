@@ -13,6 +13,8 @@ private:
     void buyOp();
     void sellOp();
     void printInfo() const;
+    void printWinScreen() const;
+    void printLoseScreen() const;
 
 public:
     Game();
