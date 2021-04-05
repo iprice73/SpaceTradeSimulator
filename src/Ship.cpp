@@ -2,8 +2,14 @@
 
 #include <algorithm>
 
-Ship::Ship(const std::string& name, int crewSize, int avaiableSpace, EngineClass engine)
-    : name_(name), crewSize_(crewSize), avaiableSpace_(avaiableSpace), engine_(engine) {}
+Ship::Ship(const std::shared_ptr<Time>& time, const std::string& name, int crewSize, int avaiableSpace, EngineClass engine)
+    : time_(time), name_(name), crewSize_(crewSize), avaiableSpace_(avaiableSpace), engine_(engine) {
+        time_->addObserver(this);
+    }
+
+Ship::~Ship() {
+    time_->removeObserver(this);
+}
 
 void Ship::load(std::unique_ptr<Cargo>&& cargo) {
     avaiableSpace_ -= cargo->getAmount();
@@ -35,4 +41,10 @@ std::unique_ptr<Cargo> Ship::getCargo(size_t index, int amount) {
     std::cout << handleRespone(re) << '\n';
 
     return cargo;
+}
+
+void Ship::nextDay(int days) {
+    for (const auto& ptr : stock_) {
+        ptr->nextDay(days);
+    }
 }
