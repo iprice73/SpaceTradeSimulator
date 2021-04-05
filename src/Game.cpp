@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 Game::Game()
-    : planets_(std::make_unique<SolarSystem>()), player_(std::make_unique<Player>(1000)) {
+    : time_(std::make_shared<Time>()), planets_(std::make_unique<SolarSystem>(time_)), player_(std::make_unique<Player>(time_, 1000)) {
 }
 
 size_t Game::menu() const {

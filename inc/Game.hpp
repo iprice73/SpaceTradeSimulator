@@ -1,9 +1,11 @@
 #pragma once
 
 #include "SolarSystem.hpp"
+#include "Time.hpp"
 
 class Game {
 private:
+    std::shared_ptr<Time> time_{};
     std::unique_ptr<SolarSystem> planets_{};
     std::unique_ptr<Player> player_{};
 
