@@ -11,9 +11,13 @@ private:
 public:
     Alcohol(const std::string&, int basePrice, int amount, double content);
 
-    int getPrice() const override;
     double getContent() const { return content_; }
+    Alcohol& operator--();
 
-    bool operator==(const Alcohol& alco);
+    // Override from Cargo
+    int getPrice() const override;
+
+    // Override from Time
+    void nextDay(int days) override;
 
 };
