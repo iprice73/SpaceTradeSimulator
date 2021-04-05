@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
-Player::Player(int money)
-    : money_(money), ship_(std::make_unique<Ship>()) {}
+Player::Player(const std::shared_ptr<Time>& time, int money)
+    : money_(money), ship_(std::make_unique<Ship>(time)) {}
 
 void Player::buy(std::unique_ptr<Cargo>&& cargo) {
     getShip()->load(std::move(cargo));
