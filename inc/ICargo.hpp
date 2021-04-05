@@ -2,7 +2,8 @@
 
 #include <string>
 
-class Cargo {
+#include "Time.hpp"
+class Cargo : public Observer {
 protected:
     std::string name_{};
     int basePrice_{};
