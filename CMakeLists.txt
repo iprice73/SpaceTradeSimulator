@@ -16,6 +16,7 @@ set(SRC
     src/SolarSystem.cpp
     src/Planet.cpp
     src/Game.cpp
+    src/Time.cpp
 )
 
 set(FLAGS
