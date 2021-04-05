@@ -5,14 +5,17 @@
 #include <random>
 
 constexpr int marketSection = 4;
+constexpr int cargoTypes = 3;
 
-Store::Store() {
-    constexpr int cargoTypes = 3;
+Store::Store(const std::shared_ptr<Time>& time) : time_(time) {
     stock_.reserve(marketSection * cargoTypes);
-    generateAlcos();
-    generateItems();
-    generateSpices();
+    generateCargos();
     setPricesBaseOnAmount();
+    time_->addObserver(this);
+}
+
+Store::~Store() {
+    time_->removeObserver(this);
 }
 
 void Store::preparePrices(const std::unique_ptr<Player>& player) {
@@ -70,6 +73,13 @@ void Store::generateSpices() {
     }
 }
 
+void Store::generateCargos() {
+    stock_.clear();
+    generateAlcos();
+    generateItems();
+    generateSpices();
+}
+
 void Store::purchaseCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {
     auto re = validation(index, amount, player->getMoney(), player->getSpace());
     if (re == Response::Done) {
@@ -86,4 +96,8 @@ void Store::sellCargo(size_t index, int amount, const std::unique_ptr<Player>& p
         *player += cargo->getPrice() * amount;
         addCargo(std::move(cargo));
     }
+}
+
+void Store::nextDay([[maybe_unused]] int days) {
+    generateCargos();
 }
