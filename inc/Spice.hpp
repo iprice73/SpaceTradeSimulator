@@ -10,9 +10,12 @@ private:
 
 public:
     Spice(const std::string& name, int basePrice, int amount, int purity);
+    Spice& operator--();
 
+    // Override from Cargo
     int getPrice() const override;
 
-    Spice& operator--();
+    // Override form Time
+    void nextDay(int days) override;
 
 };

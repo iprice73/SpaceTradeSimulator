@@ -8,6 +8,13 @@ int Spice::getPrice() const {
 }
 
 Spice& Spice::operator--() {
-    purity_--;
+    purity_ > 0 ? purity_-- : basePrice_ = 0;
+
     return *this;
+}
+
+void Spice::nextDay(int days) {
+    for (int i = 0; i < days; i++) {
+        this->operator--();
+    }
 }
