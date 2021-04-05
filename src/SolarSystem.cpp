@@ -15,14 +15,14 @@ const std::vector<std::pair<std::string, float>> planetsData{
     {"Uranus", 19.18f},
     {"Neptune", 30.06f}};
 
-SolarSystem::SolarSystem() {
-    bigBang();
+SolarSystem::SolarSystem(const std::shared_ptr<Time>& time) : time_(time) {
+    bigBang(time);
     currPlanet_ = planets_[2];
 }
 
-void SolarSystem::bigBang() {
+void SolarSystem::bigBang(const std::shared_ptr<Time>& time) {
     for (const auto& planet : planetsData) {
-        planets_.emplace_back(std::make_shared<Planet>(planet.first, planet.second));
+        planets_.emplace_back(std::make_shared<Planet>(time, planet.first, planet.second));
     }
 }
 
@@ -78,8 +78,10 @@ void SolarSystem::travel(std::shared_ptr<Planet>& destPlanet, const std::unique_
     if (int price = calculatePrice(dist, player->getShip()); player->getMoney() > price) {
         currPlanet_.swap(destPlanet);
         *player -= price;
+        float travelTime = dist / static_cast<float>(player->getShip()->getEngine());
+        travelAnimation(travelTime);
+        time_->notify(static_cast<int>(travelTime * 1000.f));
         currPlanet_->getStore()->preparePrices(player);
-        travelAnimation(dist / static_cast<float>(player->getShip()->getEngine()));
     } else {
         std::cout << "  \033[1;31m You don't have enough money.\033[0m\n";
     }
@@ -89,7 +91,7 @@ void SolarSystem::orbit(size_t days) {
     static double angle = 0.0;
     for (size_t i = 0; i < days; i++) {
         float slower = 1.0f;
-        for (auto& planet : planets_) {
+        for (const auto& planet : planets_) {
             auto newX = static_cast<float>(planet->getDistance() * cos(angle / slower));
             auto newY = static_cast<float>(planet->getDistance() * sin(angle / slower));
             planet->setPos(newX, newY);
