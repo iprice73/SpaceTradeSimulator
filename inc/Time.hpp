@@ -3,7 +3,7 @@
 
 class Observer {
 public:
-    virtual void nextDay() = 0;
+    virtual void nextDay(int days) = 0;
     virtual ~Observer() = default;
 };
 
@@ -13,10 +13,10 @@ private:
     size_t time_{};
 
 public:
+    Time();
     size_t getTime() const { return time_; }
 
     void addObserver(Observer* obs);
     void removeObserver(Observer* obs);
-
-    Time& operator++();
+    void notify(int days);
 };
