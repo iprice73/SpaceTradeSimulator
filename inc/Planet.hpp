@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Store.hpp"
+#include "Time.hpp"
 
 class Planet {
 private:
@@ -11,7 +12,7 @@ private:
     std::unique_ptr<Store> store_{};
 
 public:
-    Planet(const std::string& name = "Earth", double AU = 1.0, double posX = 1, double PosY = 1);
+    Planet(const std::shared_ptr<Time>& time, const std::string& name = "Earth", double AU = 1.0, double posX = 1, double PosY = 1);
     std::string getName() const { return name_; }
     double getDistance() const { return AU_; }
     std::unique_ptr<Store>& getStore() { return store_; }
