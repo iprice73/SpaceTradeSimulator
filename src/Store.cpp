@@ -47,12 +47,10 @@ void Store::generateAlcos() {
 }
 
 void Store::generateItems() {
-    constexpr Rarity rarities[4] = {Rarity::common, Rarity::rare, Rarity::epic, Rarity::legendary};
     const std::vector<std::string> spiceNames{"xenomorph", "tea", "cocaine", "death star", "stuff", "dark matter"};
     size_t i = 0;
     while (i < marketSection) {
-        size_t index = getRand(0, 3);
-        Item item(spiceNames[index], getRand(10, 25), getRand(1, maxItemAmount), rarities[index]);
+        Item item(spiceNames[getRand(0, 3)], getRand(10, 25), getRand(1, maxItemAmount), Rarity::common);
         if (std::none_of(stock_.begin(), stock_.end(), [&item](const auto& ptr) { return *ptr == item; })) {
             stock_.emplace_back(std::make_unique<Item>(item));
             i++;

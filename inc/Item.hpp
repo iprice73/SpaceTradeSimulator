@@ -16,5 +16,11 @@ private:
 public:
     Item(const std::string& name, int basePrice, int amount, Rarity rarity);
 
+    void setRarity(Rarity rarity);
+
+    // Override from Cargo
     int getPrice() const override;
+
+    // Override from Time
+    void nextDay(int days) override;
 };
