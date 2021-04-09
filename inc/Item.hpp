@@ -4,9 +4,9 @@
 
 enum class Rarity {
     common = 1,
-    rare = 5,
-    epic = 15,
-    legendary = 25
+    rare = 2,
+    epic = 4,
+    legendary = 8
 };
 
 class Item : public Cargo {
