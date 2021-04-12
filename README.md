@@ -1,4 +1,4 @@
-Console game to develop my OOP skills. UI is not that pretty but it doesnt't matter. Game is still in development and I have no idea when whill i finish this.
+Console game to develop my OOP skills. UI is not that pretty but it doesnt't matter. Game is still in development and I have no idea when will I finish this.
 
 # Running game
 After entering game directory type following commands  
