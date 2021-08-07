@@ -21,14 +21,8 @@ void Ship::unload(const std::unique_ptr<Cargo>& cargo, int amount) {
     removeCargo(cargo, amount);
 }
 
-void Ship::changePrice(const std::unique_ptr<Cargo>& cargo) {
-    if (auto it(std::find_if(stock_.begin(), stock_.end(),
-                             [&cargo](const auto& ptr) {
-                                 return cargo->getName() == ptr->getName();
-                             }));
-        it != stock_.end()) {
-        (*it)->setPrice(cargo->getPrice());
-    }
+void Ship::changePrice([[maybe_unused]] const std::unique_ptr<Cargo>& cargo) {
+    // TODO
 }
 
 std::unique_ptr<Cargo> Ship::getCargo(size_t index, int amount) {
