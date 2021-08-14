@@ -29,7 +29,6 @@ Store::Store(const std::shared_ptr<Time>& time)
     : time_(time) {
     m_stock.reserve(marketSection * cargoTypes);
     generateCargos();
-    setPricesBaseOnAmount();
     time_->addObserver(this);
 }
 
