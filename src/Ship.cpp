@@ -24,8 +24,8 @@ void Ship::unload(const cargo_ptr& cargo, int amount) {
 void Ship::changePrice(const cargo_ptr& cargo) {
     int amount = cargo->getAmount();
     int price = cargo->getBasePrice();
-    auto it = std::find_if(stock_.begin(), stock_.end(), [&cargo](const auto& el) { return *el == *cargo; });
-    if (it != stock_.end()) {
+    auto it = std::find_if(m_stock.begin(), m_stock.end(), [&cargo](const auto& el) { return *el == *cargo; });
+    if (it != m_stock.end()) {
         (*it)->setBasePrice(price - (price * amount / 30));
     }
     cargo->setBasePrice(price - (price * amount / 30));
@@ -35,8 +35,8 @@ cargo_ptr Ship::getCargo(size_t index, int amount) {
     auto re = validation(index, amount);
     cargo_ptr cargo{};
     if (re == Response::Done) {
-        cargo = stock_[index]->clone(amount);
-        unload(stock_[index], amount);
+        cargo = m_stock[index]->clone(amount);
+        unload(m_stock[index], amount);
     }
     std::cout << handleResponse(re) << '\n';
 
@@ -44,7 +44,7 @@ cargo_ptr Ship::getCargo(size_t index, int amount) {
 }
 
 void Ship::nextDay(int days) {
-    for (const auto& ptr : stock_) {
+    for (const auto& ptr : m_stock) {
         ptr->nextDay(days);
     }
 }

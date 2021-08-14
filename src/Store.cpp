@@ -27,7 +27,7 @@ std::map<std::string, int> spiceData {
 
 Store::Store(const std::shared_ptr<Time>& time)
     : time_(time) {
-    stock_.reserve(marketSection * cargoTypes);
+    m_stock.reserve(marketSection * cargoTypes);
     generateCargos();
     setPricesBaseOnAmount();
     time_->addObserver(this);
@@ -38,7 +38,7 @@ Store::~Store() {
 }
 
 void Store::preparePrices(const std::unique_ptr<Player>& player) {
-    for (const auto& ptr : stock_) {
+    for (const auto& ptr : m_stock) {
         player->notifyAboutPrice(ptr);
     }
 }
@@ -57,8 +57,8 @@ void Store::generateAlcos() {
         auto item = alcoData.begin();
         std::advance(item, getRand(0, static_cast<int>(alcoData.size()) - 1));
         Alcohol alco(item->first, baseAlcoPrice_, getRand(1, 30), item->second);
-        if (std::none_of(stock_.begin(), stock_.end(), [&alco](const auto& ptr) { return *ptr == alco; })) {
-            stock_.emplace_back(std::make_unique<Alcohol>(alco));
+        if (std::none_of(m_stock.begin(), m_stock.end(), [&alco](const auto& ptr) { return *ptr == alco; })) {
+            m_stock.emplace_back(std::make_unique<Alcohol>(alco));
             i++;
         }
     }
@@ -69,8 +69,8 @@ void Store::generateItems() {
     size_t i = 0;
     while (i < marketSection) {
         Item item(itemNames[getRand(0, 3)], getRand(10, 25), getRand(1, 10), Rarity::common);
-        if (std::none_of(stock_.begin(), stock_.end(), [&item](const auto& ptr) { return *ptr == item; })) {
-            stock_.emplace_back(std::make_unique<Item>(item));
+        if (std::none_of(m_stock.begin(), m_stock.end(), [&item](const auto& ptr) { return *ptr == item; })) {
+            m_stock.emplace_back(std::make_unique<Item>(item));
             i++;
         }
     }
@@ -82,15 +82,15 @@ void Store::generateSpices() {
         auto item = spiceData.begin();
         std::advance(item, getRand(0, static_cast<int>(spiceData.size()) - 1));
         Spice spice(item->first, getRand(250, 300), getRand(1, 10), item->second);
-        if (std::none_of(stock_.begin(), stock_.end(), [&spice](const auto& ptr) { return *ptr == spice; })) {
-            stock_.emplace_back(std::make_unique<Spice>(spice));
+        if (std::none_of(m_stock.begin(), m_stock.end(), [&spice](const auto& ptr) { return *ptr == spice; })) {
+            m_stock.emplace_back(std::make_unique<Spice>(spice));
             i++;
         }
     }
 }
 
 void Store::generateCargos() {
-    stock_.clear();
+    m_stock.clear();
     generateAlcos();
     generateItems();
     generateSpices();
@@ -99,10 +99,10 @@ void Store::generateCargos() {
 void Store::purchaseCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {
     auto re = validation(index, amount, player->getMoney(), player->getSpace());
     if (re == Response::Done) {
-        int price = amount * stock_[index]->getPrice();
-        player->buy(stock_[index]->clone(amount));
+        int price = amount * m_stock[index]->getPrice();
+        player->buy(m_stock[index]->clone(amount));
         *player -= price;
-        removeCargo(stock_[index], amount);
+        removeCargo(m_stock[index], amount);
     }
     std::cout << handleResponse(re) << '\n';
 }

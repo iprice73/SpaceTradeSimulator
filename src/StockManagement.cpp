@@ -5,10 +5,10 @@
 
 void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
     int amount = cargo->getAmount();
-    if (auto existingCargoIt (std::find_if(stock_.begin(), stock_.end(),
+    if (auto existingCargoIt (std::find_if(m_stock.begin(), m_stock.end(),
                                             [&cargo](const auto& ptr) { return *ptr == *cargo; }));
-        existingCargoIt == stock_.end()) {
-        stock_.push_back(std::move(cargo));
+        existingCargoIt == m_stock.end()) {
+        m_stock.push_back(std::move(cargo));
     } else {
         **existingCargoIt += amount;
     }
@@ -16,30 +16,30 @@ void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
 
 void StockManagement::removeCargo(const std::unique_ptr<Cargo>& cargo, int amount) {
     if (cargo->getAmount() == amount) {
-        stock_.erase(std::remove(stock_.begin(), stock_.end(), cargo), stock_.end());
+        m_stock.erase(std::remove(m_stock.begin(), m_stock.end(), cargo), m_stock.end());
     } else {
         *cargo -= amount;
     }
 }
 
 void StockManagement::setPricesBaseOnAmount() {
-    // for (const auto& el : stock_) {
+    // for (const auto& el : m_stock) {
     //     // int price = maxAlcoAmount / el->getAmount() * el->getBasePrice();
     //     // el->setPrice(10);
     // }
 }
 
 Response StockManagement::validation(size_t index, int amount, int money, int space) const {
-    if (index >= stock_.size()) {
+    if (index >= m_stock.size()) {
         return Response::InvalidIndex;
     }
-    if (amount <= 0 || amount > stock_[index]->getAmount()) {
+    if (amount <= 0 || amount > m_stock[index]->getAmount()) {
         return Response::InvalidAmount;
     }
     if (space != -1 && amount > space) {
         return Response::LackOfSpace;
     }
-    if (money != -1 && stock_[index]->getPrice() * amount > money) {
+    if (money != -1 && m_stock[index]->getPrice() * amount > money) {
         return Response::LackOfMoney;
     }
 
@@ -75,7 +75,7 @@ std::ostream& operator<<(std::ostream& out, const StockManagement& stock) {
         << "||\n"
         << horizontalSeparator << "\n";
 
-    for (const auto& el : stock.stock_) {
+    for (const auto& el : stock.m_stock) {
         out << "|| "
             << std::setw(2) << ++i << ". "
             << std::setw(17) << std::left << el->getName();

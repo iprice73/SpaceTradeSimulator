@@ -18,7 +18,7 @@ enum class Response {
 };
 class StockManagement {
 protected:
-    std::vector<std::unique_ptr<Cargo>> stock_{};
+    std::vector<std::unique_ptr<Cargo>> m_stock{};
 
     void addCargo(std::unique_ptr<Cargo>&& cargo);
     void removeCargo(const std::unique_ptr<Cargo>& cargo, int amount);
