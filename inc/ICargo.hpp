@@ -21,6 +21,7 @@ public:
     std::string getName() const { return name_; }
     int getBasePrice() const { return basePrice_; }
     int getAmount() const { return amount_; }
+    void setBasePrice(int newPrice) { basePrice_ = newPrice; };
 
     virtual int getPrice() const = 0;
     virtual std::unique_ptr<Cargo> clone(int amount) const = 0;
