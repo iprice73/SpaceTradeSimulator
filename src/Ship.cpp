@@ -22,14 +22,14 @@ void Ship::unload(const std::unique_ptr<Cargo>& cargo, int amount) {
 }
 
 void Ship::changePrice([[maybe_unused]] const std::unique_ptr<Cargo>& cargo) {
-    // TODO
+    
 }
 
 std::unique_ptr<Cargo> Ship::getCargo(size_t index, int amount) {
     auto re = validation(index, amount);
-    std::unique_ptr<Cargo> cargo = nullptr;
+    std::unique_ptr<Cargo> cargo{};
     if (re == Response::Done) {
-        cargo = makeNewCargo(stock_[index], amount);
+        cargo = stock_[index]->clone(amount);
         unload(stock_[index], amount);
     }
     std::cout << handleRespone(re) << '\n';

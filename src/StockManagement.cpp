@@ -3,25 +3,6 @@
 #include <algorithm>
 #include <iomanip>
 
-std::unique_ptr<Cargo> StockManagement::makeNewCargo(const std::unique_ptr<Cargo>& oldCargo, int amount) const {
-    std::string name = oldCargo->getName();
-    int basePrice = oldCargo->getBasePrice();
-    int price = oldCargo->getPrice();
-
-    if (typeid(*oldCargo) == typeid(Alcohol)) {
-        Alcohol alco(name, basePrice, amount, price * spiritus / basePrice);
-        return std::make_unique<Alcohol>(alco);
-    } else if (typeid(*oldCargo) == typeid(Item)) {
-        Item item(name, basePrice, amount, static_cast<Rarity>(price / basePrice));
-        return std::make_unique<Item>(item);
-    } else if (typeid(*oldCargo) == typeid(Spice)) {
-        Spice spice(name, basePrice, amount, price * bestPurity / basePrice);
-        return std::make_unique<Spice>(spice);
-    }
-
-    return nullptr;
-}
-
 void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
     int amount = cargo->getAmount();
     if (auto existingCargoIt (std::find_if(stock_.begin(), stock_.end(),
@@ -42,10 +23,10 @@ void StockManagement::removeCargo(const std::unique_ptr<Cargo>& cargo, int amoun
 }
 
 void StockManagement::setPricesBaseOnAmount() {
-    for (const auto& el : stock_) {
-        int price = maxAlcoAmount / el->getAmount() * el->getBasePrice();
-        el->setPrice(price);
-    }
+    // for (const auto& el : stock_) {
+    //     // int price = maxAlcoAmount / el->getAmount() * el->getBasePrice();
+    //     // el->setPrice(10);
+    // }
 }
 
 Response StockManagement::validation(size_t index, int amount, int money, int space) const {
