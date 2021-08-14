@@ -32,7 +32,7 @@ std::unique_ptr<Cargo> Ship::getCargo(size_t index, int amount) {
         cargo = stock_[index]->clone(amount);
         unload(stock_[index], amount);
     }
-    std::cout << handleRespone(re) << '\n';
+    std::cout << handleResponse(re) << '\n';
 
     return cargo;
 }

@@ -46,7 +46,7 @@ Response StockManagement::validation(size_t index, int amount, int money, int sp
     return Response::Done;
 }
 
-std::string StockManagement::handleRespone(Response re) const {
+std::string StockManagement::handleResponse(Response re) const {
     switch (re) {
     case Response::InvalidIndex:
         return "\033[1;31mEnter proper index.\033[0m";

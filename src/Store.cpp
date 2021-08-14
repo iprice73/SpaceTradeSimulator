@@ -104,7 +104,7 @@ void Store::purchaseCargo(size_t index, int amount, const std::unique_ptr<Player
         *player -= price;
         removeCargo(stock_[index], amount);
     }
-    std::cout << handleRespone(re) << '\n';
+    std::cout << handleResponse(re) << '\n';
 }
 
 void Store::sellCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {
