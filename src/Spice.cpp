@@ -1,10 +1,15 @@
 #include "Spice.hpp"
 
 Spice::Spice(const std::string& name, int basePrice, int amount, int purity)
-    : Cargo(name, basePrice, amount), purity_(purity) {}
+    : Cargo(name, basePrice, amount), purity_(purity) {
+}
 
 int Spice::getPrice() const {
-    return static_cast<int>(basePrice_ * purity_ / bestPurity);
+    return basePrice_ * purity_;
+}
+
+cargo_ptr Spice::clone(int amount) const {
+    return std::make_unique<Spice>(name_, basePrice_, amount, purity_);
 }
 
 Spice& Spice::operator--() {
@@ -13,8 +18,8 @@ Spice& Spice::operator--() {
     return *this;
 }
 
-void Spice::nextDay(int days) {
-    for (int i = 0; i < days; i++) {
-        this->operator--();
-    }
+void Spice::nextDay([[maybe_unused]] int days) {
+    // for (int i = 0; i < days; i++) {
+    //     this->operator--();
+    // }
 }

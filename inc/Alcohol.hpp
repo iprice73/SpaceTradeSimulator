@@ -2,11 +2,10 @@
 
 #include "ICargo.hpp"
 
-constexpr double spiritus = 100.0;
-
 class Alcohol : public Cargo {
 private:
     double content_{};
+    const int maxAlcoAMount{30};
 
 public:
     Alcohol(const std::string&, int basePrice, int amount, double content);
@@ -16,6 +15,7 @@ public:
 
     // Override from Cargo
     int getPrice() const override;
+    cargo_ptr clone(int amount) const override;
 
     // Override from Time
     void nextDay(int days) override;

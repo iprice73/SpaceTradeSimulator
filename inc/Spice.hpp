@@ -1,9 +1,6 @@
 #pragma once
 
 #include "ICargo.hpp"
-
-constexpr int bestPurity = 100;
-
 class Spice : public Cargo {
 private:
     int purity_{};
@@ -14,6 +11,7 @@ public:
 
     // Override from Cargo
     int getPrice() const override;
+    cargo_ptr clone(int amount) const override;
 
     // Override form Time
     void nextDay(int days) override;

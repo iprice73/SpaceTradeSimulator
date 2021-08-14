@@ -8,19 +8,23 @@ void Item::setRarity(Rarity rarity) {
 }
 
 int Item::getPrice() const {
-    return basePrice_ * static_cast<int>(rarity_);
+    return basePrice_ *  static_cast<int>(rarity_);
 }
 
-void Item::nextDay(int days) {
-    static int lifeSpan = 0;
-    lifeSpan += days;
-    Rarity rare = Rarity::common;
-    if (lifeSpan >= 20 && lifeSpan < 40) {
-        rare = Rarity::rare;
-    } else if (lifeSpan >= 40 && lifeSpan < 60) {
-        rare = Rarity::epic;
-    } else if (lifeSpan >= 60) {
-        rare = Rarity::legendary;
-    }
-    setRarity(rare);
+cargo_ptr Item::clone(int amount) const {
+    return std::make_unique<Item>(name_, basePrice_, amount, rarity_);
+}
+
+void Item::nextDay([[maybe_unused]]int days) {
+    // static int lifeSpan = 0;
+    // lifeSpan += days;
+    // Rarity rare = Rarity::common;
+    // if (lifeSpan >= 40 && lifeSpan < 60) {
+    //     rare = Rarity::rare;
+    // } else if (lifeSpan >= 60 && lifeSpan < 100) {
+    //     rare = Rarity::epic;
+    // } else if (lifeSpan >= 100) {
+    //     rare = Rarity::legendary;
+    // }
+    // setRarity(rare);
 }

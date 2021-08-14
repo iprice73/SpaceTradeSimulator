@@ -1,8 +1,11 @@
 #pragma once
 
+#include <memory>
+#include <vector>
 #include <string>
 
 #include "Time.hpp"
+
 class Cargo : public Observer {
 protected:
     std::string name_{};
@@ -18,11 +21,9 @@ public:
     std::string getName() const { return name_; }
     int getBasePrice() const { return basePrice_; }
     int getAmount() const { return amount_; }
-    virtual int getPrice() const = 0;
 
-    void setPrice(int newPrice) {
-        basePrice_ = newPrice;
-    }
+    virtual int getPrice() const = 0;
+    virtual std::unique_ptr<Cargo> clone(int amount) const = 0;
 
     Cargo& operator-=(int newAmount) {
         amount_ -= newAmount;
@@ -38,3 +39,6 @@ public:
         return name_ == cargo.getName();
     }
 };
+
+using cargo_ptr = std::unique_ptr<Cargo>;
+using cargo_vec = std::vector<std::unique_ptr<Cargo>>;

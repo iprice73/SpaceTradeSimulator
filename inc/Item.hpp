@@ -20,6 +20,7 @@ public:
 
     // Override from Cargo
     int getPrice() const override;
+    cargo_ptr clone(int amount) const override;
 
     // Override from Time
     void nextDay(int days) override;
