@@ -62,7 +62,7 @@ void Store::generateCargo(const dataContainer& data, int basePrice) {
         std::advance(it, getRand(0, static_cast<int>(data.size()) - 1));
         cargoType cargo(it->first, basePrice, getRand(1, 30), it->second);
         if (std::none_of(m_stock.begin(), m_stock.end(), [&cargo](const auto& ptr) { return *ptr == cargo; })) {
-            m_stock.emplace_back(std::make_unique<cargoType>(cargo));
+            m_stock.push_back(std::make_unique<cargoType>(cargo));
             i++;
         }
     }
@@ -70,7 +70,7 @@ void Store::generateCargo(const dataContainer& data, int basePrice) {
 
 void Store::balancePricesBasedOnAmount() {
     for (const auto& cargo : m_stock) {
-        cargo->setBasePrice(cargo->getBasePrice() - (cargo->getBasePrice() * cargo->getAmount() / 31));  // double the amount of max
+        cargo->setBasePrice(cargo->getBasePrice() - (cargo->getBasePrice() * cargo->getAmount() / 31));  // 1 above max amount
     }
 }
 
@@ -78,7 +78,7 @@ void Store::generateStore() {
     m_stock.clear();
     generateCargo<Alcohol>(alcoData, 10);  // BaseAlcoPrice
     generateCargo<Item>(itemData, 50);     // BaseItemPrice
-    generateCargo<Spice>(spiceData, 100);   // BaseSpicePrice
+    generateCargo<Spice>(spiceData, 100);  // BaseSpicePrice
     balancePricesBasedOnAmount();
 }
 
@@ -102,4 +102,5 @@ void Store::sellCargo(size_t index, int amount, const std::unique_ptr<Player>& p
 
 void Store::nextDay([[maybe_unused]] int days) {
     generateStore();
+    
 }

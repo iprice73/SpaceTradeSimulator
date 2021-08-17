@@ -8,7 +8,7 @@ extern std::map<std::string, double> alcoData;
 
 class Store : public StockManagement, public Observer {
 private:
-    std::shared_ptr<Time> time_;
+    std::shared_ptr<Time> time_{};
 
     template <class cargoType, class dataContainer>
     void generateCargo(const dataContainer& data, int basePrice);
