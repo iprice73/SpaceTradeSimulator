@@ -36,10 +36,8 @@ Store::~Store() {
     time_->removeObserver(this);
 }
 
-void Store::preparePrices(const std::unique_ptr<Player>& player) {
-    for (const auto& ptr : m_stock) {
-        player->notifyAboutPrice(ptr);
-    }
+void Store::preparePrices(const std::unique_ptr<Player>& player) const {
+    player->notifyAboutPrice(m_stock);
 }
 
 int Store::getRand(int min, int max) {
@@ -88,11 +86,18 @@ void Store::generateSpices() {
     }
 }
 
+void Store::balancePricesBasedOnAmount() {
+    for (const auto& cargo : m_stock) {
+        cargo->setBasePrice(cargo->getBasePrice() - (cargo->getBasePrice() * cargo->getAmount() / 29));
+    }
+}
+
 void Store::generateCargos() {
     m_stock.clear();
     generateAlcos();
     generateItems();
     generateSpices();
+    balancePricesBasedOnAmount();
 }
 
 void Store::purchaseCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {

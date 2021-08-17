@@ -11,7 +11,7 @@ public:
     Alcohol(const std::string&, int basePrice, int amount, double content);
 
     double getContent() const { return content_; }
-    Alcohol& operator--();
+    void decreaseContent();
 
     // Override from Cargo
     int getPrice() const override;

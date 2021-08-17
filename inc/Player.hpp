@@ -18,7 +18,7 @@ public:
 
     void buy(std::unique_ptr<Cargo>&& cargo);
     std::unique_ptr<Cargo> sellCargo(size_t index, int amount);
-    void notifyAboutPrice(const std::unique_ptr<Cargo>& cargo) { ship_->changePrice(cargo); }
+    void notifyAboutPrice(const cargo_vec& storeStock) const { ship_->changePrice(storeStock); }
 
     Player& operator+=(int price);
     Player& operator-=(int price);

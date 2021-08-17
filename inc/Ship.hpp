@@ -31,7 +31,7 @@ public:
     EngineClass getEngine() const { return engine_; }
 
     void load(cargo_ptr&& cargo);
-    void changePrice(const cargo_ptr& cargo);
+    void changePrice(const cargo_vec& cargo);
 
     cargo_ptr getCargo(size_t index, int amount);
 

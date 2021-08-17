@@ -21,14 +21,12 @@ void Ship::unload(const cargo_ptr& cargo, int amount) {
     removeCargo(cargo, amount);
 }
 
-void Ship::changePrice(const cargo_ptr& cargo) {
-    int amount = cargo->getAmount();
-    int price = cargo->getBasePrice();
-    auto it = std::find_if(m_stock.begin(), m_stock.end(), [&cargo](const auto& el) { return *el == *cargo; });
-    if (it != m_stock.end()) {
-        (*it)->setBasePrice(price - (price * amount / 30));
+void Ship::changePrice(const cargo_vec& cargoStock) {
+    for (const auto& shipCargo : m_stock) {
+        auto it = std::find_if(cargoStock.begin(), cargoStock.end(), [&shipCargo](const auto& cargo) { return *shipCargo == *cargo; });
+        int price = (it != cargoStock.end()) ? (*it)->getBasePrice() : shipCargo->getBasePrice() * 2;
+        shipCargo->setBasePrice(price);
     }
-    cargo->setBasePrice(price - (price * amount / 30));
 }
 
 cargo_ptr Ship::getCargo(size_t index, int amount) {

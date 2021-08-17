@@ -12,14 +12,12 @@ cargo_ptr Alcohol::clone(int amount) const {
     return std::make_unique<Alcohol>(name_, basePrice_, amount, content_);
 }
 
-Alcohol& Alcohol::operator--() {
-    content_ > 0.0 ? content_ -= 0.5 : basePrice_ = 0;
-
-    return *this;
+void Alcohol::decreaseContent() {
+    content_ > 0.0 ? content_ -= 0.02 : basePrice_ = 0;
 }
 
-void Alcohol::nextDay([[maybe_unused]] int days) {
-    // for (int i = 0; i < days; i++) {
-    //     this->operator--();
-    // }
+void Alcohol::nextDay(int days) {
+    for (int i = 0; i < days; i++) {
+        decreaseContent();
+    }
 }
