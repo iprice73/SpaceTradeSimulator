@@ -77,8 +77,8 @@ void Store::balancePricesBasedOnAmount() {
 void Store::generateStore() {
     m_stock.clear();
     generateCargo<Alcohol>(alcoData, 10);  // BaseAlcoPrice
-    generateCargo<Item>(itemData, 20);     // BaseItemPrice
-    generateCargo<Spice>(spiceData, 40);   // BaseSpicePrice
+    generateCargo<Item>(itemData, 50);     // BaseItemPrice
+    generateCargo<Spice>(spiceData, 100);   // BaseSpicePrice
     balancePricesBasedOnAmount();
 }
 
