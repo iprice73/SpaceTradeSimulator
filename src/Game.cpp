@@ -17,7 +17,7 @@ size_t Game::menu() const {
     return choice;
 }
 
-void Game::optionHandler(size_t op) {
+bool Game::optionHandler(size_t op) {
     switch (op) {
     case 1:
         buyOp();
@@ -29,11 +29,12 @@ void Game::optionHandler(size_t op) {
         travelOp();
         break;
     case 4:
-        exit(0);
+        return false;
     default:
         std::cout << "\n\033[1;31mInvalid option.\033[0m\n";
-        break;
+        return false;
     }
+    return true;
 }
 
 void Game::buyOp() {
@@ -107,8 +108,9 @@ void Game::run() {
     while (1) {
         if (int money(player_->getMoney()); money < 10'000 && money > 0) {
             printInfo();
-            size_t op = menu();
-            optionHandler(op);
+            if(!optionHandler(menu())) {
+                break;
+            }
         } else if (money > 10'000) {
             printWinScreen();
             break;

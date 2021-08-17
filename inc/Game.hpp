@@ -10,7 +10,7 @@ private:
     std::unique_ptr<Player> player_{};
 
     size_t menu() const;
-    void optionHandler(size_t op);
+    bool optionHandler(size_t op);
     void travelOp();
     void buyOp();
     void sellOp();
