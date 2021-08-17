@@ -1,15 +1,15 @@
 #pragma once
 
 #include "Ship.hpp"
-
-class Store;
-class Player {
+class Player : public Observer {
 private:
-    int money_ = 100;
-    std::unique_ptr<Ship> ship_;
+    std::shared_ptr<Time> time_{};
+    int money_{};
+    std::unique_ptr<Ship> ship_{};
 
 public:
     Player(const std::shared_ptr<Time>& time, int money);
+    ~Player();
 
     int getMoney() const { return money_; }
     int getSpace() const { return ship_->getAvaiableSpace(); }
@@ -19,6 +19,9 @@ public:
     void buy(std::unique_ptr<Cargo>&& cargo);
     std::unique_ptr<Cargo> sellCargo(size_t index, int amount);
     void notifyAboutPrice(const cargo_vec& storeStock) const { ship_->changePrice(storeStock); }
+
+    // Override from Time
+    void nextDay(int days) override { ship_->nextDay(days); }
 
     Player& operator+=(int price);
     Player& operator-=(int price);

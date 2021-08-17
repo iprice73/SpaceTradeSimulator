@@ -2,13 +2,8 @@
 
 #include <algorithm>
 
-Ship::Ship(const std::shared_ptr<Time>& time, const std::string& name, int crewSize, int avaiableSpace, EngineClass engine)
-    : time_(time), name_(name), crewSize_(crewSize), avaiableSpace_(avaiableSpace), engine_(engine) {
-    time_->addObserver(this);
-}
-
-Ship::~Ship() {
-    time_->removeObserver(this);
+Ship::Ship(const std::string& name, int crewSize, int avaiableSpace, EngineClass engine)
+    : name_(name), crewSize_(crewSize), avaiableSpace_(avaiableSpace), engine_(engine) {
 }
 
 void Ship::load(cargo_ptr&& cargo) {

@@ -1,7 +1,13 @@
 #include "Player.hpp"
 
 Player::Player(const std::shared_ptr<Time>& time, int money)
-    : money_(money), ship_(std::make_unique<Ship>(time)) {}
+    : time_(time), money_(money), ship_(std::make_unique<Ship>()) {
+        time_->addObserver(this);
+    }
+
+Player::~Player() {
+    time_->removeObserver(this);
+}
 
 void Player::buy(std::unique_ptr<Cargo>&& cargo) {
     getShip()->load(std::move(cargo));
