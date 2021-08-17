@@ -88,7 +88,7 @@ void Store::generateSpices() {
 
 void Store::balancePricesBasedOnAmount() {
     for (const auto& cargo : m_stock) {
-        cargo->setBasePrice(cargo->getBasePrice() - (cargo->getBasePrice() * cargo->getAmount() / 29));
+        cargo->setBasePrice(cargo->getBasePrice() - (cargo->getBasePrice() * cargo->getAmount() / 31)); // double the amount of max
     }
 }
 
