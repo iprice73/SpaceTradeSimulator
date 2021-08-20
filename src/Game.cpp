@@ -106,7 +106,7 @@ void Game::printLoseScreen() const {
 void Game::run() {
     planets_->orbit(Store::getRand(100, 300));
     while (1) {
-        if (int money(player_->getMoney()); money < 10'000 && money > 0) {
+        if (int money(player_->getMoney()); money < 100'000 && money > 0) {
             printInfo();
             if(!optionHandler(menu())) {
                 break;

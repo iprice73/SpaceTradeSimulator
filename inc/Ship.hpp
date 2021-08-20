@@ -8,7 +8,7 @@ enum class EngineClass {
     Antygravity = 10,
     DarkMatter = 25,
     Alcubierre = 100,
-    ImpropabilityDrive = 9999
+    ImpropabilityDrive = 42000
 };
 
 class Ship : public StockManagement {
@@ -27,6 +27,11 @@ public:
     int getCrew() const { return crewSize_; }
     int getAvaiableSpace() const { return avaiableSpace_; }
     EngineClass getEngine() const { return engine_; }
+
+    void setName(const std::string& newName) { name_ = newName; }
+    void setCrew(int newCrew) { crewSize_ = newCrew; }
+    void setSpace(int amount) { avaiableSpace_ = amount; }
+    void setEngine(EngineClass newEngine) { engine_ = newEngine; }
 
     void load(cargo_ptr&& cargo);
     void changePrice(const cargo_vec& cargo);

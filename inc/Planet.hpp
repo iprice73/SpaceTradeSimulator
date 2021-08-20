@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Docks.hpp"
 #include "Store.hpp"
 #include "Time.hpp"
 
@@ -10,6 +11,7 @@ private:
     double posX_{};
     double posY_{};
     std::unique_ptr<Store> store_{};
+    std::unique_ptr<SpaceCraftStore> space_store_{};
 
 public:
     Planet(const std::shared_ptr<Time>& time, const std::string& name = "Earth", double AU = 1.0, double posX = 1, double PosY = 1);

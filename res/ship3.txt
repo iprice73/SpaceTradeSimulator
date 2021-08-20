@@ -1,0 +1,5 @@
+USSEnterprise
+50
+50
+DarkMatter
+20000

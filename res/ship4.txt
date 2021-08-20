@@ -1,0 +1,5 @@
+Prometheus
+40
+30
+Antygravity
+10000
