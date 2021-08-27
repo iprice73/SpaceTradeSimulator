@@ -5,7 +5,8 @@
 
 namespace fs = std::filesystem;
 
-SpaceCraftStore::SpaceCraftStore() {
+SpaceCraftStore::SpaceCraftStore(StoreClass storeClass)
+    : m_class(storeClass) {
     generateShips();
 }
 
@@ -32,15 +33,25 @@ void SpaceCraftStore::parseShipFromFile(const std::string& path) {
     m_ships[std::make_unique<Ship>(name, crew, space, engineData[engine])] = price;
 }
 
-void SpaceCraftStore::loadFromFile() {
+void SpaceCraftStore::loadFromFile(const std::string& category) {
     fs::path path{"../res/"};
     for (const auto& dirEntry : fs::directory_iterator(path)) {
-        parseShipFromFile(dirEntry.path().string());
+        if (dirEntry.path().string().find(category) != std::string::npos) {
+            parseShipFromFile(dirEntry.path().string());
+        }
     }
 }
 
 void SpaceCraftStore::generateShips() {
-    loadFromFile();
+    switch (m_class) {
+    case StoreClass::Basic:
+        loadFromFile("basic");
+        break;
+    case StoreClass::Advanced:
+        loadFromFile("advanced");
+    default:
+        break;
+    }
 }
 
 void SpaceCraftStore::printShips() const {
@@ -53,7 +64,6 @@ void SpaceCraftStore::printShips() const {
 }
 
 void SpaceCraftStore::buyEngine([[maybe_unused]] const std::unique_ptr<Player>& player) {
-    
 }
 
 void SpaceCraftStore::buyShip([[maybe_unused]] const std::unique_ptr<Player>& player) {
