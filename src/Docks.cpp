@@ -34,7 +34,7 @@ void SpaceCraftStore::parseShipFromFile(const std::string& path) {
 }
 
 void SpaceCraftStore::loadFromFile(const std::string& category) {
-    fs::path path{"../res/"};
+    const fs::path path{"../res/"};
     for (const auto& dirEntry : fs::directory_iterator(path)) {
         if (dirEntry.path().string().find(category) != std::string::npos) {
             parseShipFromFile(dirEntry.path().string());
