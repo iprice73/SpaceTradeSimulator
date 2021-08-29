@@ -58,8 +58,7 @@ template <class cargoType, class dataContainer>
 void Store::generateCargo(const dataContainer& data, int basePrice) {
     size_t i = 0;
     while (i < marketSection) {
-        auto it = data.begin();
-        std::advance(it, getRand(0, static_cast<int>(data.size()) - 1));
+        auto it = std::next(data.begin(), getRand(0, static_cast<int>(data.size()) - 1));
         cargoType cargo(it->first, basePrice, getRand(1, 30), it->second);
         if (std::none_of(m_stock.begin(), m_stock.end(), [&cargo](const auto& ptr) { return *ptr == cargo; })) {
             m_stock.push_back(std::make_unique<cargoType>(cargo));
