@@ -2,13 +2,17 @@
 
 #include <filesystem>
 #include <fstream>
+#include <map>
 
 namespace fs = std::filesystem;
 
-SpaceCraftStore::SpaceCraftStore(StoreClass storeClass)
-    : m_class(storeClass) {
-    generateShips();
-}
+const std::map<Response, std::string> messages{
+    {Response::EmptyStore, "Store is empty."},
+    {Response::InvalidIndex, "Invalid index."},
+    {Response::SameCargo, "You already have that ship."},
+    {Response::InvalidAmount, "You need ship with more storage space."},
+    {Response::LackOfMoney, "Youd don't have enough money."},
+    {Response::Done, "Transaction completed."}};
 
 std::map<std::string, EngineClass> engineData{
     {"ChemicalFuel", EngineClass::ChemicalFuel},
@@ -16,6 +20,11 @@ std::map<std::string, EngineClass> engineData{
     {"DarkMatter", EngineClass::DarkMatter},
     {"Alcubierre", EngineClass::Alcubierre},
     {"ImpropabilityDrive", EngineClass::ImpropabilityDrive}};
+
+SpaceCraftStore::SpaceCraftStore(StoreClass storeClass)
+    : m_class(storeClass) {
+    generateShips();
+}
 
 void SpaceCraftStore::parseShipFromFile(const std::string& path) {
     std::fstream file;
@@ -43,19 +52,10 @@ void SpaceCraftStore::loadFromFile(const std::string& category) {
 }
 
 void SpaceCraftStore::generateShips() {
-    switch (m_class) {
-    case StoreClass::Basic:
-        loadFromFile("basic");
-        break;
-    case StoreClass::Advanced:
-        loadFromFile("advanced");
-    default:
-        break;
-    }
+    loadFromFile((m_class == StoreClass::Basic) ? "basic" : "advanced");
 }
 
 void SpaceCraftStore::printShips() const {
-    std::cout << "Avaiable ships:\n";
     size_t i = 1;
     for (const auto& el : m_ships) {
         auto&& ship = el.first;
@@ -63,8 +63,44 @@ void SpaceCraftStore::printShips() const {
     }
 }
 
-void SpaceCraftStore::buyEngine([[maybe_unused]] const std::unique_ptr<Player>& player) {
+void SpaceCraftStore::editShip(const std::unique_ptr<Player>& player, const std::unique_ptr<Ship>& newShip) const {
+    player->getShip()->setName(newShip->getName());
+    player->getShip()->setCrew(newShip->getCrew());
+    player->getShip()->setSpace(newShip->getAvaiableSpace());
+    player->getShip()->setEngine(newShip->getEngine());
 }
 
-void SpaceCraftStore::buyShip([[maybe_unused]] const std::unique_ptr<Player>& player) {
+auto SpaceCraftStore::getShip(size_t index) const {
+    return std::next(m_ships.begin(), index);
+}
+
+Response SpaceCraftStore::validation(const std::unique_ptr<Player>& player, size_t index) const {
+    if (m_ships.empty()) {
+        return Response::EmptyStore;
+    } else if (index > m_ships.size()) {
+        return Response::InvalidIndex;
+    } else if (player->getMoney() < getShip(index)->second) {
+        return Response::LackOfMoney;
+    } else if (*player->getShip() == *getShip(index)->first) {
+        return Response::SameCargo;
+    } else if (player->getSpace() > getShip(index)->first->getAvaiableSpace()) {
+        return Response::InvalidAmount;
+    }
+
+    return Response::Done;
+}
+
+// TODO: empty stores both space and cargo
+void SpaceCraftStore::buyShip(const std::unique_ptr<Player>& player, size_t index) {
+    auto re = validation(player, index);
+    if (re == Response::Done) {
+        auto shipPtr = getShip(index);
+        editShip(player, shipPtr->first);
+        m_ships.erase(shipPtr->first);
+        *player -= shipPtr->second;
+    }
+    std::cout << messages.at(re) << '\n';
+}
+
+void SpaceCraftStore::buyEngine([[maybe_unused]] const std::unique_ptr<Player>& player) {
 }
