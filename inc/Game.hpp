@@ -13,6 +13,7 @@ private:
     bool optionHandler(size_t op);
     void travelOp();
     void buyOp();
+    void buyShipOp();
     void sellOp();
     void printInfo() const;
     void printWinScreen() const;

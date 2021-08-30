@@ -14,8 +14,11 @@ enum class Response {
     LackOfMoney,
     LackOfSpace,
     InvalidAmount,
-    InvalidIndex
+    InvalidIndex,
+    EmptyStore,
+    SameCargo
 };
+
 class StockManagement {
 protected:
     std::vector<std::unique_ptr<Cargo>> m_stock{};
