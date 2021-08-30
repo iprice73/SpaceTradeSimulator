@@ -15,14 +15,18 @@ const std::vector<std::pair<std::string, float>> planetsData{
     {"Uranus", 19.18f},
     {"Neptune", 30.06f}};
 
-SolarSystem::SolarSystem(const std::shared_ptr<Time>& time) : time_(time) {
+SolarSystem::SolarSystem(const std::shared_ptr<Time>& time)
+    : time_(time) {
     bigBang(time);
     currPlanet_ = planets_[2];
 }
 
 void SolarSystem::bigBang(const std::shared_ptr<Time>& time) {
     for (const auto& planet : planetsData) {
-        planets_.emplace_back(std::make_shared<Planet>(time, planet.first, planet.second));
+        planets_.emplace_back(std::make_shared<Planet>(time,
+                                                       planet.first,
+                                                       planet.second,
+                                                       (planet.first == "Jupyter") ? StoreClass::Advanced : StoreClass::Basic));
     }
 }
 
