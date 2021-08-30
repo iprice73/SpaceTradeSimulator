@@ -19,6 +19,7 @@ private:
     EngineClass engine_{};
 
     void unload(const cargo_ptr& cargo, int amount);
+    int calculateAvaiableSpace(int newSpace) const;
 
 public:
     Ship(const std::string& name = "fajerwerka", int crewSize = 5, int avaiableSpace = 10, EngineClass engine = EngineClass::DarkMatter);
@@ -30,13 +31,15 @@ public:
 
     void setName(const std::string& newName) { name_ = newName; }
     void setCrew(int newCrew) { crewSize_ = newCrew; }
-    void setSpace(int amount) { avaiableSpace_ = amount; }
     void setEngine(EngineClass newEngine) { engine_ = newEngine; }
+    void setSpace(int amount);
 
     void load(cargo_ptr&& cargo);
     void changePrice(const cargo_vec& cargo);
 
     cargo_ptr getCargo(size_t index, int amount);
+    bool operator==(const Ship& ship) { return name_ == ship.getName(); }
+    bool operator!=(const Ship& ship) { return name_ != ship.getName(); }
 
     void nextDay(int days);
 };

@@ -6,6 +6,17 @@ Ship::Ship(const std::string& name, int crewSize, int avaiableSpace, EngineClass
     : name_(name), crewSize_(crewSize), avaiableSpace_(avaiableSpace), engine_(engine) {
 }
 
+int Ship::calculateAvaiableSpace(int newSpace) const {
+    for (const auto& cargo : m_stock) {
+        newSpace -= cargo->getAmount();
+    }
+    return newSpace;
+}
+
+void Ship::setSpace(int newSpace) {
+    avaiableSpace_ = calculateAvaiableSpace(newSpace);
+}
+
 void Ship::load(cargo_ptr&& cargo) {
     avaiableSpace_ -= cargo->getAmount();
     addCargo(std::move(cargo));
