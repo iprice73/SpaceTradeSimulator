@@ -10,11 +10,11 @@ public:
 class Time {
 private:
     std::list<Observer*> observer_{};
-    size_t time_{};
+    std::size_t time_{};
 
 public:
     Time();
-    size_t getTime() const { return time_; }
+    std::size_t getTime() const { return time_; }
 
     void addObserver(Observer* obs);
     void removeObserver(Observer* obs);
