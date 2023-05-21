@@ -8,18 +8,12 @@
 #include "Alcohol.hpp"
 #include "Item.hpp"
 #include "Spice.hpp"
-
-enum class Response {
-    Done,
-    LackOfMoney,
-    LackOfSpace,
-    InvalidAmount,
-    InvalidIndex,
-    EmptyStore,
-    SameCargo
-};
+#include "Validator.hpp"
 
 class StockManagement {
+    private:
+    std::vector<std::shared_ptr<IValidator>> setupValidators() const;
+    void setupChain(const std::vector<std::shared_ptr<IValidator>>& validators) const;
 protected:
     std::vector<std::unique_ptr<Cargo>> m_stock{};
 

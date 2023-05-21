@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <iomanip>
 
+#include "Chains.hpp"
+
 void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
     int amount = cargo->getAmount();
     if (auto existingCargoIt (std::find_if(m_stock.begin(), m_stock.end(),
@@ -23,20 +25,28 @@ void StockManagement::removeCargo(const std::unique_ptr<Cargo>& cargo, int amoun
 }
 
 Response StockManagement::validation(size_t index, int amount, int money, int space) const {
-    if (index >= m_stock.size()) {
-        return Response::InvalidIndex;
-    }
-    if (amount <= 0 || amount > m_stock[index]->getAmount()) {
-        return Response::InvalidAmount;
-    }
-    if (space != -1 && amount > space) {
-        return Response::LackOfSpace;
-    }
-    if (money != -1 && m_stock[index]->getPrice() * amount > money) {
-        return Response::LackOfMoney;
-    }
+    auto validators = setupValidators();
+    setupChain(validators);
+    DealContext context{index, amount, money, space, m_stock};
 
-    return Response::Done;
+    return validators[0]->handle(context);
+}
+
+std::vector<std::shared_ptr<IValidator>> StockManagement::setupValidators() const {
+    std::vector<std::shared_ptr<IValidator>> validators{};
+
+    validators.push_back(std::make_shared<IndexValidator>());
+    validators.push_back(std::make_shared<AmountValidator>());
+    validators.push_back(std::make_shared<SpaceValidator>());
+    validators.push_back(std::make_shared<MoneyValidator>());
+
+    return validators;
+}
+
+void StockManagement::setupChain(const std::vector<std::shared_ptr<IValidator>>& validators) const {
+    for (std::size_t i = 0; i < validators.size() - 1; i++) {
+        validators[i]->setNextValidator(validators[i + 1]);
+    }
 }
 
 std::string StockManagement::handleResponse(Response re) const {

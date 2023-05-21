@@ -18,6 +18,8 @@ set(SRC
     src/Game.cpp
     src/Time.cpp
     src/Docks.cpp
+    src/Validator.cpp
+    src/Chains.cpp
 )
 
 set(FLAGS
