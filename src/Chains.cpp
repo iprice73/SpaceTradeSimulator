@@ -15,7 +15,7 @@ Response AmountValidator::validate(const DealContext& context) {
 }
 
 Response SpaceValidator::validate(const DealContext& context) {
-    if (context.amount > context.space) {
+    if (context.amount > context.space && context.space != -1) {
         return Response::LackOfSpace;
     }
     return Response::Done;
@@ -23,7 +23,7 @@ Response SpaceValidator::validate(const DealContext& context) {
 
 Response MoneyValidator::validate(const DealContext& context) {
     int money_need = context.stock[context.index]->getPrice() * context.amount;
-    if (context.money < money_need) {
+    if (context.money < money_need && context.money != -1) {
         return Response::LackOfMoney;
     }
     return Response::Done;

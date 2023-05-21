@@ -24,7 +24,7 @@ void Ship::load(cargo_ptr&& cargo) {
 
 void Ship::unload(const cargo_ptr& cargo, int amount) {
     avaiableSpace_ += amount;
-    removeCargo(cargo, amount);
+    subtractCargo(cargo, amount);
 }
 
 void Ship::changePrice(const cargo_vec& cargoStock) {

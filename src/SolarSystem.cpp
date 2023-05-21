@@ -81,7 +81,7 @@ void SolarSystem::travel(std::shared_ptr<Planet>& destPlanet, const std::unique_
     float dist = calculateDistance(destPlanet);
     if (int price = calculatePrice(dist, player->getShip()); player->getMoney() > price) {
         currPlanet_.swap(destPlanet);
-        *player -= price;
+        player->subMoney(price);
         float travelTime = dist / static_cast<float>(player->getShip()->getEngine());
         travelAnimation(travelTime);
         time_->notify(static_cast<int>(travelTime * 1000.f));

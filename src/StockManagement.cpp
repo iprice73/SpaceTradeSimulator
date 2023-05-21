@@ -5,22 +5,33 @@
 
 #include "Chains.hpp"
 
+// TODO: Refactor entire fucking store, its utter bullshit
+
 void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
-    int amount = cargo->getAmount();
-    if (auto existingCargoIt (std::find_if(m_stock.begin(), m_stock.end(),
-                                            [&cargo](const auto& ptr) { return *ptr == *cargo; }));
-        existingCargoIt == m_stock.end()) {
+    auto existingCargoIt = std::find_if(m_stock.begin(), m_stock.end(),
+        [&cargo](const auto& ptr) { 
+            return *ptr == *cargo; 
+        });
+
+    if (existingCargoIt == m_stock.end()) {
         m_stock.push_back(std::move(cargo));
     } else {
-        **existingCargoIt += amount;
+        int amount = cargo->getAmount();
+        (*existingCargoIt)->addAmount(amount);
     }
+
+
+
 }
 
-void StockManagement::removeCargo(const std::unique_ptr<Cargo>& cargo, int amount) {
-    if (cargo->getAmount() == amount) {
+void StockManagement::subtractCargo(const std::unique_ptr<Cargo>& cargo, int amount) {
+    cargo->subAmount(amount);
+    removeIfNoCargo(cargo);
+}
+
+void StockManagement::removeIfNoCargo(const std::unique_ptr<Cargo>& cargo) {
+    if (cargo->getAmount() == 0) {
         m_stock.erase(std::remove(m_stock.begin(), m_stock.end(), cargo), m_stock.end());
-    } else {
-        *cargo -= amount;
     }
 }
 

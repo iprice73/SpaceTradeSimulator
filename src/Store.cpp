@@ -86,20 +86,20 @@ void Store::purchaseCargo(size_t index, int amount, const std::unique_ptr<Player
     if (re == Response::Done) {
         int price = amount * m_stock[index]->getPrice();
         player->buy(m_stock[index]->clone(amount));
-        *player -= price;
-        removeCargo(m_stock[index], amount);
+        player->subMoney(price);
+        subtractCargo(m_stock[index], amount);
     }
     std::cout << handleResponse(re) << '\n';
 }
 
 void Store::sellCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {
     if (auto cargo = player->sellCargo(index, amount); cargo) {
-        *player += cargo->getPrice() * amount;
+        int price = cargo->getPrice() * amount;
+        player->addMoney(price);
         addCargo(std::move(cargo));
     }
 }
 
 void Store::nextDay([[maybe_unused]] int days) {
     generateStore();
-    
 }

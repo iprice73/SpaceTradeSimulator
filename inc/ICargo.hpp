@@ -26,14 +26,12 @@ public:
     virtual int getPrice() const = 0;
     virtual std::unique_ptr<Cargo> clone(int amount) const = 0;
 
-    Cargo& operator-=(int newAmount) {
-        amount_ -= newAmount;
-        return *this;
+    void addAmount(int newAmount) {
+        amount_ += newAmount;
     }
 
-    Cargo& operator+=(int newAmount) {
-        amount_ += newAmount;
-        return *this;
+    void subAmount(int newAmount) {
+        amount_ -= newAmount;
     }
 
     bool operator==(const Cargo& cargo) {

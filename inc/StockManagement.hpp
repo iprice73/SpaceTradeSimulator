@@ -18,7 +18,8 @@ protected:
     std::vector<std::unique_ptr<Cargo>> m_stock{};
 
     void addCargo(std::unique_ptr<Cargo>&& cargo);
-    void removeCargo(const std::unique_ptr<Cargo>& cargo, int amount);
+    void subtractCargo(const std::unique_ptr<Cargo>& cargo, int amount);
+    void removeIfNoCargo(const std::unique_ptr<Cargo>& cargo);
 
     Response validation(size_t index, int amount, int money = -1, int space = -1) const;
     std::string handleResponse(Response re) const;

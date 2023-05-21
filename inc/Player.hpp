@@ -20,9 +20,9 @@ public:
     std::unique_ptr<Cargo> sellCargo(size_t index, int amount);
     void notifyAboutPrice(const cargo_vec& storeStock) const { ship_->changePrice(storeStock); }
 
+    void addMoney(int price);
+    void subMoney(int price);
+
     // Override from Time
     void nextDay(int days) override { ship_->nextDay(days); }
-
-    Player& operator+=(int price);
-    Player& operator-=(int price);
 };

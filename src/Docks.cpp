@@ -97,7 +97,7 @@ void SpaceCraftStore::buyShip(const std::unique_ptr<Player>& player, size_t inde
         auto shipPtr = getShip(index);
         editShip(player, shipPtr->first);
         m_ships.erase(shipPtr->first);
-        *player -= shipPtr->second;
+        player->subMoney(shipPtr->second);
     }
     std::cout << messages.at(re) << '\n';
 }

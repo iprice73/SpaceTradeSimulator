@@ -17,12 +17,11 @@ std::unique_ptr<Cargo> Player::sellCargo(size_t index, int amount) {
     return getShip()->getCargo(index, amount);
 }
 
-Player& Player::operator+=(int price) {
+void Player::addMoney(int price) {
     money_ += price;
-    return *this;
 }
 
-Player& Player::operator-=(int price) {
+void Player::subMoney(int price) {
     money_ -= price;
-    return *this;
 }
+

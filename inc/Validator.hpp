@@ -4,7 +4,8 @@
 
 #include <memory>
 
-enum class Response {
+enum class Response
+{
     Done,
     LackOfMoney,
     LackOfSpace,
@@ -14,22 +15,23 @@ enum class Response {
     SameCargo
 };
 
-struct DealContext {
+struct DealContext
+{
     std::size_t index;
     int amount;
     int money;
     int space;
-    const std::vector<std::unique_ptr<Cargo>>& stock;
+    const std::vector<std::unique_ptr<Cargo>> &stock;
 };
 
-class IValidator {
+class IValidator
+{
 public:
-    ~IValidator(){};
-    virtual void setNextValidator(const std::shared_ptr<IValidator>& validator);
-    virtual Response handle(const DealContext& context);
-    virtual Response validate(const DealContext& context) = 0;
+    ~IValidator() = default;
+    virtual void setNextValidator(const std::shared_ptr<IValidator> &validator);
+    virtual Response handle(const DealContext &context);
+    virtual Response validate(const DealContext &context) = 0;
+
 private:
     std::shared_ptr<IValidator> next_validator{nullptr};
-
-    
 };
