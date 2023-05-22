@@ -14,6 +14,8 @@ class StockManagement {
     private:
     std::vector<std::shared_ptr<IValidator>> setupValidators() const;
     void setupChain(const std::vector<std::shared_ptr<IValidator>>& validators) const;
+    void handleNewCargo(const std::vector<std::unique_ptr<Cargo>>::iterator& iterator);
+    auto findExistingCargo(const std::unique_ptr<Cargo>& cargo);
 protected:
     std::vector<std::unique_ptr<Cargo>> m_stock{};
 
