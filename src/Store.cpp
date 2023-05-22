@@ -88,8 +88,8 @@ void Store::purchaseCargo(size_t index, int amount, const std::unique_ptr<Player
         player->buy(m_stock[index]->clone(amount));
         player->subMoney(price);
         subtractCargo(m_stock[index], amount);
+        std::cout << "\033[1;32mTransaction completed.\033[0m";
     }
-    std::cout << handleResponse(re) << '\n';
 }
 
 void Store::sellCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {

@@ -41,8 +41,8 @@ cargo_ptr Ship::getCargo(size_t index, int amount) {
     if (re == Response::Done) {
         cargo = m_stock[index]->clone(amount);
         unload(m_stock[index], amount);
+        std::cout << "\033[1;32mTransaction completed.\033[0m";
     }
-    std::cout << handleResponse(re) << '\n';
 
     return cargo;
 }
