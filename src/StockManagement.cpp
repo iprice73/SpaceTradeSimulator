@@ -7,11 +7,6 @@
 
 // TODO: Refactor entire fucking store, its utter bullshit
 
-void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
-    auto result_iterator = findExistingCargo(cargo);
-    handleNewCargo(result_iterator);
-}
-
 auto StockManagement::findExistingCargo(const std::unique_ptr<Cargo>& cargo) {
     return std::find_if(m_stock.begin(), m_stock.end(),
         [&cargo](const auto& ptr) { 
@@ -19,12 +14,13 @@ auto StockManagement::findExistingCargo(const std::unique_ptr<Cargo>& cargo) {
         });
 }
 
-void StockManagement::handleNewCargo(const std::vector<std::unique_ptr<Cargo>>::iterator& iterator) {
-    if (iterator == m_stock.end()) {
-        m_stock.push_back(std::move(*iterator));
+void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
+    auto result_iterator = findExistingCargo(cargo);
+    if (result_iterator == m_stock.end()) {
+        m_stock.push_back(std::move(cargo));
     } else {
-        int amount = (*iterator)->getAmount();
-        (*iterator)->addAmount(amount);
+        int amount = cargo->getAmount();
+        cargo->addAmount(amount);
     }
 }
 
