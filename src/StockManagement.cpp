@@ -16,8 +16,7 @@ void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
         m_stock.emplace_back(std::move(cargo));
     } else {
         int amount = cargo->getAmount();
-        cargo->addAmount(amount);
-        std::cout << "DODAJE ŁADUNEK W ILOŚCI: " << amount << '\n';
+        result_iterator->get()->addAmount(amount);
     }
 }
 
