@@ -14,7 +14,11 @@ void Player::buy(std::unique_ptr<Cargo>&& cargo) {
 }
 
 std::unique_ptr<Cargo> Player::sellCargo(size_t index, int amount) {
-    return getShip()->getCargo(index, amount);
+    auto cargo = getShip()->getCargo(index, amount);
+    if (cargo.has_value()) {
+        return std::move(cargo.value());
+    }
+    return nullptr;
 }
 
 void Player::addMoney(int price) {

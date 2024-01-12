@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "StockManagement.hpp"
 #include "Time.hpp"
 
@@ -37,7 +39,7 @@ public:
     void load(cargo_ptr&& cargo);
     void changePrice(const cargo_vec& cargo);
 
-    cargo_ptr getCargo(size_t index, int amount);
+    std::optional<cargo_ptr> getCargo(size_t index, int amount);
     bool operator==(const Ship& ship) { return name_ == ship.getName(); }
     bool operator!=(const Ship& ship) { return name_ != ship.getName(); }
 
