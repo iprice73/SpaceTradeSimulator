@@ -20,7 +20,7 @@ protected:
 
     void addCargo(std::unique_ptr<Cargo>&& cargo);
     void subtractCargo(const std::unique_ptr<Cargo>& cargo, int amount);
-    void removeIfNoCargo(const std::unique_ptr<Cargo>& cargo);
+    void eraseIfNoCargo();
 
     Response validation(size_t index, int amount, int money = -1, int space = -1) const;
 

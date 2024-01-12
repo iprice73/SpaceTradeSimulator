@@ -26,13 +26,12 @@ void StockManagement::addCargo(std::unique_ptr<Cargo>&& cargo) {
 
 void StockManagement::subtractCargo(const std::unique_ptr<Cargo>& cargo, int amount) {
     cargo->subAmount(amount);
-    removeIfNoCargo(cargo);
+    eraseIfNoCargo();
 }
 
-void StockManagement::removeIfNoCargo(const std::unique_ptr<Cargo>& cargo) {
-    if (cargo->getAmount() == 0) {
-        m_stock.erase(std::remove(m_stock.begin(), m_stock.end(), cargo), m_stock.end());
-    }
+void StockManagement::eraseIfNoCargo() {
+    auto pred = [](const auto& cargo){ return cargo->getAmount() == 0; };
+    std::erase_if(m_stock, pred);
 }
 
 Response StockManagement::validation(size_t index, int amount, int money, int space) const {
