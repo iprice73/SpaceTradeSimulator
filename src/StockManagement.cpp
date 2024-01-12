@@ -56,28 +56,3 @@ void StockManagement::setupChain(const std::vector<std::shared_ptr<IValidator>>&
         validators[i]->setNextValidator(validators[i + 1]);
     }
 }
-
-std::ostream& operator<<(std::ostream& out, const StockManagement& stock) {
-    std::string horizontalSeparator(40, '=');
-    int i = 0;
-
-    out << horizontalSeparator
-        << "\n"
-        << "|| Cargo avaiable"
-        << std::setw(14) << "| QTY "
-        << "| PRICE "
-        << "||\n"
-        << horizontalSeparator << "\n";
-
-    for (const auto& el : stock.m_stock) {
-        out << "|| "
-            << std::setw(2) << ++i << ". "
-            << std::setw(17) << std::left << el->getName();
-
-        out << std::setw(4) << "|" << std::left << el->getAmount() << " | "
-            << std::setw(5) << std::right << el->getPrice() << " ||\n";
-    }
-    out << horizontalSeparator << "\n";
-
-    return out;
-}

@@ -5,13 +5,7 @@ Game::Game()
 }
 
 size_t Game::menu() const {
-    std::cout << "Avaiable options:\n"
-              << "1. Buy.\n"
-              << "2. Buy ship.\n"
-              << "3. Sell.\n"
-              << "4. Travel.\n"
-              << "5. Exit.\n"
-              << "Your choice: ";
+    dialog.printMenu();
     size_t choice;
     std::cin >> choice;
 
@@ -42,9 +36,10 @@ bool Game::optionHandler(size_t op) {
 }
 
 void Game::buyOp() {
-    std::cout << "\nPlanet's store:\n"
-              << *planets_->getCurrPlanet()->getStore() << '\n'
-              << "\033[1;34mEnter index and amount you would like to buy.\033[0m\n";
+    std::cout << "\nPlanet's store:\n";
+    dialog.printStore(planets_->getCurrPlanet()->getStore()->getStock());
+    std::cout << "\033[1;34mEnter index and amount you would like to buy.\033[0m\n";
+
     size_t index;
     int amount;
     if (std::cin >> index >> amount) {
@@ -97,26 +92,8 @@ void Game::printInfo() const {
     std::cout << "\nCurrent location: " << planets_->getCurrPlanet()->getName() << '\n'
               << "Money avaiable: " << player_->getMoney() << '\n'
               << "Storage space avaiable: " << player_->getSpace() << '\n'
-              << "Storage:\n"
-              << *player_->getShip() << '\n';
-}
-
-void Game::printWinScreen() const {
-    std::cout << " __     __ ____   _    _  __          __ _____  _   _\n"
-              << " \\ \\   / // __ \\ | |  | | \\ \\        / /|_   _|| \\ | |\n"
-              << "  \\ \\_/ /| |  | || |  | |  \\ \\  /\\  / /   | |  |  \\| |\n"
-              << "   \\   / | |  | || |  | |   \\ \\/  \\/ /    | |  | . ` |\n"
-              << "    | |  | |__| || |__| |    \\  /\\  /    _| |_ | |\\  |\n"
-              << "    |_|   \\____/  \\____/      \\/  \\/    |_____||_| \\_|\n\n";
-}
-
-void Game::printLoseScreen() const {
-    std::cout << "__     __ ____   _    _    _____  _    _   _____  _  __\n"
-              << "\\ \\   / // __ \\ | |  | |  / ____|| |  | | / ____|| |/ /\n"
-              << " \\ \\_/ /| |  | || |  | | | (___  | |  | || |     | ' / \n"
-              << "  \\   / | |  | || |  | |  \\___ \\ | |  | || |     |  < \n"
-              << "   | |  | |__| || |__| |  ____) || |__| || |____ | . \\ \n"
-              << "   |_|   \\____/  \\____/  |_____/  \\____/  \\_____||_|\\_\\\n\n";
+              << "Storage:\n";
+    dialog.printStore(player_->getShip()->getStock());
 }
 
 void Game::run() {
@@ -128,10 +105,10 @@ void Game::run() {
                 break;
             }
         } else if (money >= 100'000) {
-            printWinScreen();
+            dialog.printWinScreen();
             break;
         } else {
-            printLoseScreen();
+            dialog.printLoseScreen();
             break;
         }
     }

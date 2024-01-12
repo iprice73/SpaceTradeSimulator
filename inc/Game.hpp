@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DialogManager.hpp"
 #include "SolarSystem.hpp"
 #include "Time.hpp"
 
@@ -9,6 +10,8 @@ private:
     std::unique_ptr<SolarSystem> planets_{};
     std::unique_ptr<Player> player_{};
 
+    DialogManager dialog{};
+
     size_t menu() const;
     bool optionHandler(size_t op);
     void travelOp();
@@ -16,8 +19,6 @@ private:
     void buyShipOp();
     void sellOp();
     void printInfo() const;
-    void printWinScreen() const;
-    void printLoseScreen() const;
 
 public:
     Game();

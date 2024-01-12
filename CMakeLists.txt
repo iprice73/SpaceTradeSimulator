@@ -20,6 +20,7 @@ set(SRC
     src/Docks.cpp
     src/Validator.cpp
     src/Chains.cpp
+    src/DialogManager.cpp
 )
 
 set(FLAGS

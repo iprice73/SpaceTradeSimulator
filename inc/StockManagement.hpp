@@ -23,7 +23,6 @@ protected:
     void eraseIfNoCargo();
 
     Response validation(size_t index, int amount, int money = -1, int space = -1) const;
-
 public:
-    friend std::ostream& operator<<(std::ostream& out, const StockManagement& stock);
+    const std::vector<std::unique_ptr<Cargo>>& getStock() const { return m_stock; }
 };
