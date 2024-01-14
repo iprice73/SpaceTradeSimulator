@@ -24,6 +24,7 @@ public:
     std::string getName() const { return name_; }
     double getDistance() const { return AU_; }
     std::unique_ptr<Store>& getStore() { return store_; }
+    const cargo_vec& getStock() { return store_->getStock(); }
     std::unique_ptr<SpaceCraftStore>& getSpaceStore() { return spaceStore_; }
 
     void setPos(double x, double y);

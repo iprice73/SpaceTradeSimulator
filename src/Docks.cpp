@@ -39,8 +39,7 @@ void SpaceCraftStore::parseShipFromFile(const std::string& path) {
         file >> price;
         file.close();
     }
-    auto ship = std::make_unique<Ship>(name, crew, space, engineData[engine]);
-    m_ships[ship] = price;
+    m_ships[std::make_unique<Ship>(name, crew, space, engineData[engine])] = price;
 }
 
 void SpaceCraftStore::loadFromFile(const std::string& category) {

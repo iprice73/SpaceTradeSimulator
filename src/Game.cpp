@@ -1,7 +1,9 @@
 #include "Game.hpp"
 
 Game::Game()
-    : time_(std::make_shared<Time>()), planets_(std::make_unique<SolarSystem>(time_)), player_(std::make_unique<Player>(time_, 90000)) {
+    : time_(std::make_shared<Time>()),
+    planets_(std::make_unique<SolarSystem>(time_)),
+    player_(std::make_unique<Player>(time_, 90000)) {
 }
 
 size_t Game::menu() const {
@@ -37,13 +39,13 @@ bool Game::optionHandler(size_t op) {
 
 void Game::buyOp() {
     std::cout << "\nPlanet's store:\n";
-    dialog.printStore(planets_->getCurrPlanet()->getStore()->getStock());
+    dialog.printStore(planets_->getStockFromCurrPlanet());
     std::cout << "\033[1;34mEnter index and amount you would like to buy.\033[0m\n";
 
     size_t index;
     int amount;
     if (std::cin >> index >> amount) {
-        planets_->getCurrPlanet()->getStore()->purchaseCargo(index - 1, amount, player_);
+        planets_->purchaseCargoFromCurrPlanet(index, amount, player_);
     } else {
         std::cout << "\033[1;31m\nSomething went wrong.\033[0m\n";
     }

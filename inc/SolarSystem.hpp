@@ -20,6 +20,10 @@ public:
     std::shared_ptr<Planet> getCurrPlanet() { return currPlanet_; }
     std::shared_ptr<Planet> getDestPlanet(size_t index);
 
+    const std::unique_ptr<Store>& getCurrPlanetStrore() const { return currPlanet_->getStore(); };
+    const cargo_vec& getStockFromCurrPlanet() const { return currPlanet_->getStock(); };
+
+    void purchaseCargoFromCurrPlanet(size_t index, int amount, const std::unique_ptr<Player>& player);
     void travel(std::shared_ptr<Planet>& destPlanet, const std::unique_ptr<Player>& player);
     void orbit(size_t days);
     void printPlanets() const;

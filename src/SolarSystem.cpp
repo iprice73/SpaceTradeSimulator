@@ -77,6 +77,10 @@ int SolarSystem::calculatePrice(float dist, const std::unique_ptr<Ship>& ship) c
     return (ship->getEngine() == EngineClass::ImpropabilityDrive) ? crewPrice : fuelPrice + crewPrice;
 }
 
+void SolarSystem::purchaseCargoFromCurrPlanet(size_t index, int amount, const std::unique_ptr<Player>& player) {
+    getCurrPlanetStrore()->purchaseCargo(index, amount, player);
+}
+
 void SolarSystem::travel(std::shared_ptr<Planet>& destPlanet, const std::unique_ptr<Player>& player) {
     float dist = calculateDistance(destPlanet);
     if (int price = calculatePrice(dist, player->getShip()); player->getMoney() > price) {
