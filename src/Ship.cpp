@@ -5,7 +5,7 @@
 constexpr int PRICE_MULTIPLIER = 2;
 
 Ship::Ship(const std::string& name, int crewSize, int avaiableSpace, EngineClass engine)
-    : name_(name), crewSize_(crewSize), avaiableSpace_(avaiableSpace), engine_(engine) {
+    : m_name(name), m_crewSize(crewSize), m_avaiableSpace(avaiableSpace), m_engine(engine) {
 }
 
 int Ship::calculateAvaiableSpace(int newSpace) const {
@@ -16,16 +16,16 @@ int Ship::calculateAvaiableSpace(int newSpace) const {
 }
 
 void Ship::setSpace(int newSpace) {
-    avaiableSpace_ = calculateAvaiableSpace(newSpace);
+    m_avaiableSpace = calculateAvaiableSpace(newSpace);
 }
 
 void Ship::load(cargo_ptr&& cargo) {
-    avaiableSpace_ -= cargo->getAmount();
+    m_avaiableSpace -= cargo->getAmount();
     addCargo(std::move(cargo));
 }
 
 void Ship::unload(const cargo_ptr& cargo, int amount) {
-    avaiableSpace_ += amount;
+    m_avaiableSpace += amount;
     subtractCargo(cargo, amount);
 }
 

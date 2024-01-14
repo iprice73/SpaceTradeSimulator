@@ -31,15 +31,15 @@ std::map<std::string, int> spiceData{
     {"Cyan", 50},
     {"Orange", 60}};
 
-Store::Store(const std::shared_ptr<Time>& time)
-    : time_(time) {
+Store::Store(const std::shared_ptr<Time>& time) : 
+    m_time(time) {
     m_stock.reserve(marketSection * cargoTypes);
     generateStore();
-    time_->addObserver(this);
+    m_time->addObserver(this);
 }
 
 Store::~Store() {
-    time_->removeObserver(this);
+    m_time->removeObserver(this);
 }
 
 void Store::preparePrices(const std::unique_ptr<Player>& player) const {
@@ -82,18 +82,14 @@ void Store::generateStore() {
 }
 
 void Store::purchaseCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {
-    auto re = validation(index, amount, player->getMoney(), player->getSpace());
-    if (re == Response::Done) {
-        int price = amount * m_stock[index]->getPrice();
-        player->buy(m_stock[index]->clone(amount));
-        player->subMoney(price);
-        subtractCargo(m_stock[index], amount);
-        std::cout << "\033[1;32mTransaction completed.\033[0m";
-    }
+    int price = amount * m_stock[index]->getPrice();
+    player->moveCargoToShip(m_stock[index]->clone(amount));
+    player->subMoney(price);
+    subtractCargo(m_stock[index], amount);
 }
 
 void Store::sellCargo(size_t index, int amount, const std::unique_ptr<Player>& player) {
-    if (auto cargo = player->sellCargo(index, amount); cargo) {
+    if (auto cargo = player->getCargoFromShip(index, amount); cargo) {
         int price = cargo->getPrice() * amount;
         player->addMoney(price);
         addCargo(std::move(cargo));

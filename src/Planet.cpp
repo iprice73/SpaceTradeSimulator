@@ -6,22 +6,22 @@ Planet::Planet(const std::shared_ptr<Time>& time,
                StoreClass storeClass,
                double posX,
                double posY)
-    : name_(name),
-      AU_(AU),
-      spaceStore_(std::make_unique<SpaceCraftStore>(storeClass)),
-      posX_(posX),
-      posY_(posY),
-      store_(std::make_unique<Store>(time)) {}
+    : m_name(name),
+      m_AU(AU),
+      m_spaceStore(std::make_unique<SpaceCraftStore>(storeClass)),
+      m_posX(posX),
+      m_posY(posY),
+      m_store(std::make_unique<Store>(time)) {}
 
 void Planet::setPos(double x, double y) {
-    posX_ = x;
-    posY_ = y;
+    m_posX = x;
+    m_posY = y;
 }
 
 bool Planet::operator==(const Planet& newPlanet) {
-    return name_ == newPlanet.name_;
+    return m_name == newPlanet.m_name;
 }
 
 bool Planet::operator!=(const Planet& newPlanet) {
-    return name_ != newPlanet.name_;
+    return m_name != newPlanet.m_name;
 }

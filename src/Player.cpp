@@ -1,20 +1,20 @@
 #include "Player.hpp"
 
 Player::Player(const std::shared_ptr<Time>& time, int money)
-    : time_(time), money_(money), ship_(std::make_unique<Ship>()) {
-        time_->addObserver(this);
+    : m_time(time), m_money(money), m_ship(std::make_unique<Ship>()) {
+        m_time->addObserver(this);
     }
 
 Player::~Player() {
-    time_->removeObserver(this);
+    m_time->removeObserver(this);
 }
 
-void Player::buy(std::unique_ptr<Cargo>&& cargo) {
-    getShip()->load(std::move(cargo));
+void Player::moveCargoToShip(std::unique_ptr<Cargo>&& cargo) {
+    m_ship->load(std::move(cargo));
 }
 
-std::unique_ptr<Cargo> Player::sellCargo(size_t index, int amount) {
-    auto cargo = getShip()->getCargo(index, amount);
+std::unique_ptr<Cargo> Player::getCargoFromShip(size_t index, int amount) {
+    auto cargo = m_ship->getCargo(index, amount);
     if (cargo.has_value()) {
         return std::move(cargo.value());
     }
@@ -22,10 +22,10 @@ std::unique_ptr<Cargo> Player::sellCargo(size_t index, int amount) {
 }
 
 void Player::addMoney(int price) {
-    money_ += price;
+    m_money += price;
 }
 
 void Player::subMoney(int price) {
-    money_ -= price;
+    m_money -= price;
 }
 

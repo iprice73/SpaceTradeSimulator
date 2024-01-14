@@ -15,15 +15,15 @@ const std::vector<std::pair<std::string, float>> planetsData{
     {"Uranus", 19.18f},
     {"Neptune", 30.06f}};
 
-SolarSystem::SolarSystem(const std::shared_ptr<Time>& time)
-    : time_(time) {
+SolarSystem::SolarSystem(const std::shared_ptr<Time>& time) : 
+    m_time(time) {
     bigBang(time);
-    currPlanet_ = planets_[2];
+    m_currPlanet = m_planets[2];
 }
 
 void SolarSystem::bigBang(const std::shared_ptr<Time>& time) {
     for (const auto& planet : planetsData) {
-        planets_.emplace_back(std::make_shared<Planet>(time,
+        m_planets.emplace_back(std::make_shared<Planet>(time,
                                                        planet.first,
                                                        planet.second,
                                                        (planet.first == "Jupyter") ? StoreClass::Advanced : StoreClass::Basic));
@@ -57,15 +57,15 @@ void SolarSystem::travelAnimation(float time) {
 }
 
 std::shared_ptr<Planet> SolarSystem::getDestPlanet(size_t index) {
-    if (index <= planets_.size() && index > 0) {
-        return planets_[index - 1];
+    if (index <= m_planets.size() && index > 0) {
+        return m_planets[index - 1];
     }
     return nullptr;
 }
 
 float SolarSystem::calculateDistance(const std::shared_ptr<Planet>& planet) const {
-    return static_cast<float>(sqrt(pow(planet->getX() - currPlanet_->getX(), 2) +
-                                   pow((planet->getY() - currPlanet_->getY()), 2)));
+    return static_cast<float>(sqrt(pow(planet->getX() - m_currPlanet->getX(), 2) +
+                                   pow((planet->getY() - m_currPlanet->getY()), 2)));
 }
 
 int SolarSystem::calculatePrice(float dist, const std::unique_ptr<Ship>& ship) const {
@@ -84,12 +84,12 @@ void SolarSystem::purchaseCargoFromCurrPlanet(size_t index, int amount, const st
 void SolarSystem::travel(std::shared_ptr<Planet>& destPlanet, const std::unique_ptr<Player>& player) {
     float dist = calculateDistance(destPlanet);
     if (int price = calculatePrice(dist, player->getShip()); player->getMoney() > price) {
-        currPlanet_.swap(destPlanet);
+        m_currPlanet.swap(destPlanet);
         player->subMoney(price);
         float travelTime = dist / static_cast<float>(player->getShip()->getEngine());
         travelAnimation(travelTime);
-        time_->notify(static_cast<int>(travelTime * 1000.f));
-        currPlanet_->getStore()->preparePrices(player);
+        m_time->notify(static_cast<int>(travelTime * 1000.f));
+        m_currPlanet->getStore()->preparePrices(player);
     } else {
         std::cout << "  \033[1;31m You don't have enough money.\033[0m\n";
     }
@@ -99,7 +99,7 @@ void SolarSystem::orbit(size_t days) {
     static double angle = 0.0;
     for (size_t i = 0; i < days; i++) {
         float slower = 1.0f;
-        for (const auto& planet : planets_) {
+        for (const auto& planet : m_planets) {
             auto newX = static_cast<float>(planet->getDistance() * cos(angle / slower));
             auto newY = static_cast<float>(planet->getDistance() * sin(angle / slower));
             planet->setPos(newX, newY);
@@ -111,7 +111,7 @@ void SolarSystem::orbit(size_t days) {
 
 void SolarSystem::printPlanets() const {
     size_t i = 1;
-    for (const auto& el : planets_) {
+    for (const auto& el : m_planets) {
         std::cout << i++ << ". " << el->getName();
         float dist = calculateDistance(el);
         if (dist == 0) {

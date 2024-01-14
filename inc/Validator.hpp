@@ -21,7 +21,7 @@ struct DealContext
     int amount;
     int money;
     int space;
-    const std::vector<std::unique_ptr<Cargo>> &stock;
+    const cargo_vec& stock;
 };
 
 class IValidator

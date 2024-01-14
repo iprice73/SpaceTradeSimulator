@@ -40,12 +40,12 @@ bool Game::optionHandler(size_t op) {
 void Game::buyOp() {
     std::cout << "\nPlanet's store:\n";
     dialog.printStore(planets_->getStockFromCurrPlanet());
-    std::cout << "\033[1;34mEnter index and amount you would like to buy.\033[0m\n";
 
     size_t index;
     int amount;
     if (std::cin >> index >> amount) {
         planets_->purchaseCargoFromCurrPlanet(index, amount, player_);
+        dialog.pristDealSummary();
     } else {
         std::cout << "\033[1;31m\nSomething went wrong.\033[0m\n";
     }

@@ -21,6 +21,7 @@ set(SRC
     src/Validator.cpp
     src/Chains.cpp
     src/DialogManager.cpp
+    src/DealContext.cpp
 )
 
 set(FLAGS

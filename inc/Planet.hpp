@@ -6,12 +6,12 @@
 
 class Planet {
 private:
-    std::string name_{};
-    double AU_{};
-    std::unique_ptr<SpaceCraftStore> spaceStore_{};
-    double posX_{};
-    double posY_{};
-    std::unique_ptr<Store> store_{};
+    std::string m_name{};
+    double m_AU{};
+    std::unique_ptr<SpaceCraftStore> m_spaceStore{};
+    double m_posX{};
+    double m_posY{};
+    std::unique_ptr<Store> m_store{};
 
 public:
     Planet(const std::shared_ptr<Time>& time,
@@ -21,17 +21,17 @@ public:
            double posX = 1,
            double PosY = 1);
 
-    std::string getName() const { return name_; }
-    double getDistance() const { return AU_; }
-    std::unique_ptr<Store>& getStore() { return store_; }
-    const cargo_vec& getStock() { return store_->getStock(); }
-    std::unique_ptr<SpaceCraftStore>& getSpaceStore() { return spaceStore_; }
+    std::string getName() const { return m_name; }
+    double getDistance() const { return m_AU; }
+    std::unique_ptr<Store>& getStore() { return m_store; }
+    const cargo_vec& getStock() { return m_store->getStock(); }
+    std::unique_ptr<SpaceCraftStore>& getSpaceStore() { return m_spaceStore; }
+
+    double getX() const { return m_posX; }
+    double getY() const { return m_posY; }
 
     void setPos(double x, double y);
 
     bool operator==(const Planet& newPlanet);
     bool operator!=(const Planet& newPlanet);
-
-    double getX() const { return posX_; }
-    double getY() const { return posY_; }
 };
