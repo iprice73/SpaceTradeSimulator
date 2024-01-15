@@ -78,7 +78,7 @@ int SolarSystem::calculatePrice(float dist, const std::unique_ptr<Ship>& ship) c
 }
 
 void SolarSystem::purchaseCargoFromCurrPlanet(size_t index, int amount, const std::unique_ptr<Player>& player) {
-    getCurrPlanetStrore()->purchaseCargo(index, amount, player);
+    getCurrPlanetStore()->purchaseCargo(index, amount, player);
 }
 
 void SolarSystem::travel(std::shared_ptr<Planet>& destPlanet, const std::unique_ptr<Player>& player) {

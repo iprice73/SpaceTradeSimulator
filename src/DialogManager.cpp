@@ -27,7 +27,7 @@ void DialogManager::printStore(const cargo_vec& stock) const {
     std::cout << "\033[1;34mEnter index and amount you would like to buy.\033[0m\n";
 }
 
-void DialogManager::pristDealSummary() const {
+void DialogManager::printDealSummary() const {
     std::string horizontalSeparator(42, '=');
     std::cout << "\033[1;32m" << horizontalSeparator << std::endl;
     std::cout << std::setw(10) << std::left << '|' << "Transaction Completed" << std::setw(11) << std::right << '|' << std::endl;
@@ -35,8 +35,6 @@ void DialogManager::pristDealSummary() const {
     std::cout << std::setw(20) << std::left << "Cargo:" << std::setw(21) << "cargoN22ame" << std::right << '|' << std::endl;
     std::cout << std::setw(20) << std::left << "Amount:" << std::setw(21) << "amountBought" << std::right << '|' << std::endl;
     std::cout << std::setw(20) << std::left << "Cost:" << std::setw(21) << std::fixed << std::setprecision(2) << "moneySpent" << std::right << '|' << std::endl;
-    std::cout << std::setw(20) << std::left << "Money Left:" << std::setw(21) << std::fixed << std::setprecision(2) << "moneyLeft" << std::right << '|' << std::endl;
-    std::cout << std::setw(20) << std::left << "Storage Left:" << std::setw(21)<< "storageLeft" << std::right << '|' << std::endl;
     std::cout << horizontalSeparator << "\033[0m" << std::endl;
 }
 
