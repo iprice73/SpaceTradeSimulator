@@ -45,7 +45,7 @@ void Game::buyOp() {
     int amount;
     if (std::cin >> index >> amount) {
         planets_->purchaseCargoFromCurrPlanet(index, amount, player_);
-        dialog.pristDealSummary();
+        dialog.printDealSummary();
     } else {
         std::cout << "\033[1;31m\nSomething went wrong.\033[0m\n";
     }
